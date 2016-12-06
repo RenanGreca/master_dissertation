@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage{graphics}
+\usepackage{fancyhdr}
+\usepackage{url}
+\usepackage{helvet}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{cite}
+\usepackage{microtype}
+
+\DisableLigatures{encoding = *, family = * }
+
+\newcommand{\name}{Renan Greca}
+\newcommand{\website}{www.renangreca.com}
+\newcommand{\email}{renangreca@gmail.com}
+
+\usepackage[font=small,labelfont=bf,labelsep=space]{caption}
+\captionsetup{%
+  figurename=fig.,
+  tablename=tab.
+}
+
+\bibliographystyle{alpha}  
+
+\begin{document}
+
+%\fontfamily{phv}\selectfont
+\pagestyle{fancy}
+\lhead{\name}
+\chead{}
+\rhead{\email}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
+\inputencoding{latin1}
+
+\begin{center}
+    \Large
+    \textbf{} \\
+    \textit{Renan Greca} \\
+    %\coursetitle - Research Paper\\
+    \small
+\end{center}
+
+\large
+\doublespacing
+
+\section{Introduction}
+
+\section{Trust in VANETs}
+
+[description of VANETs]
+
+With the increasing feasibility of autonomous vehicles, the study of Vehicular Ad-hoc Networks (VANETs) is ever more important.
+Before vehicles are completely autonomous, VANETs can be a valuable tool to help drivers reduce travel times and diminish the risk of collisions.
+By allowing vehicles to share their locations, speeds, and destinations with each other, traffic can become more stable and predictable.
+
+[description of trust in context of VANETs]
+
+However, the proper functioning of a VANET depends on the reliability of the vehicles (nodes) of the network.
+If one node is malicious or faulty, it can spread incorrect data that may compromise the utility of the VANET.
+Therefore, the concept of trust must be established in the vehicular network context, allowing for nodes to judge the validity of information transmitted by others and share those conclusions with other nodes.
+
+[malicious and faulty nodes]
+
+When it comes to trust in VANETs, there is the important distinction between a malicious node and a faulty one; both of them may be sharing false data, but for different reasons and with different consequences.
+For example, a malicious node may lie about its location in order to make routing protocols use it as a hop \cite{leinmuller2005influence}, while a faulty GPS module may cause an accident because its position data was incorrect.
+However, when using a binary trust model (one node can either trust or not another), that distinction is less relevant, so malicious and faulty nodes can be treated as the same in such a model.
+
+[details of security and safety issues in VANETs that can be diminished by trust]
+
+\textbf{[existing trust models applied in VANETs]}
+
+Systems to handle trust in vehicular networks have been studied since, at least, 2005.
+\cite{dotzer2005vars} is one of the earliest examples, establishing a system called VARS, based on the reputation of nodes and messages throughout the network. The authors use what they call \textit{opinion piggybacking}, which means that, for each hop between the origin and the destination of an event-related message, the forwarding node will append its opinion of the message's contents. That opinion is formed using a combination of the forwarding node's own observations of the event, its opinion of the origin node and previous opinions appended to the message. This trust model works as a way of adding credibility of a message through validation by its sender's peers in a non-centralized fashion. However, opinion piggybacking has its own share of problems. First, it means that forwarding nodes must be able to access (at least some of) the contents of a message so it can form an opinion on it, diminishing privacy; a malicious forwarding node could even attempt to alter those contents. Second, using previously appended opinions from other nodes to form a new opinion means that the first nodes to forward the message will have a substantially greater impact over the final opinion than the later ones. Finally, there is an issue with scalability, since appending new information to a message on each hop may add a significant overhead to the transmission. Additionally, the authors provide little to no experimentation or proof that their approach would be sound in a real-world network.
+
+\section{Trust in Complex Networks}
+[description of complex networks]
+
+[examples of complex networks]
+
+[details of how trust can be established in complex networks]
+
+[existing trust models applied in complex networks]
+
+[small world phenomenon]
+
+\textbf{\cite{vernize2015malicious}}
+
+\section{Complex network trust model applied in VANETs}
+
+
+\section{Proposal}
+
+[how we plan on adapting the previous works]
+
+[what do we expect to change]
+
+[what do we expect to be the challenges]
+
+[scenario context (speed, density, etc)]
+
+
+
+\bibliography{qualification}
+ 
+\end{document}
