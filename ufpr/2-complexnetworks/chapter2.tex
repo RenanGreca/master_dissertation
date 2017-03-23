@@ -1,0 +1,59 @@
+\chapter{Complex Networks}
+\label{chap:complexnetworks}
+
+Complex networks can describe many systems which are observed in nature and society \cite{newmannetworks}, such as computer networks, food chains, protein structures, etc. 
+They are generally divided into four categories:
+
+\begin{enumerate}
+	\item \textbf{Technological Networks} are grids purposefully engineered to provide services to consumers and/or citizens.
+	 	The primary examples of these networks are the Internet, the telephone network, power grids, transportation and delivery networks.
+	 	A commonly studied type of technological network are Mobile Ad-hoc Networks (MANETs), networks of mobile devices which communicate with each other without the need of a centralized agent.
+		Although not of widespread use, MANETs can provide a way to create a network without pre-existing infrastructure, as long as each device is equipped with the proper hardware and software.
+		In \autoref{chap:vanets}, a special type of MANET will be introduced, along with several details regarding trust in those types of networks.
+	\item \textbf{Social Networks} are formed of relationships between people, or groups of people.
+		These relationships can be familiar, friendships, acquaintance, etc.
+		For the purposes of this work, the most relevant type of relationship is that of trust.
+		The details surrounding trust relationships in social networks are shown in \autoref{section:trustsocial}.
+	\item \textbf{Information Networks} are the ones in which nodes are pieces of data or information and the edges are the connections between those pieces.
+		Often, information networks are directly associated with technological or social networks.
+		For instance, while the World Wide Web is an information network (in which the nodes are webpages and the edges are the links that users click on to navigate), it relies on the Internet, as is contains the physical infrastructure that makes the web possible.
+		Online social networks can also be classified as information networks, since their nodes are actually information about people rather than the people themselves.
+	\item \textbf{Biological Networks} are the networks found in nature.
+		Their nodes can be chemicals, cells, animals, groups of lifeforms, and more.
+		The brain contains a neural network formed by neurons, cells which enable information processing; connections in the network represent signals that are sent from one neuron to another.
+		Another instance of biological networks are food chains, categorized as ecological webs.
+		Species of animals are the nodes, while the predation of other species form the edges.
+		
+\end{enumerate}
+
+As this work relates to trust issues in complex networks, it is interesting to further examine social networks and the importance of trust within them.
+While the end result of the study will be applied to technological networks, certain aspects of social networks provide useful analogies to trust management in other kinds of networks.
+
+\section{Trust in Social Networks}
+\label{section:trustsocial}
+In a traditional social network, it is simple to perceive how trust is relevant and how it works, since trust relationships between people (friends, relatives, colleagues, etc.) are used on a daily basis to make decisions.
+When adapted to a digital environment, these social relationships can be used to automatically increase the relevance of certain information.
+For instance, upon reading an online review for a certain product, a user will be more likely to accept the review's conclusion if it was written by a close friend than if it were written by a stranger.
+Furthermore, if the review was written by a person who the user knows to be malicious or uninformed, its contents will be even less relevant.
+In short, trust is a way of estimating how much a certain recommendation will lead to a positive outcome. \cite{golbeck2006inferring}
+
+Social networks also have the property of carrying trust from one relationship to another:
+information shared by a close friend of a person might be considered almost as trustworthy as some collected by the person him or herself.
+Therefore, it is possible to model social trust relationships as a graph, in which nodes represent people and edges represent a certain degree of trust.
+Friends of friends \cite{boissevain1974friends} might not have very high trust values, but could still be considered more trustworthy than the average stranger.
+This property is similar, but not identical, to transitivity, since trust is diminished for each extra step an origin node needs to reach a destination, and there is also the possibility that one node distrusts another even if they share a mutual friend.
+
+Social networks also have the trait of being mostly static.
+Although friendships are formed and ended frequently, those connections do not disrupt the general shape of the network.
+In fact, the ending of a friendship might indicate the presence of a \textit{negative} trust relationship between two people.
+Such negative information can be useful in digital social networks since, frequently, only positive relationships are available.
+% \textemdash for example, on Facebook, people are usually only connected if there is a positive relationship between them.
+
+\section{Existing trust models for Social Networks}
+
+Many works exist regarding trust relationships in complex networks, and in social networks in particular.
+Here, only a few examples will be described, in order to show the general idea of trust research for these types of networks.
+
+The most important previous work on complex network trust for the trust model proposed in this paper will be detailed in \autoref{chap:proposal}.
+
+%=====================================================
