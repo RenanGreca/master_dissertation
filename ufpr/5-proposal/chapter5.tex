@@ -1,29 +1,38 @@
 \chapter{Proposal}
 \label{chap:proposal}
 
-As described above, properties derived from social networks will be used to adapt a trust model developed for static complex networks to dynamic ones.
-These properties allow for a long-term trust relationships to be established amongst nodes of a network and, therefore, previously existing trust models can be adapted to the vehicular environment.
+This work proposes that it is possible to adapt a malicious node identification scheme originally designed for static networks to a dynamic environment, such as a VANET.
+In order to make this possible, it is necessary to identify features in VANETs that show that nodes can share a long-term relationship, as is the case for social networks.
+The arguments for such features are presented in \autoref{section:socialvanets}, while the movement model that enables the simulation of the features is explained in \autoref{section:workingday}.
+Through these long-term relationships, it then becomes feasible for nodes to store trust data and share it with other nodes.
 
-In this chapter, a previously existing trust model for complex networks is described, including its advantages and reasons why it could be well-fitted for a vehicular environment.
-Afterwards, a list of changes that will be made to the model, in order for it to handle dynamic networks, is presented.
+By combining a node's own opinions about familiar nodes and trust information received from its neighbors, it is possible to create a model of the surrounding network.
+This model includes a trust graph, showing the trust relationships between pair of nodes, which can then be used as input for a malicious node detection algorithm.
+
+%The previous chapters show why vehicular networks require distinguished trust models compared to social networks and traditional MANETs.
+%In this chapter, it is proposed that certain aspects from social networks can be found in vehicular networks and, through those aspects, it is possible to adapt a trust model designed for traditional complex networks to a vehicular environment.
+%These social properties allow for long-term trust relationships to be established amongst nodes of a network and, therefore, previously existing trust models can be adapted to the vehicular environment.
+
+In this chapter, the details for the process above are presented.
+First, it is shown how vehicles can form long-term relationships and trust one another in a similar way to social networks.
+Then, the Working Day Movement Model is presented, along with the reasons why it is best fitted for this work.
+Next, a previously existing trust model for complex networks is described, including its advantages and reasons why it could be well-fitted for a vehicular environment, followed by a list of changes that must be made to the model in order for it to handle dynamic networks.
+Finally, a schedule for the next steps of the project is shown.
 
 \section{Social Networks and VANETs}
+\label{section:socialvanets}
 Several of the aforementioned articles state that vehicular networks are, by definition, ephemeral.
 That is, the likelihood of two nodes meeting each other twice is too low to be relevant.
 In this work, it is argued that such claims are not entirely true.
 It stands to reason that, throughout the course of several days, many drivers will take similar routes at similar times of day (e.g. to commute to work) and, therefore, their vehicles will be in similar locations each day.
 Additionally, many cities rely on main roads to serve as backbones to their traffic, meaning there is a high density of vehicles on those roads during rush hours.
-Since that is true for a notable percentage of a city's fleet, we can also assume that those vehicles may frequently encounter each other during their commute.
+Since that is true for a notable percentage of a city's fleet, it can also be assumed that those vehicles may frequently encounter each other during their commute.
 While two vehicles that share a commute route may not be direct neighbors every day, they will likely be relatively close to each other, meaning few hops separate them in the ad-hoc network.
-
-Additionally, certain pairs of vehicles are bound to be within communication range of each other nearly every day.
+Furthermore, certain pairs of vehicles are bound to be within communication range of each other nearly every day.
 Examples of these include vehicles whose owners are drivers or coworkers.
 Such vehicles' trust relationship should become steady over time and, in the case of positive trust, they can use each other's information to learn more about other nodes in the network.
 
 %\textbf{[WORKING DAY MOBILITY MODEL]}
-
-In \cite{da2013effective}, \cite{cunha2014vehicular}, and \cite{cunha2014possible}, the authors attempt to find features usually attributed to social networks in vehicular networks.
-By using a data set from Zurich, they show that some metrics, such as clustering coefficient and number of encounters, have peaks during the rush hours.
 %They do not, however, present data regarding specific pairs of nodes.
 %[Should we propose to show this information in our work?]
 
@@ -37,6 +46,9 @@ Buses share the same roads as cars, but instead of having specific destinations,
 Trains travel on rails, so their contact with cars is less frequent, but it can also happen on railroad crossings; they travel long distances in relatively short amount of time, which helps the dissemination of data in a VANET.
 In the same way that cars have a high probability of meeting more than once during their commutes, it is also very likely that they will meet the same buses and/or trains frequently.
 
+In \cite{da2013effective}, \cite{cunha2014vehicular}, and \cite{cunha2014possible}, the authors attempt to find features usually attributed to social networks in vehicular networks.
+By using a data set from Zurich, they show that some metrics, such as clustering coefficient and number of encounters, have peaks during the rush hours.
+
 %Another way of applying trust models from social networks to VANETs would be to take into account the relationships between drivers.
 %If a neighboring vehicle happens to be driven by a close friend or relative, there is reason to believe that it is not a malicious node in the network.
 %That might not always be the case, since there may be malicious hackers controlling the node and its driver is oblivious to it.
@@ -45,10 +57,11 @@ In the same way that cars have a high probability of meeting more than once duri
 While certification of identity is an issue in vehicular network, this work will not address it.
 There are studies focusing on node identification in VANETs (that is, making sure a node is who it claims to be), in particular through the use of a Public Key Infrastructure (PKI) \cite{wasef2010complementing} 
 \cite{kumar2015intelligent}.
-One study even proposes that such identities must be refreshed with a certain frequency to maintain the privacy of each node \cite{golle2004detecting}.
-Although it is important that nodes are not able to lie about identity and are able to maintain their privacy, nodes having valid identities that are persistent over time is a prerequisite for the model proposed here.
+One study proposes that such identities must be refreshed with a certain frequency to maintain the privacy of each node \cite{golle2004detecting}.
+Although it is important that nodes are not able to lie about identity and are able to maintain their privacy, nodes having valid identities that are persistent over time, so that nodes can identify each other over a long period, is a prerequisite for the model proposed here.
 
 \section{Working Day Movement Model}
+\label{section:workingday}
 
 To make use of the above properties, it is important to choose a mobility pattern that properly represents the way vehicles move on a daily basis in the real world.
 Therefore, the Working Day Movement Model \cite{ekman2008working} will be used.
@@ -154,7 +167,8 @@ In the experiments shown in the article, the coloring heuristic shows promising 
 The coloring and articulation heuristics can be combined, although the experiments using this combination display a high number of false positives.
 Therefore, for the purposes of this paper, only the coloring heuristic will be considered.
 
-\section{Changes}
+\section{Necessary changes to the malicious node identification scheme}
+\label{section:changes}
 While the algorithm described above works well for static graphs, some important modifications will have to be made to accommodate dynamic graphs.
 The main changes planned are described below.
 
@@ -169,6 +183,8 @@ As nodes enter, leave, or change locations in the network, the components will c
 Therefore, our algorithm will have to work using ``snapshots'' of the graph, meaning each measurement will be valid for a specific timestamp.
 In a later step, it might be useful to consider how specific nodes may change over several snapshots.
 
+Since the graph changes with time, for every timestamp $t$, there is a corresponding graph $G_t=(V_t, E_t)$, which includes the available vertices and edges in that moment in time.
+
 \subsection{Graph knowledge}
 In the original paper, the malicious nodes are identified by a central entity with access to all nodes' trust values.
 Not only does our work plan to decentralize this procedure, having complete knowledge of the graph is unfeasible in large-scale dynamic networks such as VANETs.
@@ -181,6 +197,14 @@ That is, data collected by the node's own sensors have the highest quality, whic
 They adopt a broadcast model in which RSUs send data about its surroundings and OBUs capture the information.
 The trust model proposed here might use a similar broadcast model, although adapted so all nodes are vehicles (OBUs).
 
+Thus, each node will have its own model of the network, and will generate a trust graph $G_i=(V_i, E_i)$, in which $i$ is the node's identifier.
+Combined with the necessity of timestamps explained above, this will result in a graph $G_{it}=(V_{it}, E_{it})$ for each node and each timestamp, which will be the input of the new algorithm.
+Accordingly, there are also component graphs $T_{it}=(V'_{it}, E'_{it})$, generated on each instance of the algorithm.
+
+During the early stages of development, it will be considered that vertices cannot enter or leave the network and, therefore, only the layout of the edges changes.
+This is sufficient to experiment with the algorithm's performance with the added complexity of a dynamic network.
+
+
 \subsection{Binary trust}
 A model using binary trust is one in which trust values can only be 0 or 1.
 If node $A$ positively trusts node $B$, the value of the edge $A\rightarrow B$ is 1.
@@ -189,14 +213,73 @@ Such a scheme makes sense in a static graph but, in a dynamic one, it is interes
 
 Since nodes will interact with each other occasionally and might learn information from other nodes, a range such as $[0,1]$ is useful to express how one trust value can change over time.
 As one node learns more about another, the value can grow or diminish and, once it goes above or below a certain threshold, the neighboring node can be deemed trustworthy or not.
+The rate in which trust increases or decreases must be experimented with; it could be useful to have trust decrease faster than it increases, but that might also cause false positives in the case of occasional mistakes.
 
 \subsection{Datasets}
 The datasets used for experimentation must be changed accordingly.
 Instead of using data gathered from social networks, which are static, dynamic network datasets will need to be used, such as traffic information for cities.
 
+At first, the objective is to test using the Working Day Movement Model, setting parameters that contribute to the validation of the algorithm.
+When the simulation begins, a set number of nodes will be malicious and, therefore, other nodes will have low trust in them after interacting.
+In time, benign and malicious nodes can change their behavior and, accordingly, their trustworthiness will be updated.
+
+It might still be useful to simulate using real-world movement traces.
 An example of such dataset is the Zurich Trace \cite{zurichtrace}, which describes the vehicular traces in the city of Zurich, Switzerland.
-This dataset doesn't necessarily need to be for VANETs per se, since with vehicular traces it is possible to assume all or a percentage of the traced vehicles are smart and can be nodes of a hypothetical VANET.
+The chosen dataset doesn't necessarily need to be created for VANETs, since with vehicular traces it is possible to assume all or a percentage of the traced vehicles are smart and can be nodes of a hypothetical VANET.
 The mobility of the nodes is the most important aspect of the dataset.
 
+\section{Tasks and schedule}
+
+Given the proposed trust management scheme, the following list of tasks has been developed:
+
+\begin{enumerate}
+	\item \textbf{Changes to the malicious node identification algorithm}. Develop and adapt the algorithm using the changes listed in \autoref{section:changes}.
+	\item \textbf{Changes to the movement model}. Develop and adapt the Working Day Movement Model according to \autoref{section:workingday}.
+	\item \textbf{Study and selection of a simulator}. Several simulators for vehicular networks exist, and one must be chosen in order to run simulations using the newly developed model. The Working Day Movement Model was tested with the ONE Simulator \cite{keranen2009one}, however it was made for DTNs rather than VANETs. Many VANET simulators, such as TraNS \cite{piorkowski2008trans}, were developed by combining a network simulator (such as ns-2) and a vehicular mobility model (such as SUMO \cite{behrisch2011sumo}). One possible solution is to adapt the Working Day model to an existing network simulator.
+	\item \textbf{Simulations and adjustments}. Once the core of the project has been developed and a simulation has been chosen, simulations begin. The models may be tweaked in order to achieve better results, and all data from the process will be collected.
+	\item \textbf{Analysis of data and results}. With the data collected from simulations, it will be possible to observe the outcome of the proposed trust model. If tweaks were made to the model during simulations, those changes can be listed, showing which ones provided better results.
+	\item \textbf{Writing and submission of article}. Having concluded development, an article will be written explaining the motivations, challenges and results of the study. This article will be submitted to a congress.
+	\item \textbf{Writing of dissertation}. Finally, the whole process will be detailed within the dissertation.
+\end{enumerate}
+
+An approximate schedule is shown in \autoref{table:schedule}.
+The first column displays the task, using the numbers from the list above, while the remaining ones are marked when work on that task is expected for the given month.
+The months of April through December are in 2017 and January through March are in 2018.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |p{0.7cm}||p{0.7cm}|p{0.7cm}|p{0.7cm}|p{0.7cm}|p{0.7cm}|p{0.7cm}|p{0.7cm}|p{0.7cm}|p{0.7cm}|p{0.7cm}|p{0.7cm}|p{0.7cm}| }
+ \hline
+ \textbf{Task} & Apr & May & Jun & Jul & Aug & Sep & Oct & Nov & Dec & Jan & Feb & Mar\\
+ \hline
+ \hline
+ \textbf{1} & \checkmark & \checkmark & \checkmark & & & & & & & & &\\
+ \hline
+ \textbf{2} & & & \checkmark & \checkmark & \checkmark & & & & & & &\\
+ \hline
+ \textbf{3} & \checkmark & \checkmark & \checkmark & \checkmark & & & & & & & &\\
+ \hline
+ \textbf{4} & & & & & \checkmark & \checkmark & & & & & &\\
+ \hline
+ \textbf{5} & & & & & \checkmark & \checkmark & & & & & &\\
+ \hline
+ \textbf{6} &  &  & & & & \checkmark & \checkmark & \checkmark & & & &\\
+ \hline
+ \textbf{7} &  &  & & & & & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+ \hline
+\end{tabular}
+\caption{Expected schedule}
+\label{table:schedule}
+\end{table}
+
+%Cronograma
+%
+%1. Adaptação do modelo de nós maliciosos
+%2. Adaptação do modelo de mobilidade
+%3. Escolha e estudo do simulador
+%4. Simulações
+%5. Análise de dados e resultados
+%6. Escrita e submissão de artigo (procurar congresso)
+%7. Escrita da dissertação
 
 %=====================================================

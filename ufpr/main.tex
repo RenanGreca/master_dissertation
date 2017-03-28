@@ -19,6 +19,14 @@
 \documentclass[defesa,oneside]{ppginf}
 %\documentclass[final,twoside]{ppginf}
 
+\usepackage{cleveref}
+%\usepackage{dingbat}
+
+\usepackage{tikz}
+\usepackage{calc}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\def\scalecheck{\resizebox{\widthof{\checkmark}*\ratio{\widthof{x}}{\widthof{\normalsize x}}}{!}{\checkmark}}
+
 % configurações de diversos pacotes, inclusive o fonte principal do texto
 \include{packages}
 
@@ -46,7 +54,7 @@
 
 %% Descrição do documento (obviamente, descomentar somente UMA!)
 
-\descr{Tese apresentada como requisito parcial à obtenção do grau de Doutor em Informática no Programa de Pós-Graduação em Informática, setor de Ciências Exatas, da Universidade Federal do Paraná}
+\descr{Projeto de qualificação apresentado como requisito parcial à obtenção do grau de Mestre em Informática no Programa de Pós-Graduação em Informática, setor de Ciências Exatas, da Universidade Federal do Paraná}
 
 %\descr{Documento apresentado como requisito parcial para o exame de qualificação de Doutorado no Programa de Pós-Graduação em Informática, setor de Ciências Exatas, da Universidade Federal do Paraná}
 
@@ -94,7 +102,7 @@
 \include{1-intro/chapter1}			% introdução
 \include{2-complexnetworks/chapter2}		% fundamentação teórica
 \include{3-vanets/chapter3}		% revisão bibliográfica (estado da arte)
-\include{4-socialvanets/chapter4}		% proposta
+%\include{4-socialvanets/chapter4}		% proposta
 \include{5-proposal/chapter5}		% experimentação e validação
 %\include{6-conclusao/conclusao}		% conclusão
 

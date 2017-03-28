@@ -3,37 +3,6 @@
 
 %=====================================================
 
-As was described above, VANETs are a special type of MANETs, which in turn are technological networks.
-However, VANETs feature several unique properties which distinguish them, and the behavior of its members, from other types of networks \cite{yousefi2006vehicular}.
-Some of these properties include:
-
-\begin{enumerate}
-
-	\item 	Rapidly changing topology.
-			Since the nodes are vehicles, they move frequently and at relatively high speeds.
-			Each node's wireless communications also have a certain range, so the other nodes within that range (and, therefore, network neighbors) can change very quickly.
-			To build a topology model of its surrounding network, a node must often ping its neighbor to gather information.
-			Using velocity and location information, however, it is possible to create reasonable assumptions about future states of the topology.
-			
-	\item	Node mobility is constrained to a pre-existing grid of roads.
-			Within those roads, nodes will usually travel in predictable directions according to local laws and historical data.
-			The spaces in the grid, like city blocks, provide a challenge to communication both because of distance and because buildings can cause obstructions to radio transmissions.
-			
-	\item	VANETs are prone to fragmentation, since a gap in the network topology can make two parts of it unable to communicate with each other.
-			Combined with the property above, this fragmentation can appear and disappear frequently, depending on the node density.
-			
-	\item	Due to the changing topology and possible disconnection, connection with distant nodes is not reliable.
-			Therefore, the effective diameter of the network is relatively small for important applications.
-			
-	\item 	Compared to devices like smartphones, vehicles have no notable power constraints.
-
-	\item 	In certain locations and/or moments, large vehicle density will create a large-scale network, since there will be many nodes concentrated in a relatively small space.
-	
-	\item 	The topology is susceptible to driver behavior.
-			First, this means the topology can occasionally change in unpredictable ways.
-			Second, contents of a message sent through the network can alter the driver's behavior and therefore change the topology.
-			
-\end{enumerate}
 
 \section{Implications for trust management}
 

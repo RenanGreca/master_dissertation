@@ -6,3 +6,30 @@
 
 
 %=====================================================
+
+As computers grow in power and shrink in size, more aspects of everyday life can be enhanced by adding processing units to common devices.
+While many of these applications focus on conveniences, such as smart purchasing suggestions or automatic household control, computers can also be important to save time and save lives.
+One way of achieving this is by adding computers and wireless transmitters to vehicles — such as cars, buses, and trains — so they can share data which may increase traffic efficiency or reduce the chance of accidents.
+
+In 2013, an estimated 1.25 million people lost their lives due to traffic accidents globally \cite{whotraffic}.
+While this number has greatly reduced over the past decades \cite{johnson2010traffic} fthanks to better safety features (seat belts, air bags, ABS, etc.) and stronger laws (drunk driving, motorcycle helmets, speed limits, etc.), it may still rise as a major cause of death in the years to come \cite{whofactsheet}, so further action is necessary.
+Furthermore, as the car population increases, congestions consume ever more time of the daily commuter, peaking at over 100 hours per year for the residents of Los Angeles, CA \cite{inrixtraffic}.
+
+Smart vehicles and vehicular networks are ways that technology can aid both of the aforementioned problems.
+Through the use of sensors and wireless communications, these vehicles will be able to avoid accidents by alerting distracted drivers, or by knowing in advance another vehicle's position and speed.
+By communicating, they can also collaborate to distribute traffic over alternative routes and, therefore, reduce the possibility of traffic jams.
+These features are possible with the development of a vehicular ad-hoc network (VANET), in which vehicles can quickly share data amongst themselves without the need of a server or an Internet connection.
+
+However, as is the case for many technological networks, VANETs must be reliable in order to be functional.
+In the case of ad-hoc networks, the nodes themselves must be reliable, since data can only propagate safely through benign cooperation.
+Thus, the problem of trust arises in the context of vehicular networks.
+Without trust management\footnote{There is an important distinction between \textit{trust} and \textit{trust management}.
+The former relates to the actual trust relationship between a pair of nodes, while the latter concerns the management of previously generated trust data, such as previous tests or information received from neighboring nodes, and how this data can be used to make decisions.
+While this work addresses trust management rather than trust itself, both terms will be used when referring to trust management for the sake of brevity.} features, a vehicle cannot judge whether or not received messages are benign or malicious in order to make an informed decision and, therefore, incorrect data might be presented to the driver.
+
+
+\section{Document organization}
+In this study, a method to identify malicious nodes in a vehicular network is proposed, taking advantage of a previously existing study, which was limited to static networks.
+\Cref{chap:complexnetworks} explains the broad study of complex networks and the importance of trust in technological and social networks.
+Then, \cref{chap:vanets} goes into details regarding VANETs and the importance of trust solutions in the field, presenting previous studies made on the subject.
+Finally, \cref{chap:proposal} shows the fundamentals of this proposed work, including the similarities found between VANETs and social networks, a realistic movement model that may be used for simulations, the previously existing study on malicious node identification for complex networks, and the important aspects that must be adapted to the dynamic vehicular environment.
