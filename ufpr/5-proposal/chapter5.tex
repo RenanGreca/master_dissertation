@@ -64,7 +64,7 @@ Although it is important that nodes are not able to lie about identity and are a
 \label{section:workingday}
 
 To make use of the above properties, it is important to choose a mobility pattern that properly represents the way vehicles move on a daily basis in the real world.
-Therefore, the Working Day Movement Model \cite{ekman2008working} will be used.
+Therefore, the Working Day Movement Model \cite{ekman2008working} (WDM) will be used.
 The model, developed for used in Delay-Tolerant Network (DTN) simulations, includes many of the features that will be necessary to simulate the daily movement of a vehicular network.
 
 As the name implies, the Working Day model abstracts people's movement from their homes to their offices and back.
@@ -235,7 +235,7 @@ Given the proposed trust management scheme, the following list of tasks has been
 \begin{enumerate}
 	\item \textbf{Changes to the malicious node identification algorithm}. Develop and adapt the algorithm using the changes listed in \autoref{section:changes}.
 	\item \textbf{Changes to the movement model}. Develop and adapt the Working Day Movement Model according to \autoref{section:workingday}.
-	\item \textbf{Study and selection of a simulator}. Several simulators for vehicular networks exist, and one must be chosen in order to run simulations using the newly developed model. The Working Day Movement Model was tested with the ONE Simulator \cite{keranen2009one}, however it was made for DTNs rather than VANETs. Many VANET simulators, such as TraNS \cite{piorkowski2008trans}, were developed by combining a network simulator (such as ns-2) and a vehicular mobility model (such as SUMO \cite{behrisch2011sumo}). One possible solution is to adapt the Working Day model to an existing network simulator.
+	\item \textbf{Study and selection of a simulator}. Several simulators for vehicular networks exist, and one must be chosen in order to run simulations using the newly developed model. The Working Day Movement Model was tested with the ONE Simulator \cite{keranen2009one}. The source code for both the simulator and the WDM generation can be found online \cite{onerepo}, and will likely be used for the necessary simulations. 
 	\item \textbf{Simulations and adjustments}. Once the core of the project has been developed and a simulation has been chosen, simulations begin. The models may be tweaked in order to achieve better results, and all data from the process will be collected.
 	\item \textbf{Analysis of data and results}. With the data collected from simulations, it will be possible to observe the outcome of the proposed trust model. If tweaks were made to the model during simulations, those changes can be listed, showing which ones provided better results.
 	\item \textbf{Writing and submission of article}. Having concluded development, an article will be written explaining the motivations, challenges and results of the study. This article will be submitted to a congress.
