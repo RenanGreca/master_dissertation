@@ -1,0 +1,150 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+
+\usepackage{graphicx,url}
+
+\usepackage[english]{babel}   
+%\usepackage[latin1]{inputenc}  
+\usepackage[utf8]{inputenc}  
+% UTF-8 encoding is recommended by ShareLaTex
+
+
+\title{Fully Distributed Trust Management Scheme for Vehicular Networks}
+
+\author{Renan Domingos M. Greca, Luiz Carlos P. Albini}
+
+
+\address{Informatics Department -- Federal University of Paraná\\
+  PoBox: 19081 -- 81.531-980 -- Curitiba -- PR -- Brazil 
+   \email{ rdmgreca@inf.ufpr.br, albini@ufpr.br }\\ \\
+   Google Contact: Lucas Radaelli
+}
+
+
+\begin{document} 
+
+%\maketitle
+
+%\begin{abstract}
+%  This meta-paper describes the style to be used in articles and short papers
+%  for SBC conferences. For papers in English, you should add just an abstract
+%  while for the papers in Portuguese, we also ask for an abstract in
+%  Portuguese (``resumo''). In both cases, abstracts should not have more than
+%  10 lines and must be in the first page of the paper.
+%\end{abstract}
+%     
+%\begin{resumo} 
+%  Este meta-artigo descreve o estilo a ser usado na confecção de artigos e
+%  resumos de artigos para publicação nos anais das conferências organizadas
+%  pela SBC. É solicitada a escrita de resumo e abstract apenas para os artigos
+%  escritos em português. Artigos em inglês deverão apresentar apenas abstract.
+%  Nos dois casos, o autor deve tomar cuidado para que o resumo (e o abstract)
+%  não ultrapassem 10 linhas cada, sendo que ambos devem estar na primeira
+%  página do artigo.
+%\end{resumo}
+
+
+%\section{Overview}
+%
+%\vspace{0.2cm}
+%
+%\textbf{Proposal Title:}
+%Trust management for vehicular networks.\\
+%\textbf{Professor:}
+%Luiz Carlos Pessoa Albini \\ 
+%\hspace*{1cm} Universidade Federal do Paraná, Departamento de Informática  \\ 
+%\hspace*{1cm} Centro Politécnico, Jardim das Américas, PoBox: 19081,  Postal Code 81531-980 \\ 
+%\hspace*{1cm} Curitiba, Paraná, Brazil \\
+%\textbf{Google Contacts:} Lucas Radaelli
+%
+%\vspace{0.2cm}
+\maketitle
+
+\begin{abstract}
+By integrating processors and wireless communication units into vehicles, it is possible to create a vehicular communication network, in which cars share data, such as speed and position, amongst themselves in order to cooperate and make roads safer and more efficient. Vehicular communication networks are the first step to implement Smart Cities technological solutions for road safety.
+However, as is the case with most new technologies, these networks might be a prime target for attacks performed by malicious users, who may benefit from affecting traffic conditions.
+In order to avoid such attacks, one important feature for vehicular networks is trust management. It allows nodes to filter incoming messages according to previously established trust values assigned to other nodes.
+This work proposes a trust management model in the context of daily commutes, taking advantage of social features that can be found in vehicular networks.
+\end{abstract}
+
+%\subsection{Abstract}
+
+
+\section{Goals and problem statement}
+Considering the high speed and potentially life-threatening situations of vehicular networks, it is essential for messages to be delivered with low latency, which is why a fully distributed approach is preferred. Due to the highly dynamic scenario, it is also important that the message delivery does not depend on pre-defined infrastructures.
+Therefore, ad-hoc networks might correctly fit this paradigm, creating a Vehicular Ad-Hoc Network (VANET). It does not rely on an Internet connection or existing infrastructure, meaning that all network services depend on the participating vehicles themselves.
+However, it also means that any vehicle can join the network by being within the communication range.
+While this is expected, as VANETs benefit from having more participants, it can be a problem when one or more members of the network turn out to be malicious.
+Malicious nodes are ones that share falsified or otherwise incorrect information with other members, which can in turn cause traffic jams or even accidents.
+One way of avoiding the dissemination of false data is to have nodes assign trust values to other nodes.
+As they interact and observe each other's behaviors, nodes can decide whether or not data sent from others is reliable.
+
+To create and maintain long-term trust relationships with one another, nodes in a vehicular network must have a reasonable chance of interacting somewhat frequently.
+Although it cannot be expected that all pairs of nodes satisfy this requirement, there are social aspects observed in vehicular networks which show that, at least for some pairs of nodes, encounters can happen relatively frequently \cite{cunha2014possible}.
+For example, vehicles belonging to family members, neighbors or workmates are very likely parked close to each other almost every day.
+Furthermore, vehicles that perform daily commutes, as well as public transit vehicles like buses, are expected to travel along the same roads at around the same time every day.
+%In order to simulate the daily mobility of a vehicular network, the Working Day Movement Model \cite{ekman2008working} has been chosen.
+%The model is ideal because it replicates the daily mobility of a real city, including parking at home, at work, and groups of friends getting together.
+%However, it uses people as nodes instead of vehicles, so some changes will have to be made.
+
+Using these long term relationships, nodes can generate trust values and models of their surroundings. 
+This information can be represented as a graph in which vertices are vehicles and edges are trust relationships between pairs of vehicles.
+Information collected from previous encounters with known nodes can be used to estimate some of the edges in the model; meanwhile, further information can be extracted from neighboring nodes and ongoing encounters, filling out the remainder of the graph.
+
+The goal of this work is to develop a trust management algorithm, which can be used to efficiently detect malicious nodes on the network. 
+This work is an extension of \cite{vernize2015malicious}, which introduces the fastest and most precise malicious node identification mechanism based on trust management for centralized static social networks. This work will extend such trust management to dynamic and distributed vehicular networks.
+
+%which takes as input a model of a node's surrounding network and  based on the network consensus (that is, the opinions of other nodes).
+%It is based on a previously existing algorithm \cite{vernize2015malicious}, which identifies malicious nodes in networks by separating the model graph into components, in which all nodes within a component trust each other, and using a graph coloring function on the resulting component graph.
+%The algorithm is fast and precise, but it was developed primarily for static networks which can have a centralized observer.
+%This work will adapt the algorithm for it to work in the highly dynamic and decentralized environment of a vehicular network.
+
+\section{Expected work and outcomes}
+There are three main components of the proposed work.
+
+First, \cite{vernize2015malicious} will be extended to serve a dynamic and decentralized network.
+The main differences between the two approaches are:
+(1) the graph used as input is incomplete, as nodes only have partial knowledge of the network;
+(2) instead of a single graph, there will be multiple variations of it, for each node and for each moment in time;
+and (3) trust will be measured in a range of $[0,1]$, instead of being binary. 
+
+Second, the evaluation will be made through simulations using the Working Day Movement Model \cite{ekman2008working}.
+The model was developed for mobile devices (such as smartphones) being carried by humans, so it must be adapted to suit a vehicular network.
+%These are reasonable changes, such as removing the pedestrian movement model, and having buses serve as a single node instead of a collection of them.
+Finally, results will be analyzed to confirm the algorithm's efficiency and effectiveness.
+%A certain amount, which may or not vary over time, of the nodes in the simulations will be malicious and will send incorrect data.
+%At a certain frequency, nodes will run the algorithm in order to identify nearby malicious nodes.
+%If successful, the algorithm will locate as many malicious nodes (and as few false positives) as possible.
+
+\section{Previous work}
+
+Several trust management models for vehicular networks have been proposed, with different degrees of success.
+Some of them emphasize \textit{entity-based trust}, in which trust values are stored for each node and that value is used to judge messages originating from it.
+This has the advantage of shortening evaluation time for each message delivered, since most trust information is previously obtained.
+Others use \textit{data-oriented trust}, in which messages are individually evaluated regardless of the sender.
+These solutions are useful when nodes are mostly strangers to one another and must quickly decide whether or not to trust an incoming alert sent by an unknown source.
+
+VARS \cite{dotzer2005vars} is an early example of a VANET trust model, using a process the authors call opinion piggybacking.
+That is, when an event occurs and a node broadcasts an alert message about it, other nodes append their opinion on both the message contents and the message sender onto the alert.
+Therefore, nodes receive a combined opinion of several of its neighbors, helping it to form its own decision.
+However, this process has privacy implications in case the message is not of public service, and the opinion piggybacking itself might add unnecessary latency and overhead to the broadcast.
+
+The model in \cite{chen2010trust} proposes the formation of clusters of nodes, in which one leader aggregates the other nodes' opinions about each message sent.
+It is exceedingly costly to maintain clusters in a highly dynamic network, and might be unfeasible if the network is too sparse to generate relevant clusters.
+
+\cite{park2011long} uses daily commutes and road-side units (stationary equipment which may act as part of a VANET).
+Each vehicle is assigned an ``Agent RSU'', which is responsible for maintaining the vehicle's trust value and sharing it with others.
+The trust value maintenance is comparable to the one proposed here, although it relies heavily on existing infrastructure, which is not always reasonable.
+
+In \cite{huang2014social}, authors identify features generally associated with social networks and use them to generate a VANET trust model.
+The algorithm places heavy emphasis on the opinion of the nodes in which messages originate, which may be a problem if those nodes are malicious. Nevertheless, there is no trust management scheme for VANETs which take advantage of the users`  long term relationship as the one proposed here.
+
+\section{Data Policy}
+Once the research is concluded, all related code and datasets will be available online in an open-source fashion.
+Along with the dissertation required for the Master of Science degree, articles will be published explaining the core methodology, algorithms and experiments performed.
+
+\bibliographystyle{sbc}
+\bibliography{sbc-template}
+
+\end{document}
