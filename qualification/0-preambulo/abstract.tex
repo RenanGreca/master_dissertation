@@ -1,0 +1,30 @@
+\begin{otherlanguage}{english}
+
+\begin{abstract}
+
+% em inglês, o primeiro parágrafo não deve ser indentado
+\noindent
+As computers become small and powerful, the possibility of integrating them into everyday objects is ever more appealing.
+By integrating processors and wireless communication units into vehicles, it is possible to create a vehicular ad-hoc network (VANET), in which cars share data amongst themselves in order to cooperate and make roads safer and more efficient.
+A decentralized ad-hoc solution, which doesn't rely on previously existing infrastructure, Internet connection or server availability, is preferred so the message delivery latency is as short as possible in the case of life-critical situations.
+However, as is the case with most new technologies, VANETs will be a prime target for attacks performed by malicious users, who may benefit from affecting traffic conditions.
+In order to avoid such attacks, one important feature for vehicular networks is trust management, which allows nodes to filter incoming messages according to previously established trust values assigned to other nodes.
+To generate these trust values, nodes use information acquired from past interactions; nodes which frequently share false or irrelevant data will have lower trust values than the ones which appear to be reliable.
+This work proposes a trust management model in the context of daily commutes, utilizing the Working Day Movement Model as a basis for node mobility.
+This movement model allows the comparison of VANETs to traditional social networks, because it can be observed that pairs of vehicles are likely to meet more than once in several scenarios: for example, they can belong to neighbors or work colleagues, or simply take similar routes every day.
+Through these repeated encounters, a trust relationship can be developed between a pair of nodes.
+The resulting trust value can also be used to aid other nodes which might not have a developed relationship with each other.
+The proposed algorithm is based on a previously existing one, which was developed for centralized networks and focused on static ad-hoc models; the previous algorithm will be adapted to serve a decentralized and dynamic network, which is the case of VANETs.
+Using existing trust values, a directed graph is modeled in which edges represent the trust relationship between pairs of nodes.
+Then, graph components are formed in which no pair of nodes within a single component has a negative trust relationship.
+A graph coloring algorithm is used on the resulting components graph and, using the coloring results, it is possible to infer which nodes are considered malicious by the consensus of the network.
+The complete algorithm is expected to be fast, so it can be executed frequently, and will allow nodes to maintain a model of the surrounding networks indicating which neighboring nodes can be trusted or not.
+
+%With the possibility of integrating smart features into vehicles, 
+
+%The abstract should be the English translation of the ``resumo'', no more, no less.
+
+\end{abstract}
+
+\end{otherlanguage}
+
