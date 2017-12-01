@@ -1,0 +1,24 @@
+\begin{resumo}
+
+%O resumo deve conter no máximo 500 palavras, devendo ser justificado na largura da página e escrito em um único parágrafo\footnote{E também não deve ter notas de rodapé; em outras palavras, não siga este exemplo... ;-)} com um afastamento de 1,27 cm na primeira linha. O espaçamento entre linhas deve ser de 1,5 linhas. O resumo deve ser informativo, ou seja, é a condensação do conteúdo e expõe finalidades, metodologia, resultados e conclusões.
+
+%\lipsum[11-14]	% texto aleatório
+
+À medida em que computadores tornam-se menores e mais poderosos, a possibilidade de integrá-los a objetos do cotidiano é cada vez mais interessante.
+Ao integrar processadores e unidades de comunicação sem fio a veículos, é possível criar uma rede veicular ad-hoc (VANET), na qual carros compartilham dados entre si para cooperar e criar ruas mais seguras e eficientes.
+Uma solução decentralizada ad-hoc, que não depende de infraestrutura pré-existente, conexão com a internet ou disponibilidade de servidores, é preferida para que a latência de entrega de mensagens seja a mais curta possível em situações críticas.
+No entanto, assim como é o caso de muitas novas tecnologias, VANETs serão um alvo de ataques realizados por usuários maliciosos, que podem obter benefícios ao afetar condições de trânsito.
+Para evitar tais ataques, uma importante característica para redes veiculares é gerenciamento de confiança, permitindo que nós filtrem mensagens recebidas de acordo com valores de confiança previamente estabelecidos e designados a outros nós.
+Para gerar esses valores de confiança, nós usam informações adquiridas de interações passadas; nós que frequentemente compartilham dados falsos ou irrelevantes terão valores de confiança mais baixos do que os que aparentam ser confiáveis.
+Este trabalho propõe um modelo de gerenciamento de confiança no contexto de trajetos diários, utilizando o \textit{Working Day Movement Model} como base para a mobilidade de nós.
+Este modelo de movimentação permite a comparação entre VANETs e redes sociais tradicionais, pois é possível observar que pares de veículos podem se encontrar mais de uma vez em diversos cenários: por exemplo, eles podem pertencer a vizinhos ou colegas de trabalho, ou apenas tomar rotas similares diariamente.
+Através de repetidos encontros, uma relação de confiança pode ser desenvolvida entre um par de nós.
+O valor de confiança resultante pode também ser usado para auxiliar outros nós que podem não ter uma relação desenvolvida entre si.
+O algoritmo proposto é baseado em um já existente, que foi desenvolvido para redes centralizadas e focado em modelos ad-hoc estáticos; o algoritmo anterior será adaptado para servir uma rede decentralizada e dinâmica, que é o caso de VANETs.
+Usando valores de confiança existentes, um grafo direcionado é modelado, no qual arestas representam a relação de confiança entre os pares de nós.
+Então, componentes do grafo são formados, de forma que nenhum par de nós em um componente tenha uma relação de confiança negativa.
+Um algoritmo de coloração de grafo é usado no grafo de componentes resultantes e, usando os resultados de coloração, é possível inferir quais nós são considerados maliciosos pelo consenso da rede.
+Espera-se que o algoritmo completo final seja rápido, para que ele possa ser executado frequentemente, e permita que nós mantenham um modelo da rede ao seu redor indicando quais nós vizinhos podem ou não ser confiados.
+
+\end{resumo}
+

@@ -1,0 +1,86 @@
+\chapter{Simulations}
+\label{chap:simulations}
+
+\section{The ONE Simulator}
+\label{section:theone}
+
+\section{Working Day Movement Model}
+\label{section:workingday}
+
+Most VANET trust models consider the Random Waypoint mobility model, i.e. each node has an origin point, chooses a random location, gets to that location, then chooses another random location and goes there, and so forth.
+While this model is efficient for testing trust protocols, it doesn't truly represent vehicle mobility in the real world.
+
+To make use of the properties described in \autoref{section:socialvanets}, it is important to choose a mobility pattern that properly represents the way vehicles move on a daily basis in the real world.
+Therefore, the Working Day Movement Model \cite{ekman2008working} (WDM) is useful.
+The model, developed for use in Delay-Tolerant Network (DTN) simulations, includes many of the features that are necessary to simulate the daily movement of a vehicular network.
+
+As the name implies, the Working Day Model abstracts people's movement from their homes to their offices and back.
+Each node has a home and a workplace and they need to travel back and forth between those locations on a daily basis.
+Occasionally, nodes can also go to other locations for leisure.
+As mentioned above, many drivers have routes they travel on daily, so the Working Day model is a more accurate representation, although it represents the mobility of humans instead of vehicle and requires some adjustments, which are listed later in this section.
+
+The model proposed by the authors makes use of several other models for specific tasks.
+The main mobility model defines nodes and gives them their destinations.
+Within it, five other models are used:
+\begin{enumerate}
+\item 
+The \textbf{home activity submodel} describes what nodes do at night, within their homes.
+No movement is modeled.
+Nodes can be relatives or neighbors, and therefore share the same home.
+\item 
+The \textbf{office activity submodel} describes the nodes' routines within their offices.
+Nodes can go to other locations within the office (such as meeting rooms) and such movement is modeled.
+Nodes with share the same office are coworkers.
+\item 
+The \textbf{evening activity submodel} is responsible for mobility outside the nodes' standard routine. 
+They can meet at certain locations (such as restaurants) and spend a few hours gathered with friends.
+\item
+The \textbf{transport submodel} shows how nodes move around the city.
+It includes another tier of submodels, responsible for modeling three different types of transportation: walking, driving, and riding a bus.
+Nodes which own a car always use it, while the others can decide to walk or ride a bus depending on the distance between the origin and destination and the available bus stops.
+The walking and driving submodels represent similar types of movement, although at different speeds, while the bus submodel follows cyclical routes and can take or deliver passengers at bus stops.
+\item
+The \textbf{map} represents the city in which the simulation runs.
+Its streets constrain the movement of nodes and all homes and offices must be within the map boundaries.
+The map can be divided into districts, which increases what the authors define as \textit{locality}.
+In the simulation parameters, the number of nodes which reside and work within the same district can be chosen, which means those nodes rarely leave the district.
+Nodes which reside and work in different districts serve to connect the network with their commutes.
+\end{enumerate}
+
+By thinking of these submodels for vehicles instead of people, it can become apparent how the frequency and length of encounters between nodes are similar in both instances.
+If two vehicles belong to family members or neighbors, they likely spend most of the night within communication distance, while coworkers' cars spend the office hours close by.
+Cars can also meet each other frequently if their drivers go out with friends.
+In the vehicular case, there is the added layer of encounters: cars can communicate frequently with buses and other cars that take the same route daily, although the drivers are likely complete strangers.
+
+In the original article, nodes are devices (such as smartphones) being carried by humans.
+Therefore, the Working Day model represents not only people's movements inside their cars, but also within their offices, walking on foot, or riding a bus.
+To adapt it to a VANET environment, changes need to be made to their definition of node, since they now represent vehicles instead of people. Some of those changes are as follows:
+\begin{enumerate}
+\item
+The office activity submodel no longer needs to model movement within the office and can be identical to the home submodel.
+In both, a node can move a small amount once after reaching the office or home, to simulate parking.
+This can be done using the Working Day model's parameters.
+\item
+The walking submodel needs to be disabled, since all nodes are either cars or buses.
+\item
+The bus submodel needs to be changed so that each bus is one node in the network, which follows a predefined route with bus stops.
+In the original model, each bus could carry several nodes, but this is no longer necessary.
+\end{enumerate}
+Other necessary changes might become apparent during the development of the study.
+
+One important topic raised in the Working Day movement model article is the use of two metrics: \textit{inter-contact times} and \textit{contact duration}.
+The choice of this movement model for tests is more strongly related to inter-contact times, i.e. how much time it takes for two nodes to meet again.
+On the other hand, the contact duration is how long each meeting lasts.
+For the reasons explained earlier in this section, relatively short inter-contact times is important for the proposed trust model.
+Contact duration time is an important metric to measure how much data can be exchanged during each encounter, although taking it into consideration might add excessive complexity to the model.
+
+\section{Simulation parameters and methodology}
+\label{section:parameters}
+
+\subsection{Validation}
+
+\section{Restrictions}
+\label{section:restrictions}
+
+\section{Results}
+\label{section:results}
