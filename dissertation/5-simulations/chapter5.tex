@@ -1,6 +1,15 @@
 \chapter{Simulations}
 \label{chap:simulations}
 
+\section{SNAP library}
+\label{section:snap}
+In order to run the simulations necessary to validate the project, a robust library was required to handle graph data structures.
+The Stanford Network Analysis Platform (SNAP) library \cite{snap} was chosen primarily because it is memory efficient.
+The simulations require multiple graphs that share the same set of nodes (because each node in the network has its own knowledge of the surrounding network), and the SNAP library uses pointers to nodes and edges, saving memory by not having to duplicate the entire data structure.
+It is written in C++, but, for these simulations, the Snap.py Python library was used.
+
+The datasets available from SNAP's website were used for the simulations in \cite{vernize2015malicious} and the static network simulations shown in \autoref{chap:simulations}.
+
 \section{The ONE Simulator}
 \label{section:theone}
 

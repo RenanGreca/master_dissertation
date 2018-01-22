@@ -387,15 +387,6 @@ However, the fact that the result does not use the minimum amount of colors.
 By coloring node 4 as cyan and node 3 as magenta, the sample graph could have been colored with only three colors.
 However, as described above, this is not a substantial problem for the purposes of this study.
 
-\section{SNAP library}
-\label{section:snap}
-In order to run the simulations necessary to validate the project, a robust library was required to handle graph data structures.
-The Stanford Network Analysis Platform (SNAP) library \cite{snap} was chosen primarily because it is memory efficient.
-The simulations require multiple graphs that share the same set of nodes (because each node in the network has its own knowledge of the surrounding network), and the SNAP library uses pointers to nodes and edges, saving memory by not having to duplicate the entire data structure.
-It is written in C++, but, for these simulations, the Snap.py Python library was used.
-
-The datasets available from SNAP's website were used for the simulations in \cite{vernize2015malicious} and the static network simulations shown in \autoref{chap:simulations}.
-
 \section{Trust management algorithm}
 \label{section:algorithm}
 
@@ -417,7 +408,22 @@ Again, each node $u$ has its own $T_u$, which contains the trust information nod
 When a node $u$ asks for network information from node $v$, it also merges $T_u$ with $T_v$, but only if $u$ trusts $v$.
 If $u$ deems $v$ malicious, any information originating from $v$ cannot be considered valid.
 
+[Illustrate graph building here]
 
+Furthermore, this implies that the malicious node detection algorithm runs using incomplete graph knowledge.
+This is expected and generally unavoidable in vehicular networks, which have high mobility and can be extremely large.
+
+
+
+-\\
+----------\\
+This paragraph is probably pertinent to delimiting the size of graphs:\\
+The authors of \cite{patwardhan2006data} provide important observations regarding the collection of data from local conditions.
+Most crucially, they mention how the quality of information is higher when the origin of such information is close to the destination node.
+That is, data collected by the node's own sensors have the highest quality, which diminishes as information starts to come from neighbors, neighbors of neighbors and so forth.
+They adopt a broadcast model in which RSUs send data about its surroundings and OBUs capture the information.
+The trust model proposed here might use a similar broadcast model, although adapted so all nodes are vehicles (OBUs).\\
+----------\\
 
 %The original work's scope does not include the generation of the trust graph, as it is a parameter to the algorithm.
 %In dynamic graphs, trust relationships change over time, so how those changes affect the proposed trust model have to be considered.
