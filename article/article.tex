@@ -1,179 +1,25 @@
 
-%% bare_conf.tex
-%% V1.4b
-%% 2015/08/26
-%% by Michael Shell
-%% See:
-%% http://www.michaelshell.org/
-%% for current contact information.
-%%
-%% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
-%% conference paper.
-%%
-%% Support sites:
-%% http://www.michaelshell.org/tex/ieeetran/
-%% http://www.ctan.org/pkg/ieeetran
-%% and
-%% http://www.ieee.org/
-
-%%*************************************************************************
-%% Legal Notice:
-%% This code is offered as-is without any warranty either expressed or
-%% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE! 
-%% User assumes all risk.
-%% In no event shall the IEEE or any contributor to this code be liable for
-%% any damages or losses, including, but not limited to, incidental,
-%% consequential, or any other damages, resulting from the use or misuse
-%% of any information contained here.
-%%
-%% All comments are the opinions of their respective authors and are not
-%% necessarily endorsed by the IEEE.
-%%
-%% This work is distributed under the LaTeX Project Public License (LPPL)
-%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
-%% distributed and modified. A copy of the LPPL, version 1.3, is included
-%% in the base LaTeX documentation of all distributions of LaTeX released
-%% 2003/12/01 or later.
-%% Retain all contribution notices and credits.
-%% ** Modified files should be clearly indicated as such, including  **
-%% ** renaming them and changing author support contact information. **
-%%*************************************************************************
-
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. The IEEE's font choices and paper sizes can   ***
-% *** trigger bugs that do not appear when using other class files.       ***                          ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
-
 \documentclass[conference]{IEEEtran}
-% Some Computer Society conferences also require the compsoc mode option,
-% but others use the standard conference format.
-%
-% If IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it like:
-% \documentclass[conference]{../sty/IEEEtran}
-
 
 \usepackage[utf8]{inputenc}	% arquivos LaTeX em Unicode (UTF8)
 \RequirePackage[plainpages,pdfpagelabels]{hyperref}	% PDF com links, metadados
-
-
-% Some very useful LaTeX packages include:
-% (uncomment the ones you want to load)
-
-
-% *** MISC UTILITY PACKAGES ***
-%
-%\usepackage{ifpdf}
-% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
-% compilation based on whether the output is pdf or dvi.
-% usage:
-% \ifpdf
-%   % pdf code
-% \else
-%   % dvi code
-% \fi
-% The latest version of ifpdf.sty can be obtained from:
-% http://www.ctan.org/pkg/ifpdf
-% Also, note that IEEEtran.cls V1.7 and later provides a builtin
-% \ifCLASSINFOpdf conditional that works the same way.
-% When switching from latex to pdflatex and vice-versa, the compiler may
-% have to be run twice to clear warning/error messages.
-
-
-
-
-
-
-% *** CITATION PACKAGES ***
-%
-%\usepackage{cite}
-% cite.sty was written by Donald Arseneau
-% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
-% \cite{} output to follow that of the IEEE. Loading the cite package will
-% result in citation numbers being automatically sorted and properly
-% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
-% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
-% \cite will automatically add leading space, if needed. Use cite.sty's
-% noadjust option (cite.sty V3.8 and later) if you want to turn this off
-% such as if a citation ever needs to be enclosed in parenthesis.
-% cite.sty is already installed on most LaTeX systems. Be sure and use
-% version 5.0 (2009-03-20) and later if using hyperref.sty.
-% The latest version can be obtained at:
-% http://www.ctan.org/pkg/cite
-% The documentation is contained in the cite.sty file itself.
-
-
-
-
 
 
 % *** GRAPHICS RELATED PACKAGES ***
 %
 \ifCLASSINFOpdf
   \usepackage[pdftex]{graphicx}
-  % declare the path(s) where your graphic files are
   \graphicspath{{../pdf/}{../jpeg/}{./plots/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
   \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
 \else
-  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
-  % will default to the driver specified in the system graphics.cfg if no
-  % driver is specified.
-  % \usepackage[dvips]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../eps/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.eps}
 \fi
-% graphicx was written by David Carlisle and Sebastian Rahtz. It is
-% required if you want graphics, photos, etc. graphicx.sty is already
-% installed on most LaTeX systems. The latest version and documentation
-% can be obtained at: 
-% http://www.ctan.org/pkg/graphicx
-% Another good source of documentation is "Using Imported Graphics in
-% LaTeX2e" by Keith Reckdahl which can be found at:
-% http://www.ctan.org/pkg/epslatex
-%
-% latex, and pdflatex in dvi mode, support graphics in encapsulated
-% postscript (.eps) format. pdflatex in pdf mode supports graphics
-% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
-% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
-% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
-% which can result in "jaggedy"/blurry rendering of lines and letters as
-% well as large increases in file sizes.
-%
-% You can find documentation about the pdfTeX application at:
-% http://www.tug.org/applications/pdftex
-
-
-
-
-
-% *** MATH PACKAGES ***
-%
-%\usepackage{amsmath}
-% A popular package from the American Mathematical Society that provides
-% many useful and powerful commands for dealing with mathematics.
-%
-% Note that the amsmath package sets \interdisplaylinepenalty to 10000
-% thus preventing page breaks from occurring within multiline equations. Use:
-%\interdisplaylinepenalty=2500
-% after loading amsmath to restore such page breaks as IEEEtran.cls normally
-% does. amsmath.sty is already installed on most LaTeX systems. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/pkg/amsmath
-
 
 
 \usepackage{cleveref}
+
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
+\def\scalecheck{\resizebox{\widthof{\checkmark}*\ratio{\widthof{x}}{\widthof{\normalsize x}}}{!}{\checkmark}}
 
 % *** SPECIALIZED LIST PACKAGES ***
 %
@@ -181,206 +27,33 @@
 \usepackage[noend]{algpseudocode}
 \floatname{algorithm}{Algorithm}
 \renewcommand{\algorithmiccomment}[1]{~~~// #1}
-%\usepackage{algorithmic}
-% algorithmic.sty was written by Peter Williams and Rogerio Brito.
-% This package provides an algorithmic environment fo describing algorithms.
-% You can use the algorithmic environment in-text or within a figure
-% environment to provide for a floating algorithm. Do NOT use the algorithm
-% floating environment provided by algorithm.sty (by the same authors) or
-% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
-% algorithm float types and packages that provide these will not provide
-% correct IEEE style captions. The latest version and documentation of
-% algorithmic.sty can be obtained at:
-% http://www.ctan.org/pkg/algorithms
-% Also of interest may be the (relatively newer and more customizable)
-% algorithmicx.sty package by Szasz Janos:
-% http://www.ctan.org/pkg/algorithmicx
 
-
-
-
-% *** ALIGNMENT PACKAGES ***
-%
-%\usepackage{array}
-% Frank Mittelbach's and David Carlisle's array.sty patches and improves
-% the standard LaTeX2e array and tabular environments to provide better
-% appearance and additional user controls. As the default LaTeX2e table
-% generation code is lacking to the point of almost being broken with
-% respect to the quality of the end results, all users are strongly
-% advised to use an enhanced (at the very least that provided by array.sty)
-% set of table tools. array.sty is already installed on most systems. The
-% latest version and documentation can be obtained at:
-% http://www.ctan.org/pkg/array
-
-
-% IEEEtran contains the IEEEeqnarray family of commands that can be used to
-% generate multiline equations as well as matrices, tables, etc., of high
-% quality.
-
-
-
-
-% *** SUBFIGURE PACKAGES ***
-%\ifCLASSOPTIONcompsoc
-%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
-%\else
-%  \usepackage[caption=false,font=footnotesize]{subfig}
-%\fi
-% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
-% for subfigure.sty, the latter of which is no longer maintained and is
-% incompatible with some LaTeX packages including fixltx2e. However,
-% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
-% which will override IEEEtran.cls' handling of captions and this will result
-% in non-IEEE style figure/table captions. To prevent this problem, be sure
-% and invoke subfig.sty's "caption=false" package option (available since
-% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
-% handling of captions.
-% Note that the Computer Society format requires a larger sans serif font
-% than the serif footnote size font used in traditional IEEE formatting
-% and thus the need to invoke different subfig.sty package options depending
-% on whether compsoc mode has been enabled.
-%
-% The latest version and documentation of subfig.sty can be obtained at:
-% http://www.ctan.org/pkg/subfig
-
-
-
-
-% *** FLOAT PACKAGES ***
-%
-%\usepackage{fixltx2e}
-% fixltx2e, the successor to the earlier fix2col.sty, was written by
-% Frank Mittelbach and David Carlisle. This package corrects a few problems
-% in the LaTeX2e kernel, the most notable of which is that in current
-% LaTeX2e releases, the ordering of single and double column floats is not
-% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
-% single column figure to be placed prior to an earlier double column
-% figure.
-% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
-% corrections already built into the system in which case a warning will
-% be issued if an attempt is made to load fixltx2e.sty as it is no longer
-% needed.
-% The latest version and documentation can be found at:
-% http://www.ctan.org/pkg/fixltx2e
-
-
-%\usepackage{stfloats}
-% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
-% the ability to do double column floats at the bottom of the page as well
-% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
-% LaTeX2e). It also provides a command:
-%\fnbelowfloat
-% to enable the placement of footnotes below bottom floats (the standard
-% LaTeX2e kernel puts them above bottom floats). This is an invasive package
-% which rewrites many portions of the LaTeX2e float routines. It may not work
-% with other packages that modify the LaTeX2e float routines. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/pkg/stfloats
-% Do not use the stfloats baselinefloat ability as the IEEE does not allow
-% \baselineskip to stretch. Authors submitting work to the IEEE should note
-% that the IEEE rarely uses double column equations and that authors should try
-% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
-% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
-% such ways.
-% Do not attempt to use stfloats with fixltx2e as they are incompatible.
-% Instead, use Morten Hogholm'a dblfloatfix which combines the features
-% of both fixltx2e and stfloats:
-%
-% \usepackage{dblfloatfix}
-% The latest version can be found at:
-% http://www.ctan.org/pkg/dblfloatfix
-
-
-
-
-% *** PDF, URL AND HYPERLINK PACKAGES ***
-%
-%\usepackage{url}
-% url.sty was written by Donald Arseneau. It provides better support for
-% handling and breaking URLs. url.sty is already installed on most LaTeX
-% systems. The latest version and documentation can be obtained at:
-% http://www.ctan.org/pkg/url
-% Basically, \url{my_url_here}.
-
-
-
-
-% *** Do not adjust lengths that control margins, column widths, etc. ***
-% *** Do not use packages that alter fonts (such as pslatex).         ***
-% There should be no need to do such things with IEEEtran.cls V1.6 and later.
-% (Unless specifically asked to do so by the journal or conference you plan
-% to submit to, of course. )
-
-
-% correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
 
 \begin{document}
-%
-% paper title
-% Titles are generally capitalized except for words such as a, an, and, as,
-% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
-% not capitalized unless they are the first or last word of the title.
-% Linebreaks \\ can be used within to get better formatting as desired.
-% Do not put math or special symbols in the title.
-\title{Trust management for vehicular networks}
+
+\title{TruMan: Trust Management for Vehicular Networks}
 
 
-% author names and affiliations
-% use a multiple column layout for up to three different
-% affiliations
 \author{\IEEEauthorblockN{Renan Greca}
 \IEEEauthorblockA{Departamento de Informática\\
 Universidade Federal do Paraná\\
 Curitiba, Brazil\\
 Email: rdmgreca@inf.ufpr.br}
 \and
-\IEEEauthorblockN{Luiz Carlos Albini}
+\IEEEauthorblockN{Luiz Carlos P. Albini}
 \IEEEauthorblockA{Departamento de Informática\\
 Universidade Federal do Paraná\\
 Curitiba, Brazil\\
 Email: albini@inf.ufpr.br}}
 
-% conference papers do not typically use \thanks and this command
-% is locked out in conference mode. If really needed, such as for
-% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
-% after \documentclass
 
-% for over three affiliations, or if they all won't fit within the width
-% of the page, use this alternative format:
-% 
-%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
-%Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
-%Montgomery Scott\IEEEauthorrefmark{3} and
-%Eldon Tyrell\IEEEauthorrefmark{4}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
-%Georgia Institute of Technology,
-%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
-%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212, Fax: (888) 555--1212}
-%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
-
-
-
-
-% use for special paper notices
-%\IEEEspecialpapernotice{(Invited Paper)}
-
-
-
-
-% make the title area
 \maketitle
 
-% As a general rule, do not put math, special symbols or citations
-% in the abstract
 \begin{abstract}
 By integrating processors and wireless communication units into vehicles, it is possible to create a vehicular ad-hoc network (VANET), in which cars share data amongst themselves in order to cooperate and make roads safer and more efficient.
-A decentralized ad-hoc solution, which doesn't rely on previously existing infrastructure, Internet connection or server availability, is preferred so the message delivery latency is as short as possible in the case of life-critical situations.
+A decentralized ad-hoc solution, which does not rely on previously existing infrastructure, Internet connection or server availability, is preferred so the message delivery latency is as short as possible in the case of life-critical situations.
 However, as is the case with most new technologies, VANETs will be a prime target for attacks performed by malicious users, who may benefit from affecting traffic conditions.
 In order to avoid such attacks, one important feature for vehicular networks is trust management, which allows nodes to filter incoming messages according to previously established trust values assigned to other nodes.
 To generate these trust values, nodes use information acquired from past interactions; nodes which frequently share false or irrelevant data will have lower trust values than the ones which appear to be reliable.
@@ -388,19 +61,7 @@ This work proposes a trust management model in the context of daily commutes, ut
 The results prove to be accurate and efficient, thanks to the low complexity of the algorithms constituting the trust model.
 \end{abstract}
 
-% no keywords
 
-
-
-
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 
 
@@ -411,65 +72,73 @@ The results prove to be accurate and efficient, thanks to the low complexity of 
 Within the next few years, a substantial share of new vehicles will come equipped with networking features \cite{connectedcar2016}.
 These features will allow vehicles to quickly share data with other nearby devices and can be useful tools to reduce traffic and the risk of accidents.
 Over 1 million people lose their lives to traffic accidents every year \cite{whotraffic}, so solutions to improve road safety are crucial for modern life.
-Vehicular ad-hoc networks are a much-studied usage of vehicular networking features.
-In these networks, all nodes are related to traffic; they can be vehicles equipped with on-board computers, or stationary units placed near roads.
-By quickly sharing data with neighboring vehicles, without the need of an Internet connection, smart vehicles can alert their drivers of important road conditions \cite{barba2012smart}, while autonomous vehicles can synchronize their movements to maximize traffic throughput \cite{amoozadeh2015platoon}.
+%Vehicular ad-hoc networks are a much-studied usage of vehicular networking features.
+%In these networks, all nodes are related to traffic; they can be vehicles equipped with on-board computers, or stationary units placed near roads.
+By quickly sharing data with neighboring vehicles without the need of an Internet connection, smart vehicles can alert their drivers of important road conditions \cite{barba2012smart}, while autonomous vehicles can synchronize their movements to maximize traffic throughput \cite{amoozadeh2015platoon}.
 
-The accepted for vehicular communication is the IEEE 802.11p or Wireless Access in Vehicular Environments (WAVE) \cite{jiang2008ieee}.
+The communication stardard for vehicular communication is the IEEE 802.11p or Wireless Access in Vehicular Environments (WAVE) \cite{jiang2008ieee}.
 It describes two types of nodes for vehicular networks: on-board units (OBUs) and road-side units (RSUs).
-Communications between two OBUs is called vehicle-to-vehicle (V2V) communication, while communication between an OBU and an RSU is called vehicle-to-infrastructure (V2I) communication.
-This study focuses only on V2V scenarios, and therefore, any references to VANETs and their nodes refer exclusively to vehicles and their on-board units.
+Communication between two OBUs is called vehicle-to-vehicle (V2V) communication, while communication between an OBU and an RSU is called vehicle-to-infrastructure (V2I) communication.
+This study focuses only on V2V scenarios, and therefore, any references to Vehicular ad-hoc networks (VANETs) and their nodes refer exclusively to vehicles with on-board units.
 
 As is expected for new technologies, vehicular communications can become an appealing target for malicious users and attackers.
-Some issues that could be exploited in a VANET include: vehicles with faulty sensors \cite{isaac2010security}; vehicles broadcasting false data \cite{golle2004detecting}; a flood of false data to generate a distributed denial of service (DDoS) scenario or to divert traffic \cite{garip2015congestion}; eavesdropping on other vehicles' communications, signal jamming and stalking \cite{isaac2010security}. 
+Some issues that could be exploited in such network include: vehicles with faulty sensors \cite{isaac2010security}; vehicles broadcasting false data \cite{golle2004detecting}; a flood of false data to generate a distributed denial of service (DDoS) scenario or to divert traffic \cite{garip2015congestion}; eavesdropping on other vehicles' communications, signal jamming or stalking \cite{isaac2010security}. 
 
 Each of these problems require specific solutions, although there are ways of making the network safer in general.
-One way is taking advantage of the concept of trust between members of the network.
+One way is taking advantage of the concept of trust between network members.
 By having nodes remember previous interactions with one another, it is possible for them to build trust relationships and avoid those attacks that involve the spread of false data.
 Trust solutions for VANETs are generally classified into data-oriented trust, which emphasizes the contents of a message, and entity-based trust, which emphasizes the sender of a message.
 The solution described in this article is one of entity-based trust.
 
-The remainder of this paper is organized as follows. \autoref{section:previouswork} shows some examples of existing trust models for vehicular networks and the trust model for static networks that served as basis for this one; \autoref{section:algorithm} explains the algorithms used to develop the trust model; \autoref{section:results} shows the simulations which validate the usefulness of the trust model; and \autoref{section:conclusion} presents closing thoughts on the project.
+Using the proposed trust model, nodes in a vehicular network are able to identify which other nodes might be malicious.
+Since the network is dynamic, nodes acquire more knowledge as time passes and the algorithm's results become more precise, taking advantage of social properties of VANETs \cite{da2013effective} \cite{cunha2014possible} to build strong relationships between nodes that connect frequently.
+After running a series of simulations, the results were very promising; after one simulated days, nodes were able to correctly identify over 95\% of malicious nodes in the network.
 
-\section{Previous work}
-\label{section:previouswork}
+%==> O QUE SE PRETENDE ATINGIR? O QUE TEM DE DIFERENTE? QUAIS RESULTADOS FORAM OBTIDOS? FALTA UM PARAGRAFO AQUI FALANDO DISSO.
 
-Several models have been proposed to solve the problem of trust in vehicular networks. 
-In this section, some of the most relevant ones are described, considering the time in which they were proposed, the advantages they bring and their contributions to later study. 
-None of them provide a complete solution, but serve as pieces of a puzzle that is still incomplete. 
-Many trust management solutions for VANETs have been proposed over the years, such as \cite{patwardhan2006data}, \cite{gerlach2007trust}, \cite{raya2008data}, \cite{huang2010situation}, \cite{ding2013novel}, \cite{haddadou2013trust}, \cite{liu2016lsot}, \cite{kerrache2016detection}.
-There are also some review and/or survey articles on the subject of VANET trust models, such as \cite{zhang2011survey}, \cite{ma2011survey}, \cite{zhang2012trust}, \cite{mejri2014survey}, \cite{soleymani2015trust} \cite{sengar2016survey}, and \cite{dwivedi2016review}.
+The remainder of this paper is organized as follows.
+Section \ref{section:previouswork} shows some examples of existing trust models for vehicular networks and the trust model for static networks that served as basis for this one;
+\autoref{section:algorithm} explains the algorithms used to develop the trust model;
+\autoref{section:results} shows the simulations which validate the usefulness of the trust model;
+and \autoref{section:conclusion} presents closing thoughts on the project.
 
-For the Malicious Node Identification Algorithm (MaNI) proposed in \cite{vernize2015malicious}, the authors present a malicious node identification scheme based on strongly connected components and graph coloring.
-The model is proposed for complex networks in general, but is not suited for VANETs because it is designed only for static networks.
-Furthermore, the algorithm is executed by a global observer which has information about the complete network.
-It is, however, very efficient thanks to the classification of nodes into components and the usage of a fast heuristic.
-The usage of components and coloring serve as basis for the trust model proposed here, which is expanded to work on distributed and dynamic networks such as vehicular networks.
-
-
-\section{Algorithm}
+\section{Understanding the algorithm}
 \label{section:algorithm}
 
-The objective of the trust model is to allow nodes to infer whether or not other nodes in the network are malicious.
+%==> MUDAR O TITULO, PRACISA DIZER ALGO DO TIPO UNDERNEATH ALGORITHM
+
+The objective of the Truman trust model is to allow nodes to infer whether or not other nodes in the network are malicious.
 The algorithm that dictates the trust model runs continuously, with iterations happening in a preset interval.
-In every iteration, a node checks its neighbors to see if there were changes to the network and runs a combination of algorithms that help it detect malicious nodes in the known network.
-Then, it separates graph $T$ into components using Tarjan's strongly connected components algorithm.
-Finally, it uses a graph coloring algorithm as a heuristic to determine which nodes to trust or not.
+In every iteration, a node collects information from its neighbors and runs a combination of algorithms to detect malicious nodes in the known network.
+This information is maintained in a directed graph $T=(V,O)$, in which $V$ is the set of known vertices and $O$ is the trust relationship between pairs $u,v \in V$.
+Graph $T$ is known as the \textit{trust graph}.
+
+The edges $(u, v) \in O$ store a value between 0 and 1 that represents the degree of trust $u$ has for $v$.
+This value is called the \textit{opinion} of $u$ about $v$.
+At the start of the execution, edges have value $0.5$; this value increases when nodes have positive interactions and decreases otherwise.
+A threshold $0 < h < 1$ may be used as a parameter to define the minimum weight for an edge to be considered positive, meaning that the origin node trusts the destination node.
+By default, the threshold is $0.5$.
+
+After collecting information from other nodes, Truman performs two steps: ($i$) it divides the network graph into strongly connected components using Tarjan's strongly connected components algorithm; ($ii$) it uses a graph coloring algorithm as a heuristic to determine which nodes to trust or not.
 
 %In order to do this, a node must maintain a graph $T=(V,O)$ that represents its knowledge of the network, in which $V$ is the set of known nodes and $O$ is the set of opinions nodes have about others.
 %Opinions are directed edges, each one with a weight between 0 and 1 that represents the degree of trust from one node towards another.
 %A threshold $0 < h < 1$ may be used as a parameter to define the minimum weight for an edge to be considered positive, meaning that the origin node trusts the destination node.
 
 
-The detailed descriptions of both algorithms are below, followed by the complete process of each iteration of the trust model.
+The detailed descriptions of both algorithms are below, followed by the complete process of each iteration of the Truman trust model.
+
+
+%==> VOCE AINDA NAO FALOU DOS PESOS DAS ARESTAS E COMO ELES FORAM CONSEGUIDOS
+%==> VOCE NAO FALOU DOS GRAFOS
 
 % ---------------------------------------------------------------------------------------------------
 \subsection{Tarjan's strongly connected components algorithm}
 \label{section:tarjan}
-An important aspect of the trust model is the use of Tarjan's strongly connected components algorithm \cite{tarjan1972depth}.
-This allows a large graph to be abstracted into a smaller graph, which therefore reduces the input for further algorithms.
+The use of Tarjan's strongly connected components algorithm \cite{tarjan1972depth} is an important aspect of Truman's efficiency.
+This allows a large graph to be abstracted into a smaller one, which therefore reduces the input for further algorithms.
 Given a directed graph $T = (V,O)$, a strongly connected component is defined as a group of nodes in which, for any pair of nodes $u, v \in V$, there exists a path from $u$ to $v$ and a path from $v$ to $u$.
-For the purposes of trust management, this definition is extended to accept only paths of edges with weight 1.
+For the purposes of trust management, this definition is extended to accept only paths of edges with weight above a predetermined threshold $h$.
 Every node of the input graph $T$ must belong to a component.
 
 In the implementation used, $index$, $lowlink$, $count$ and $stack$ are global variables accessible from every call of the function.
@@ -479,7 +148,7 @@ The algorithm works by performing a depth-first search, adding nodes to $stack$ 
 If two nodes are present on $stack$, then there is a path from the first node to the second one (in the order they were added to $stack$).
 Each node has two attributes assigned to it during the execution of the algorithm: $index$ is used to number the nodes in the order they are visited, while $lowlink$ is the lowest indexed node reachable from each node.
 
-In the call that visits a node $u$, the algorithm must loop through each node $v$ trusted by $u$ (that is, $u \rightarrow v$ exists and has value 1).
+In the call that visits a node $u$, the algorithm must loop through each node $v$ trusted by $u$ (that is, $u \rightarrow v$ exists and has value greater than $h$).
 If node $v$ has not yet been visited, the algorithm is called for  $v$.
 The $lowlink$ of $u$ is then calculated as the smallest value between $lowlink[u]$ and $lowlink[v]$, because any node reachable from $v$ is also reachable from $u$.
 After the loop, if $lowlink[u]$ is equal to $index[u]$, it means that $u$ is the lowest indexed node reachable from itself and that it is the root of a component.
@@ -507,7 +176,7 @@ Each $v' \in V'$ is the abstraction of one component identified by Tarjan's algo
 \State \textbf{push} $u$ \textbf{to} $stack$
 
 \For{$v$ \textbf{in} neighbors of $u$ }
-	\If{weight of $u \rightarrow v$ is 0}
+	\If{weight of $u \rightarrow v$ $<$ $h$}
 		\State \textbf{continue}
 	\EndIf	
 		
@@ -534,19 +203,18 @@ Each $v' \in V'$ is the abstraction of one component identified by Tarjan's algo
 % ---------------------------------------------------------------------------------------------------
 \subsection{Graph coloring with minimum colors}
 \label{section:coloring}
-The algorithm proposed in \cite{mittal2011graph} is an efficient approach to graph coloring, a classic graph theory problem.
+The algorithm proposed in \cite{mittal2011graph} is an efficient approach to graph coloring.
 Graph coloring is one of the possible heuristics used to detect malicious nodes after the generation of the component graph using Tarjan's algorithm.
 Out of the tested heuristics, it presented the best results, so it has been chosen as the heuristic for the trust model.
 
-The process of graph coloring consists of labeling each node with a color so that no two neighboring nodes share the same color.
-This problem has been studied in Computer Science since, at least, 1972 \cite{karp1972reducibility} and has been studied as a classic mathematics problem for even longer \cite{kempe1879geographical}.
+%The process of graph coloring consists of labeling each node with a color so that no two neighboring nodes share the same color.
+%This problem has been studied in Computer Science since, at least, 1972 \cite{karp1972reducibility} and has been studied as a classic mathematics problem for even longer \cite{kempe1879geographical}.
 It has been proven mathematically that any planar graph can be colored with at most four colors \cite{appel1976every}, but discovering the smallest number of colors necessary to color an arbitrary graph (called the graph's chromatic number) is an NP-hard problem \cite{sanchez1989determining}.
-
 In \cite{mittal2011graph}, the authors propose to color a graph using the minimum possible amount of colors.
 Although they do not prove that their algorithm always uses the smallest possible amount of colors, the output is always a correct coloration and the algorithm is nevertheless efficient.
 The complexity of the algorithm is $O(|E|)$ for an undirected graph $G = (V,E)$.
 As a comparison, the classic DSATUR algorithm for graph coloring has complexity $O(|V|^2)$ \cite{brelaz1979new}.
-For the purposes of this study, it is not necessary to prove that the coloring algorithm's output uses the minimum possible number of colors.
+%For the purposes of this study, it is not necessary to prove that the coloring algorithm's output uses the minimum possible number of colors.
 
 Algorithm \autoref{algorithm:coloring} shows the general structure of the graph coloring algorithm  \cite{mittal2011graph} \cite{vernize2013dissertation}.
 
@@ -577,7 +245,7 @@ This is demonstrated in \cite{vernize2013dissertation}.
 \end{algorithm}
 
 % ---------------------------------------------------------------------------------------------------
-\subsection{Trust management for a vehicular network}
+\subsection{The Truman algorithm}
 \label{section:trustmanagement}
 %\subsection{Malicious Node Identification Algorithm}
 %\label{section:mani}
@@ -587,37 +255,33 @@ This is demonstrated in \cite{vernize2013dissertation}.
 %The model is proposed for complex networks in general, but is not suited for VANETs because it is designed only for static networks.
 %Furthermore, the algorithm is executed by a global observer which has information about the complete network.
 
-In order to work with dynamic networks, an algorithm must consider snapshots as inputs.
+Truman is based on the MaNI algorithm \cite{vernize2015malicious}, which suggested the use of Tarjan's algorithm and the graph coloring algorithm used here.
+However, MaNI was developed for static networks such as social networks, and is executed by a supervising agent, making it unsuitable for a vehicular network.
+The work describes here takes advantage of the efficiency of the two graph theory algorithms into a model that is viable for highly dynamic networks.
+
+In order to work with dynamic networks, the Truman algorithm must consider snapshots as inputs.
 The algorithm runs continuously, running new iterations at a predetermined interval.
 Each iteration $i$ is associated with a timestamp, which indicates when the snapshot was taken.
 A snapshot $G_i = (V_i, E_i)$ represents the complete topology of the network at the iteration $i$; $V_i$ is the set of nodes participating in the network at that time and $E_i$ is the set of edges connecting pairs of nodes within communication range of each other.
 As the network is dynamic, it is expected that each $G_i$ is different from $G_{i-1}$, but also that the changes follow a determined mobility model.
 
-Furthermore, it the algorithm runs in a decentralized fashion, meaning each node in the network runs its own instance of the algorithm.
-This is necessary because it is not reasonable to expect a supervisor of the network to have complete knowledge of the nodes and relationships in the network.
-Each node starts knowing only about itself and maintains its own abstraction of the network surrounding it.
-Every node $u$ has a static, connected and directed trust graph $T^u = (V^u, O^u)$, in which $V^u$ is the set of nodes $u$ is aware of and $O^u$ is the set of trust relationships (opinions) $u$ knows about between members of $V^u$.
-Since $T^u$ changes over time, there is a $T^u_i$ for every iteration $i$.
+Furthermore, the algorithm runs in a decentralized fashion, meaning each node in the network runs its own instance of the algorithm.
+%This is necessary because it is not reasonable to expect a supervisor of the network to have complete knowledge of the nodes and relationships in the network.
+Each node starts knowing information only about itself and maintains its own abstraction of the network surrounding it.
+Every node $u$ has a static, connected and directed trust graph $T^u = (V^u, O^u)$, in which $V^u$ is the set of nodes $u$ is aware of and $O^u$ is the set of trust relationships (opinions) $u$ knows between members of $V^u$.
+Since $T^u$ changes over time, there is a $T^u_i = (V^u_i, O^u_i)$ for every iteration $i$.
 
-In each iteration, every node $u$ runs the following steps to detect malicious nodes in the network:
+%==> VOCE NAO FALOU DOS PESOS DAS ARESTAS AINDA
 
-\begin{enumerate}
-	\item Node $u$ checks who are its neighbors (nodes within communication range).
-		  Newly discovered nodes and newly formed edges are added to $T^u_i$.
-		  Edges are created with weight 0.5.
-	\item Node $u$ tests all of its neighbors to discover which ones can be directly trusted or not.
-		  New trust values are computed for the edges using the average between the previous value and either 1 (if the neighbor is trustworthy) or 0 (otherwise).
-	\item If a neighbor $v$ is trustworthy, $u$ merges $T^v_{i-1}$ into $T^u_i$, adding nodes and edges that were present on $T^v_{i-1}$ but not on $T^u_{i-1}$.
-	\item Tarjan's algorithm is executed to identify the strongly connected components of $T^u_i$, resulting in a component graph $C^u_i$.
-	\item The graph coloring algorithm is executed on $C^u_i$ and nodes are identified as benign or malicious according to the same rules as the MaNI algorithm.
-\end{enumerate}
+%==> ACHO QUE PRECISA FALAR AQUI DA PRINCIPAL DIFERENCA PARA O MaNI, QUE AQUI ESTAMOS FALANDO DE REDE MOVEL E ALGORITMO DISTRIBUIDO
 
-During steps 1, 2 and 3, the node is collecting and organizing information.
+
+At first, the node is collecting and organizing information.
 The storage of an abstraction of the network in the form of a trust graph $T$ is crucial for the remainder of the algorithm.
 A prerequisite of step 2 is a test that correctly classifies a neighboring node as benign or malicious.
 After these steps, $T^u_i$ is formed, which is then used for the following steps.
 
-Each edge $w \rightarrow v$ in $T^u_i$ is weighted according to the degree of trust $w$ has for $v$ with a value between 0 and 1.
+Each edge $w \rightarrow v \in O^u_i$ is weighted according to the degree of trust $w$ has for $v$ with a value between 0 and 1.
 The closer the value is to 1, the more $w$ trusts $v$.
 These values are not mutual, so the value of $w \rightarrow v$ can be different from the value of $v \rightarrow w$.
 
@@ -638,6 +302,19 @@ Once this information in $C^u_i$ is brought back to graph $T^u_i$, it is trivial
 In the experiments shown in \cite{vernize2013dissertation}, the coloring heuristic shows the most promising results, identifying a high ratio of the malicious nodes in the network.
 Other heuristics were experimented with, but were either less effective in detecting malicious nodes, or provided too many false positives.
 Therefore, for the purposes of this research, only the coloring heuristic is considered.
+
+In summary, every node $u$ runs the following steps in each iteration to detect malicious nodes in the network:
+
+\begin{enumerate}
+	\item Node $u$ checks who are its neighbors (nodes within its communication range).
+		  Newly discovered nodes and newly formed edges are added to $T^u_i$.
+		  Edges are created with weight 0.5.
+	\item Node $u$ tests all of its neighbors to discover which ones can be directly trusted or not.
+		  New trust values are computed for the edges using the average between the previous value and either 1 (if the neighbor is trustworthy) or 0 (otherwise).
+	\item If a neighbor $v$ is trustworthy, $u$ merges $T^v_{i-1}$ into $T^u_i$.
+	\item Tarjan's algorithm is executed to identify the strongly connected components of $T^u_i$, resulting in a component graph $C^u_i$.
+	\item The graph coloring algorithm is executed on $C^u_i$ and nodes are classified as benign or malicious. %according to the same rules as the MaNI algorithm.
+\end{enumerate}
 
 %Two types of experiments were made in each network: first, all malicious nodes inverted the edge weights leading to their neighbors; second, malicious nodes randomly inverted or not the weights.
 %In the first scenario, the results show excellent precision in most networks, detecting nearly every malicious node.
@@ -728,10 +405,10 @@ Magenta is the percentage of malicious nodes in the network (ground truth).
 Finally, green represents the nodes correctly identified as malicious (true positives), cyan represents the undetected malicious nodes (false negatives) and red represents the benign nodes incorrectly identified as malicious (false positives).
 
 
-\autoref{fig:random10}, \autoref{fig:random30} and \autoref{fig:random50} show the results of simulations running with 10\% of nodes acting maliciously, with communications range varying from 10m to 50m.
+\autoref{fig:random103050} shows the results of simulations running with 10\% of nodes acting maliciously, with communications range varying from 10m to 50m.
 It is possible to see how the increase in communication range allows the algorithm to converge much sooner, taking over 8000 iterations with 10m range and achieving solid results at just over 1000 iterations with 50m range. 
 
-\autoref{fig:random1} to \autoref{fig:random6} show the variation of results for different amounts of malicious nodes in the network.
+\autoref{fig:random0} and \autoref{fig:random1} show the variation of results for different amounts of malicious nodes in the network.
 By the end of one day, the algorithm is able to detect all malicious nodes when they are up to 30\% of the network.
 At 40\%, a small part of malicious nodes are yet to be detected.
 At 50\%, as is expected, the results are inconsistent as control of the network is completely divided between benign and malicious nodes; at this point, the network is completely compromised.
@@ -740,6 +417,9 @@ The amount of malicious nodes also affects network discovery, since nodes do not
 \autoref{fig:random7} shows the execution of the algorithm over the course of 7 days.
 Most malicious nodes are identified by the end of the first day; in the following iterations, the algorithm finishes building the network model and sorts out remaining false negative or false positive results.
 After iteration 20000, the results are completely consistent.
+
+
+%==> ACHO QUE PODIA USAR O MULTIFIGURE PARA AGRUPAR UM POUCO AS FIGURAS. COLOCA 3 LADO A LADO. ASSIM SOBRE ESPAÇO NO FINAL PARA PODERMOS COMPARAR COM TRABALHOS RELACIONADOS.
 
 % ----
 %
@@ -764,73 +444,88 @@ After iteration 20000, the results are completely consistent.
 
 % ----
 
-\begin{figure}
+\begin{figure*}
 \centering
-\includegraphics[width=0.5\linewidth]{Network_rA_10.0/new_plots/10.png}
-\caption{Simulation with random nodes and range of 10m.} \label{fig:random10}
-\end{figure}
+\includegraphics[width=0.3\linewidth]{Network_rA_10.0/new_plots/30.png}
+%\caption{Simulation with random nodes and range of 10m.} \label{fig:random10}
+\hspace{1pt}
+\includegraphics[width=0.3\linewidth]{Network_rA_10.0/new_plots/30.png}
+%\caption{Simulation with random nodes and range of 30m.} \label{fig:random30}
+\hspace{1pt}
+\includegraphics[width=0.3\linewidth]{Network_rA_10.0/new_plots/50.png}
+\caption{Simulation with random nodes, 10\% malicious and range of 10m, 30m and 50m.} 
+\label{fig:random103050}
+\end{figure*}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{Network_rA_10.0/new_plots/30.png}
-\caption{Simulation with random nodes and range of 30m.} \label{fig:random30}
-\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\linewidth]{Network_rA_10.0/new_plots/30.png}
+%\caption{Simulation with random nodes and range of 30m.} \label{fig:random30}
+%\end{figure}
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\linewidth]{Network_rA_10.0/new_plots/50.png}
+%\caption{Simulation with random nodes and range of 50m.} \label{fig:random50}
+%\end{figure}
 
-\begin{figure}
+% ----
+
+\begin{figure*}
 \centering
-\includegraphics[width=0.5\linewidth]{Network_rA_10.0/new_plots/50.png}
-\caption{Simulation with random nodes and range of 50m.} \label{fig:random50}
-\end{figure}
+\includegraphics[width=0.3\linewidth]{Network_rA/10_1}
+\hspace{1pt}
+\includegraphics[width=0.3\linewidth]{Network_rA/10_5}
+\hspace{1pt}
+\includegraphics[width=0.3\linewidth]{Network_rA/10_10}
+\caption{Simulation with random nodes, range of 10m and 1\%, 5\% or 10\% malicious.}
+\label{fig:random0}
+\end{figure*}
+
+%\begin{figure}
+%\centering0.5
+%\includegraphics[width=0.5\linewidth]{Network_rA/10_5}
+%\caption{Simulation with random nodes, range of 10m and 5\% malicious.} \label{fig:random1}
+%\end{figure}
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\linewidth]{Network_rA/10_10}
+%\caption{Simulation with random nodes, range of 10m and 10\% malicious.} \label{fig:random2}
+%\end{figure}
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\linewidth]{Network_rA/10_20}
+%\caption{Simulation with random nodes, range of 10m and 20\% malicious.} \label{fig:random3}
+%\end{figure}
+
+\begin{figure*}
+\centering
+\includegraphics[width=0.3\linewidth]{Network_rA/10_30}
+\includegraphics[width=0.3\linewidth]{Network_rA/10_40}
+\includegraphics[width=0.3\linewidth]{Network_rA/10_50}
+\caption{Simulation with random nodes, range of 10m and 30\%, 40\% or 50\% malicious.}
+\label{fig:random1}
+\end{figure*}
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\linewidth]{Network_rA/10_40}
+%\caption{Simulation with random nodes, range of 10m and 40\% malicious.} \label{fig:random5}
+%\end{figure}
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\linewidth]{Network_rA/10_50}
+%\caption{Simulation with random nodes, range of 10m and 50\% malicious.} \label{fig:random6}
+%\end{figure}
 
 % ----
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\linewidth]{Network_rA/10_1}
-\caption{Simulation with random nodes, range of 10m and 1\% malicious.} \label{fig:random0}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{Network_rA/10_5}
-\caption{Simulation with random nodes, range of 10m and 5\% malicious.} \label{fig:random1}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{Network_rA/10_10}
-\caption{Simulation with random nodes, range of 10m and 10\% malicious.} \label{fig:random2}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{Network_rA/10_20}
-\caption{Simulation with random nodes, range of 10m and 20\% malicious.} \label{fig:random3}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{Network_rA/10_30}
-\caption{Simulation with random nodes, range of 10m and 30\% malicious.} \label{fig:random4}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{Network_rA/10_40}
-\caption{Simulation with random nodes, range of 10m and 40\% malicious.} \label{fig:random5}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{Network_rA/10_50}
-\caption{Simulation with random nodes, range of 10m and 50\% malicious.} \label{fig:random6}
-\end{figure}
-
-% ----
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{Network_rA7/10_10}
+\includegraphics[width=0.7\linewidth]{Network_rA7/10_10}
 \caption{Simulation with random nodes, range of 10m and 10\% malicious during 7 days.} \label{fig:random7}
 \end{figure}
 
@@ -944,6 +639,52 @@ After iteration 20000, the results are completely consistent.
 % footnotes above bottom floats. This can be corrected via the
 % \fnbelowfloat command of the stfloats package.
 
+\section{Previous work}
+\label{section:previouswork}
+
+
+==> FALTA DETALHAR ELES.
+
+Several models have been proposed to solve the problem of trust in vehicular networks. 
+In this section, some of the most relevant ones are described, considering the time in which they were proposed, the advantages they bring and their contributions to later study. 
+None of them provide a complete solution, but serve as pieces of a puzzle that is still incomplete. 
+Many trust management solutions for VANETs have been proposed over the years, such as \cite{patwardhan2006data}, \cite{gerlach2007trust}, \cite{raya2008data}, \cite{huang2010situation}, \cite{ding2013novel}, \cite{haddadou2013trust}, \cite{liu2016lsot}, \cite{kerrache2016detection}.
+There are also some review and/or survey articles on the subject of VANET trust models, such as \cite{zhang2011survey}, \cite{ma2011survey}, \cite{zhang2012trust}, \cite{mejri2014survey}, \cite{soleymani2015trust} \cite{sengar2016survey}, and \cite{dwivedi2016review}.
+
+For the Malicious Node Identification Algorithm (MaNI) proposed in \cite{vernize2015malicious}, the authors present a malicious node identification scheme based on strongly connected components and graph coloring.
+The model is proposed for complex networks in general, but is not suited for VANETs because it is designed only for static networks.
+Furthermore, the algorithm is executed by a global observer which has information about the complete network.
+It is, however, very efficient thanks to the classification of nodes into components and the usage of a fast heuristic.
+The usage of components and coloring serve as basis for the trust model proposed here, which is expanded to work on distributed and dynamic networks such as vehicular networks.
+
+\begin{table}[h!]
+\caption{Properties of Truman and related work}
+\label{table:schedule}
+\centering
+\begin{tabular}{|p{1.5cm}||p{1.5cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+ \hline
+ \textbf{Task} & Truman & \cite{vernize2013dissertation} & \cite{golle2004detecting} & \cite{patwardhan2006data} & \cite{minhas2010towards} \\
+ \hline
+ Decentralized & - & \checkmark & - & - & \\
+ \hline
+ Sparsity & - & \checkmark & - & - & \\
+ \hline
+ Dynamics & - & \checkmark & - & - & \\
+ \hline
+ Scalability & - & \checkmark & - & - & \\
+ \hline
+ Confidence & - & \checkmark & - & - & \\
+ \hline
+ Security & - & \checkmark & - & - & \\
+ \hline
+ Privacy & - & \checkmark & - & - & \\
+ \hline
+ Robustness & - & \checkmark & - & - & \\
+ \hline
+ Cost & $O(|V|* |O|)$ & n/a & n/a & n/a & n/a \\
+ \hline
+\end{tabular}
+\end{table}
 
 
 
@@ -990,7 +731,7 @@ Since trust amongst nodes in the network is a value ranging between 0 and 1, the
 % http://www.michaelshell.org/tex/ieeetran/bibtex/
 \bibliographystyle{IEEEtran}
 % argument is your BibTeX string definitions and bibliography database(s)
-\bibliography{IEEEabrv, article}
+\bibliography{article}
 %
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
