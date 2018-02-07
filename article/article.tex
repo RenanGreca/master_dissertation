@@ -111,13 +111,13 @@ and \autoref{section:conclusion} presents closing thoughts on the project.
 The objective of the Truman trust model is to allow nodes to infer whether or not other nodes in the network are malicious.
 The algorithm that dictates the trust model runs continuously, with iterations happening in preset intervals.
 In every iteration, a node collects information from its neighbors and runs a combination of algorithms to detect malicious nodes in the known network.
-This information is maintained in a directed graph $T=(V,O)$, in which $V$ is the set of known vertices and $O$ is the trust relationship between pairs $u,v \in V$.
+This information is maintained in a directed graph $T=(V,E)$, in which $V$ is the set of known vertices and $E$ is the set of trust relationships between pairs $u,v \in V$.
 Graph $T$ is known as the \textit{trust graph}.
 
-The edges $(u, v) \in O$ store a value between 0 and 1 which represents the degree of trust $u$ has for $v$.
+Each edge $(u, v) \in E$ stores a value between 0 and 1 which represents the degree of trust $u$ has for $v$.
 This value is called the \textit{opinion} of $u$ about $v$.
 At the start of the execution, edges have value $0.5$; this value increases when nodes have positive interactions and decreases otherwise.
-A threshold $0 < h < 1$ may be used as a parameter to define the minimum weight for an edge to be considered positive, meaning that the origin node trusts the destination node.
+A threshold $0 < h < 1$ is used to define the minimum weight for an edge to be considered positive, meaning that the origin node trusts the destination node.
 %By default, the threshold is $0.5$.
 
 After collecting information from other nodes, Truman performs two steps: ($i$) it divides the network graph into strongly connected components using Tarjan's strongly connected components algorithm; ($ii$) it uses a graph coloring algorithm as a heuristic to determine which nodes to trust or not.
@@ -138,38 +138,42 @@ The detailed descriptions of both algorithms are below, followed by the complete
 \label{section:tarjan}
 The use of Tarjan's strongly connected components algorithm \cite{tarjan1972depth} is an important aspect of Truman's efficiency.
 This allows a large graph to be abstracted into a smaller one, which therefore reduces the input for further steps.
-Given a directed graph $T = (V,O)$, a strongly connected component is defined as a group of nodes in which, for any pair of nodes $u, v \in V$, there exists a path from $u$ to $v$ and a path from $v$ to $u$.
+Given a directed graph $T = (V,E)$, a strongly connected component is defined as a group of nodes in which, for any pair of nodes $u, v \in V$, there exists a path from $u$ to $v$ and a path from $v$ to $u$.
 For the purposes of trust management, this definition is extended to accept only paths of edges with weight above a predetermined threshold $h$.
 Every node of the input graph $T$ must belong to a component.
 
 
------ACHO QUE ESTA DEFINIÇAO ESTA COM MUITOS DETALHES DE IMPLEMENTACAO ---
------PODERIA DEIXAR ELA MAIS ALTO NIVEL, EM FORMA DE CONJUNTOS POR EXEMPLO ---
+%-----ACHO QUE ESTA DEFINIÇAO ESTA COM MUITOS DETALHES DE IMPLEMENTACAO ---
+%-----PODERIA DEIXAR ELA MAIS ALTO NIVEL, EM FORMA DE CONJUNTOS POR EXEMPLO ---
 
-In the implementation used, $index$, $lowlink$, $count$ and $stack$ are global variables accessible from every call of the function.
-$index$ and $lowlink$ are arrays indexed by node IDs (predefined unique identifiers), $count$ is an integer and $stack$ is a last-in-first-out data structure.
 
-The algorithm works by performing a depth-first search, adding nodes to $stack$ as they are visited.
-If two nodes are present on $stack$, then there is a path from the first node to the second one (in the order they were added to $stack$).
+%Three data structures are used by the algorithm:
+%$index$ and $lowlink$ are indexed by node IDs (predefined unique identifiers) and $stack$ is a last-in-first-out stack.
+%The $count$ variable is incremented at each visited node.
+%In the implementation used, $index$, $lowlink$, $count$ and $stack$ are global variables accessible from every call of the function.
+%$index$ and $lowlink$ are arrays indexed by node IDs (predefined unique identifiers), $count$ is an integer and $stack$ is a last-in-first-out data structure.
+
+The algorithm works by performing a depth-first search, adding nodes to a stack as they are visited.
+If two nodes are present on the stack, then there is a path from the first node to the second one (in the order they were added to the stack).
 Each node has two attributes assigned to it during the execution of the algorithm: $index$ is used to number the nodes in the order they are visited, while $lowlink$ is the lowest indexed node reachable from each node.
 
 In the call that visits a node $u$, the algorithm must loop through each node $v$ trusted by $u$ (that is, $u \rightarrow v$ exists and has value greater than $h$).
 If node $v$ has not yet been visited, the algorithm is called for  $v$.
 The $lowlink$ of $u$ is then calculated as the smallest value between $lowlink[u]$ and $lowlink[v]$, because any node reachable from $v$ is also reachable from $u$.
 After the loop, if $lowlink[u]$ is equal to $index[u]$, it means that $u$ is the lowest indexed node reachable from itself and that it is the root of a component.
-Therefore, nodes must be popped from the $stack$ until $u$ is found.
+Therefore, nodes must be popped from the stack until $u$ is found.
 Each node popped, including $u$, is a member of a strongly connected component.
 
----------------
+%---------------
 
 The number of components is, at most, $|v|$: in a worst-case scenario, each node is placed into its own component.
 %; however, this would not be the case for most useful input graphs.   ---> NÃO ENTENDI <---
 
 Algorithm \autoref{algorithm:tarjan} shows the general structure of Tarjan's algorithm  \cite{tarjan1972depth}.
-The complexity of the algorithm is $O(|V|+|O|)$ for a graph $T = (V,O)$.
+The complexity of the algorithm is $O(|V|+|E|)$ for a graph $T = (V,E)$.
 
-With the results of Tarjan's algorithm, an undirected component graph $C = (V',O')$ is formed.
-Each $v' \in V'$ is the abstraction of one component identified by Tarjan's algorithm, while the edges $o' \in O'$ are edges from $T$ between nodes that do not belong in the same component.
+With the results of Tarjan's algorithm, an undirected component graph $C = (V',E')$ is formed.
+Each $v' \in V'$ is the abstraction of one component identified by Tarjan's algorithm, while the edges $e' \in E'$ are edges from $T$ between nodes that do not belong in the same component.
 
 \begin{algorithm}
 \caption{Tarjan's strongly connected components algorithm}\label{algorithm:tarjan}
@@ -219,8 +223,8 @@ Out of the tested heuristics, it presents the best results, so it has been chose
 It has been mathematically proven that any planar graph can be colored with at most four colors \cite{appel1976every}, but discovering the smallest number of colors necessary to color an arbitrary graph (called the graph's chromatic number) is an NP-hard problem \cite{sanchez1989determining}.
 In \cite{mittal2011graph}, the authors propose to color a graph using the minimum possible amount of colors.
 Although they do not prove that their algorithm always uses the smallest possible amount of colors, the output is always a correct coloration and the algorithm is nevertheless efficient.
-The complexity of the algorithm is $O(|E|)$ for an undirected graph $G = (V,E)$.
-As a comparison, the classic DSATUR algorithm for graph coloring has complexity $O(|V|^2)$ \cite{brelaz1979new}.
+The complexity of the algorithm is $O(|E'|)$ for a graph $C = (V',E')$.
+As a comparison, the classic DSATUR algorithm for graph coloring has complexity $O(|V'|^2)$ \cite{brelaz1979new}.
 %For the purposes of this study, it is not necessary to prove that the coloring algorithm's output uses the minimum possible number of colors.
 
 Algorithm \autoref{algorithm:coloring} shows the general structure of the graph coloring algorithm  \cite{mittal2011graph} \cite{vernize2013dissertation}.
@@ -263,44 +267,45 @@ This is demonstrated in \cite{vernize2013dissertation}.
 %Furthermore, the algorithm is executed by a global observer which has information about the complete network.
 
 
-==> ALGUMAS PARTES ESTÃO MUITO REPETITIVAS COM A SEÇAO DE CIMA. PRECISA REVER PARA NÃO FICAR MUITO REPETITIVO. <==
+%==> ALGUMAS PARTES ESTÃO MUITO REPETITIVAS COM A SEÇAO DE CIMA. PRECISA REVER PARA NÃO FICAR MUITO REPETITIVO. <==
 
 
 Truman is based on the MaNI algorithm \cite{vernize2015malicious}, which suggested the use of Tarjan's algorithm and the graph coloring algorithm used here.
 However, MaNI was developed for static networks such as social networks, and is executed by an external supervising agent (i.e. outside of the network), making it unsuitable for a vehicular network.
 %The work describes here takes advantage of the efficiency of the two graph theory algorithms into a model that is viable for highly dynamic networks.
 
-In order to work with dynamic networks, the Truman algorithm must consider snapshots as inputs.
-The algorithm runs continuously, running new iterations at predetermined intervals.
-Each iteration $i$ is associated with a timestamp, which indicates when the snapshot was taken.
-A snapshot $G_i = (V_i, E_i)$ represents the complete topology of the network at the iteration $i$; $V_i$ is the set of nodes participating in the network at that time and $E_i$ is the set of edges connecting pairs of nodes within communication range of each other.
-As the network is dynamic, it is expected that each $G_i$ is different from $G_{i-1}$, but also that the changes follow a determined mobility model.
+%In order to work with dynamic networks, the Truman algorithm must consider snapshots as inputs.
+%The algorithm runs continuously, running new iterations at predetermined intervals.
+%Each iteration $i$ is associated with a timestamp, which indicates when the snapshot was taken.
+%A snapshot $S_i$ represents the complete topology of the network at the iteration $i$.
+%%; $V_i$ is the set of nodes participating in the network at that time and $E_i$ is the set of edges connecting pairs of nodes within communication range of each other.
+%As the network is dynamic, it is expected that each $S_i$ is different from $S_{i-1}$, but also that the changes follow a determined mobility model.
 
+In order to work with dynamic networks, the Truman algorithm runs iterations at predetermined intervals.
+%As nodes acquire more information, their model of the network will change.
 Furthermore, the algorithm runs in a decentralized fashion, meaning each node in the network runs its own instance of the algorithm.
-%This is necessary because it is not reasonable to expect a supervisor of the network to have complete knowledge of the nodes and relationships in the network.
 Each node starts knowing information only about itself and maintains its own abstraction of the network surrounding it.
-Every node $u$ has a static, connected and directed trust graph $T^u = (V^u, O^u)$, in which $V^u$ is the set of nodes $u$ is aware of and $O^u$ is the set of trust relationships (opinions) $u$ knows between members of $V^u$.
-Since $T^u$ changes over time, there is a $T^u_i = (V^u_i, O^u_i)$ for every iteration $i$.
+Every node $u$ stores a model of the network in the form of a static, connected and directed trust graph $T = (V, E)$, in which $V$ is the set of nodes $u$ is aware of and $E$ is the set of trust relationships (opinions) $u$ knows about between members of $V$.
+Since each node has its own model and the model changes over time, there is a $T^u_i = (V^u_i, E^u_i)$ for every node $u$ and iteration $i$.
 
 %==> VOCE NAO FALOU DOS PESOS DAS ARESTAS AINDA
 
 %==> ACHO QUE PRECISA FALAR AQUI DA PRINCIPAL DIFERENCA PARA O MaNI, QUE AQUI ESTAMOS FALANDO DE REDE MOVEL E ALGORITMO DISTRIBUIDO
 
-
 At first, the node is collecting and organizing information.
-The storage of an abstraction of the network in the form of a trust graph $T$ is crucial for the remainder of the algorithm.
-A prerequisite of step 2 is a test that correctly classifies a neighboring node as benign or malicious.
+A prerequisite of this step is a test that correctly classifies a neighboring node as benign or malicious.
 There are several ways to perform such a test, but a study between these methods is out of the scope of this paper.
-After these steps, $T^u_i$ is formed, which is then used for the following steps.
+Every time a neighboring node $v$ is tested as benign, the trust graph $T^v_{i-1}$ is merged into $u$'s trust graph.
+After this, a new $T^u_i$ is formed, which is then used for the following steps.
 
-Each edge $w \rightarrow v \in O^u_i$ is weighted according to the degree of trust $w$ has for $v$ with a value between 0 and 1.
-The closer the value is to 1, the more $w$ trusts $v$.
-These values are not mutual, so the value of $w \rightarrow v$ can be different from the value of $v \rightarrow w$.
+%Each edge $w \rightarrow v \in E^u_i$ is weighted according to the degree of trust $w$ has for $v$ with a value between 0 and 1.
+%The closer the value is to 1, the more $w$ trusts $v$.
+%These values are not mutual, so the value of $w \rightarrow v$ can be different from the value of $v \rightarrow w$.
 
-After the collection of data, $T^u_i$ is separated into strongly connected components using Tarjan's algorithm \cite{tarjan1972depth}, which is described in detail on \autoref{section:tarjan}.
-For each node in a component, there is a path formed by edges of weight higher than a threshold $0 < t < 1$ to each other node in the same component.
+After the collection of data, $T^u_i$ is separated into strongly connected components using Tarjan's algorithm \cite{tarjan1972depth}.
+For each node in a component, there is a path formed by edges of weight higher than the threshold $h$ to each other node in the same component.
 In other words, within a single component, all nodes trust one another directly or indirectly; nodes that do not satisfy this condition are separated into different components.
-Each of these components becomes a node of a component graph $C^u_i = (V'^u_i, O'^u_i)$.
+Each of these components becomes a node of a component graph $C^u_i = (V'^u_i, E'^u_i)$.
 
 The creation of $C^u_i$ simplifies the remaining computation.
 Since each vertex $v' \in V'^u_i$ is a component of $T^u_i$ in which all nodes trust each other, for the purposes of identifying malicious nodes, all nodes within each of those components can be treated as the same.
@@ -308,14 +313,21 @@ They can either be benign nodes which legitimately trust one another, or malicio
 After the formation of $C^u_i$, a heuristic is used to classify the nodes as benign or malicious.
 
 
-==> PRIMEIRA FRASE ESTA ESTRANHA <==
+%==> PRIMEIRA FRASE ESTA ESTRANHA <==
 In this study, the coloring heuristic is used to classify nodes, which uses the algorithm described in \autoref{section:coloring} \cite{mittal2011graph}, although other heuristics may be considered.
-After running either algorithms with graph $C^u_i$ as input, the color whose nodes in $C^u_i$ represent the most nodes in $T^u_i$ is classified as correct, and all others are classified as malicious.
-Once this information in $C^u_i$ is brought back to graph $T^u_i$, it is trivial to label the nodes in $T^u_i$ as either benign or malicious based on their components' classifications.
+After running the graph coloring algorithm with graph $C^u_i$ as input, the color whose nodes in $C^u_i$ represent the most nodes in $T^u_i$ is classified as correct, and all others are classified as malicious.
+Once this information from $C^u_i$ is brought back to graph $T^u_i$, it is trivial to label the nodes in $T^u_i$ as either benign or malicious based on their components' classifications.
 
 %In the experiments shown in \cite{vernize2013dissertation}, the coloring heuristic shows the most promising results, identifying a high ratio of the malicious nodes in the network.
 %Other heuristics were experimented with, but were either less effective in detecting malicious nodes, or provided too many false positives.
 %Therefore, for the purposes of this research, only the coloring heuristic is considered.
+
+The complexity of the whole algorithm can be calculated by adding the most costly operations involved.
+As discussed above, Tarjan's algorithm has a complexity of $O(|V|+|E|)$ (for the trust graph $T$), while the graph coloring algorithm has a complexity of $O(|E'|)$ (for the component graph $C$).
+The most costly part of the algorithm is the graph merge operation that happens between trusted nodes.
+The complexity of the graph merge algorithm is $O(|E|)$ for each neighbor a node has in an iteration; this number is at most $|V|$.
+The total complexity of Truman is therefore $O(|V|+|E|)+O(|E'|)+O(|V|\times |E|)$.
+Since $|O'| \leq |E|$ and $|V|+|E| \leq |V|\times |E|$, the complexity can be simplified to $O(|V| \times |E|)$.
 
 In summary, every node $u$ runs the following steps in each iteration to detect malicious nodes in the network:
 
@@ -385,15 +397,14 @@ In summary, every node $u$ runs the following steps in each iteration to detect 
 %Furthermore, this implies that the malicious node detection algorithm runs using incomplete graph knowledge.
 %This is expected and generally unavoidable in vehicular networks, which have high mobility and can be extremely large.
 
-
 \section{Results}
 \label{section:results}
 
-In order to test the trust model, simulations were made using an implementation of the algorithm in Python.
-To generate the input graphs with node mobility, the ONE simulator \cite{keranen2009one} was used in conjunction with the Working Day Movement Model \cite{ekman2008working}, which provides a reasonable imitation of vehicle movement in real life.
+In order to test the Truman trust model, simulations were made using an implementation of the algorithm in Python.
+To generate the input graphs with node mobility, the ONE simulator \cite{keranen2009one} was used in conjunction with the Working Day Movement Model \cite{ekman2008working}, which provides strong similarity with vehicle movement in real life.
 Snapshots of the network were taken every 10 simulated seconds, and these snapshots were used as input for the algorithm.
 
-Most of the parameters for the simulator were taken from the article detailing the Working Day Movement Model.
+Most of the parameters for the simulator were taken from the article detailing the Working Day Movement Model \cite{ekman2008working}.
 The simulation ran for 86400 seconds (24 hours), with a work day length of 28800 seconds and a standard deviation of departure time of 7200 seconds.
 Nodes move between 7 and 10 m/s in an area of approximately 14 km\textsuperscript{2} based on a section of the map of Helsinki.
 %The number of nodes and their communication range vary for different simulations.
@@ -402,31 +413,39 @@ Since this simulation is for vehicles instead of pedestrians, there are no buses
 The parameters regarding offices, meeting spots and shopping were kept intact.
 
 \subsection{Network Density}
-The communication range of nodes vary from 10m to 50m, to illustrate the impact of different network densities.
-The network density is a value that abstracts the volume and frequency of connections in a vehicular network.
-It is calculated using the communication range of the nodes, the amount of nodes, and the total area of the simulation.
-For this trust model, higher densities yield better results, since nodes can construct and update their models of the network more quickly (this is demonstrated in \autoref{subsection:simulations}).
 
-The simulations shown here have densities that vary between 0.001 (10m range) and 0.04 (50m range).
+==> PRECISA MOSTRAR A EQUAÇÃO DE CALCULO DA DENSIDADE, SENÃO FICA DIFICIL DE ENTENDER O CALCULO.
+
+The communication range of nodes vary from 10m to 50m, to illustrate the impact of different network densities.
+The network density is a value which abstracts the volume and frequency of connections in a vehicular network.
+It is calculated using the transmission range of the nodes, the amount of nodes, and the total area of the simulation.
+For TruMan, higher densities yield better results, since nodes can construct and update their models of the network faster (this is demonstrated in \autoref{subsection:simulations}).
+
+Simulations shown here have densities that varying between 0.001 (10m range) and 0.04 (50m range).
 As a comparison, the density of São Paulo was calculated as 2.24 with 10m range, a value much higher than what is necessary for the algorithm.
 
 \subsection{Simulations}
 \label{subsection:simulations}
-To improve readability, all figures in this section follow the same format.
-The $X$ axis shows the results of sequential iterations, ranging from 0 to 8639, while the $Y$ axis shows a percentage of all nodes in the network, ranging from 0 to 100.
-The blue line represents the percentage of nodes detected out of the complete network.
-Magenta is the percentage of malicious nodes in the network (ground truth).
-Finally, green represents the nodes correctly identified as malicious (true positives), cyan represents the undetected malicious nodes (false negatives) and red represents the benign nodes incorrectly identified as malicious (false positives).
+To improve readability, all figures in this section follow the same format:
 
+\begin{itemize}
+\item $X$ axis shows the results of sequential iterations, ranging from 0 to 8639;
+\item $Y$ axis shows a percentage of all nodes in the network, ranging from 0 to 100;
+\item Blue line represents the percentage of nodes detected out of the complete network;
+\item Magenta is the percentage of malicious nodes in the network (ground truth);
+\item Green represents the nodes correctly identified as malicious (true positives);
+\item Cyan represents the undetected malicious nodes (false negatives); 
+\item Red represents the benign nodes incorrectly identified as malicious (false positives).
+\end{itemize}
 
 \autoref{fig:random103050} shows the results of simulations running with 10\% of nodes acting maliciously, with communications range varying from 10m to 50m.
-It is possible to see how the increase in communication range allows the algorithm to converge much sooner, taking over 8000 iterations with 10m range and achieving solid results at just over 1000 iterations with 50m range. 
+It is possible to see how the increase in the communication range allows the algorithm to converge much sooner, taking over 8000 iterations with 10m range and achieving solid results at just over 1000 iterations with 50m range. 
 
 \autoref{fig:random0} and \autoref{fig:random1} show the variation of results for different amounts of malicious nodes in the network.
 By the end of one day, the algorithm is able to detect all malicious nodes when they are up to 30\% of the network.
 At 40\%, a small part of malicious nodes are yet to be detected.
-At 50\%, as is expected, the results are inconsistent as control of the network is completely divided between benign and malicious nodes; at this point, the network is completely compromised.
-The amount of malicious nodes also affects network discovery, since nodes do not trust information from malicious neighbors.
+At 50\%, as expected, the results are inconsistent the network is completely split between benign and malicious nodes; at this point, the network is completely compromised.
+The amount of malicious nodes also affects convergence of the algorithm, since nodes do not trust information from malicious neighbors.
 
 \autoref{fig:random7} shows the execution of the algorithm over the course of 7 days.
 Most malicious nodes are identified by the end of the first day; in the following iterations, the algorithm finishes building the network model and sorts out remaining false negative or false positive results.
@@ -458,15 +477,18 @@ After iteration 20000, the results are completely consistent.
 
 % ----
 
+
+==> AUMETEI UM POUCO AS FIGURAS, MAS ELAS PARECEM ESTAR MEIO DEFOCADAS, VE SE CONSEGUE MELHORAR UM POUCO A QUALIDADE DELAS.
+
 \begin{figure*}
 \centering
-\includegraphics[width=0.3\linewidth]{Network_rA_10.0/new_plots/30.png}
+\includegraphics[width=0.329\linewidth]{Network_rA_10.0/new_plots/30.png}
 %\caption{Simulation with random nodes and range of 10m.} \label{fig:random10}
-\hspace{1pt}
-\includegraphics[width=0.3\linewidth]{Network_rA_10.0/new_plots/30.png}
+%\hspace{1pt}
+\includegraphics[width=0.329\linewidth]{Network_rA_10.0/new_plots/30.png}
 %\caption{Simulation with random nodes and range of 30m.} \label{fig:random30}
-\hspace{1pt}
-\includegraphics[width=0.3\linewidth]{Network_rA_10.0/new_plots/50.png}
+%\hspace{1pt}
+\includegraphics[width=0.329\linewidth]{Network_rA_10.0/new_plots/50.png}
 \caption{Simulation with random nodes, 10\% malicious and range of 10m, 30m and 50m.} 
 \label{fig:random103050}
 \end{figure*}
@@ -487,11 +509,11 @@ After iteration 20000, the results are completely consistent.
 
 \begin{figure*}
 \centering
-\includegraphics[width=0.3\linewidth]{Network_rA/10_1}
-\hspace{1pt}
-\includegraphics[width=0.3\linewidth]{Network_rA/10_5}
-\hspace{1pt}
-\includegraphics[width=0.3\linewidth]{Network_rA/10_10}
+\includegraphics[width=0.329\linewidth]{Network_rA/10_1}
+%\hspace{1pt}
+\includegraphics[width=0.329\linewidth]{Network_rA/10_5}
+%\hspace{1pt}
+\includegraphics[width=0.329\linewidth]{Network_rA/10_10}
 \caption{Simulation with random nodes, range of 10m and 1\%, 5\% or 10\% malicious.}
 \label{fig:random0}
 \end{figure*}
@@ -516,9 +538,9 @@ After iteration 20000, the results are completely consistent.
 
 \begin{figure*}
 \centering
-\includegraphics[width=0.3\linewidth]{Network_rA/10_30}
-\includegraphics[width=0.3\linewidth]{Network_rA/10_40}
-\includegraphics[width=0.3\linewidth]{Network_rA/10_50}
+\includegraphics[width=0.329\linewidth]{Network_rA/10_30}
+\includegraphics[width=0.329\linewidth]{Network_rA/10_40}
+\includegraphics[width=0.329\linewidth]{Network_rA/10_50}
 \caption{Simulation with random nodes, range of 10m and 30\%, 40\% or 50\% malicious.}
 \label{fig:random1}
 \end{figure*}
@@ -653,6 +675,7 @@ After iteration 20000, the results are completely consistent.
 % footnotes above bottom floats. This can be corrected via the
 % \fnbelowfloat command of the stfloats package.
 
+
 \section{Previous work}
 \label{section:previouswork}
 
@@ -695,7 +718,7 @@ The usage of components and coloring serve as basis for the trust model proposed
  \hline
  Robustness & - & \checkmark & - & - & \\
  \hline
- Cost & $O(|V|* |O|)$ & n/a & n/a & n/a & n/a \\
+ Cost & $O(|V| \times |O|)$ & $O(|V|+|O|)$ & n/a & n/a & n/a \\
  \hline
 \end{tabular}
 \end{table}
