@@ -414,15 +414,21 @@ The parameters regarding offices, meeting spots and shopping were kept intact.
 
 \subsection{Network Density}
 
-==> PRECISA MOSTRAR A EQUAÇÃO DE CALCULO DA DENSIDADE, SENÃO FICA DIFICIL DE ENTENDER O CALCULO.
+%==> PRECISA MOSTRAR A EQUAÇÃO DE CALCULO DA DENSIDADE, SENÃO FICA DIFICIL DE ENTENDER O CALCULO.
 
 The communication range of nodes vary from 10m to 50m, to illustrate the impact of different network densities.
-The network density is a value which abstracts the volume and frequency of connections in a vehicular network.
-It is calculated using the transmission range of the nodes, the amount of nodes, and the total area of the simulation.
-For TruMan, higher densities yield better results, since nodes can construct and update their models of the network faster (this is demonstrated in \autoref{subsection:simulations}).
+The network density ($\delta$) is a value which abstracts the volume and frequency of connections in a vehicular network by estimating how much of the environment is covered by the network.
+For Truman, higher densities yield better results, since nodes can construct and update their models of the network faster (this is demonstrated in \autoref{subsection:simulations}).
+It is calculated using the transmission range of the nodes ($\sigma$), the amount of nodes($\eta$), and the total area of the simulation($\alpha$).
+
+The coverage of a single node is the circumference around it formed by the transmission radius; this is multiplied by the number of nodes in the network to estimate the maximum coverage area.
+Finally, the value is divided by the total area of the environment.
+ formula is as follows:
+
+$$ \delta = \frac{\frac{\sigma^2\pi}{2} \times \eta}{\alpha} $$
 
 Simulations shown here have densities that varying between 0.001 (10m range) and 0.04 (50m range).
-As a comparison, the density of São Paulo was calculated as 2.24 with 10m range, a value much higher than what is necessary for the algorithm.
+As a comparison, the density of São Paulo was calculated as 2.24 with 10m range, a value much higher than what is necessary for a satisfactory performance of the algorithm.
 
 \subsection{Simulations}
 \label{subsection:simulations}
@@ -478,7 +484,7 @@ After iteration 20000, the results are completely consistent.
 % ----
 
 
-==> AUMETEI UM POUCO AS FIGURAS, MAS ELAS PARECEM ESTAR MEIO DEFOCADAS, VE SE CONSEGUE MELHORAR UM POUCO A QUALIDADE DELAS.
+%==> AUMETEI UM POUCO AS FIGURAS, MAS ELAS PARECEM ESTAR MEIO DEFOCADAS, VE SE CONSEGUE MELHORAR UM POUCO A QUALIDADE DELAS.
 
 \begin{figure*}
 \centering
@@ -679,47 +685,75 @@ After iteration 20000, the results are completely consistent.
 \section{Previous work}
 \label{section:previouswork}
 
-
-==> FALTA DETALHAR ELES.
-
 Several models have been proposed to solve the problem of trust in vehicular networks. 
-In this section, some of the most relevant ones are described, considering the time in which they were proposed, the advantages they bring and their contributions to later study. 
-None of them provide a complete solution, but serve as pieces of a puzzle that is still incomplete. 
-Many trust management solutions for VANETs have been proposed over the years, such as \cite{patwardhan2006data}, \cite{gerlach2007trust}, \cite{raya2008data}, \cite{huang2010situation}, \cite{ding2013novel}, \cite{haddadou2013trust}, \cite{liu2016lsot}, \cite{kerrache2016detection}.
-There are also some review and/or survey articles on the subject of VANET trust models, such as \cite{zhang2011survey}, \cite{ma2011survey}, \cite{zhang2012trust}, \cite{mejri2014survey}, \cite{soleymani2015trust} \cite{sengar2016survey}, and \cite{dwivedi2016review}.
+The analysis of related work is based on \cite{zhang2011survey}, which proposes eight desired properties of a trust management model for VANETs.
+In the first part of this section, these properties are described with an assessment of whether or not Truman satisfies their conditions.
+Then, some of the most relevant models are described, considering how well they satisfy the desired properties and how they compare with Truman.
 
-For the Malicious Node Identification Algorithm (MaNI) proposed in \cite{vernize2015malicious}, the authors present a malicious node identification scheme based on strongly connected components and graph coloring.
-The model is proposed for complex networks in general, but is not suited for VANETs because it is designed only for static networks.
-Furthermore, the algorithm is executed by a global observer which has information about the complete network.
-It is, however, very efficient thanks to the classification of nodes into components and the usage of a fast heuristic.
-The usage of components and coloring serve as basis for the trust model proposed here, which is expanded to work on distributed and dynamic networks such as vehicular networks.
+The first property is \textit{decentralized trust establishment}, which means nodes must be able to form their own trust values about other nodes.
+Nodes may or not use information from other trustworthy nodes to build trust values.
+Truman satisfies this as it is built from the ground up for decentralized systems.
+
+The second is \textit{coping with sparsity}, meaning the model still functions when there are few nodes populating the network.
+The experiments using low density values demonstrate that Truman works in reasonably sparse networks.
+Due to its decentralized nature, it can also work on isolated chunks of the network.
+
+Then there are \textit{event/task and location/time dynamics}, which is how the model reacts to different situations depending on what, where and when events happen.
+Although this has not been used in the simulations in this paper, Truman can easily be extended to receive time and location dynamics as long as nodes store the geolocation and timestamp data when it acquires new information.
+
+The fourth desired property is \textit{scalability}, meaning the model can work on very large networks at high speeds.
+Due to the low complexity of the algorithms used in the model, Truman can be highly scalable, as it does not put substantial pressure on the vehicles' on-board units.
+It has also been demonstrated that iterations of the algorithm do not need to run extremely frequently in order to detect malicious nodes with high accuracy.
+
+The fifth is an \textit{integrated confidence measure}, a value that allows nodes to estimate just how useful the output of the algorithm is.
+Since nodes using Truman store trust values as a number between 0 and 1, this value can be used as a confidence measure of the opinion.
+The closer it is to 1, the higher the chance that it is accurate.
+
+The sixth is \textit{system level security}, which requires authentication of nodes participating in the network.
+This has not been used in simulations of Truman, but can be included as a separate security model during the transmission of messages.
+
+The seventh is \textit{sensitivity to privacy concerns}, which avoids eavesdropping and stalking by malicious nodes.
+Truman has not been designed with this in mind, but it doesn't inhibit privacy protection, however it does require that nodes cannot be completely anonymous --- there must be some way of identifying the same node over time.
+
+Finally, there is \texit{robustness}, which is the model's resistance to attacks.
+Truman satisfies this as malicious nodes are usually identified quickly and accurately, making it difficult for them to perform attacks.
+
+%None of them provide a complete solution, but serve as pieces of a puzzle that is still incomplete. 
+%Many trust management solutions for VANETs have been proposed over the years, such as \cite{patwardhan2006data}, \cite{gerlach2007trust}, \cite{raya2008data}, \cite{huang2010situation}, \cite{ding2013novel}, \cite{haddadou2013trust}, \cite{liu2016lsot}, \cite{kerrache2016detection}.
+%There are also some review and/or survey articles on the subject of VANET trust models, such as \cite{zhang2011survey}, \cite{ma2011survey}, \cite{zhang2012trust}, \cite{mejri2014survey}, \cite{soleymani2015trust} \cite{sengar2016survey}, and \cite{dwivedi2016review}.
+%
+%For the Malicious Node Identification Algorithm (MaNI) proposed in \cite{vernize2015malicious}, the authors present a malicious node identification scheme based on strongly connected components and graph coloring.
+%The model is proposed for complex networks in general, but is not suited for VANETs because it is designed only for static networks.
+%Furthermore, the algorithm is executed by a global observer which has information about the complete network.
+%It is, however, very efficient thanks to the classification of nodes into components and the usage of a fast heuristic.
+%The usage of components and coloring serve as basis for the trust model proposed here, which is expanded to work on distributed and dynamic networks such as vehicular networks.
 
 \begin{table}[h!]
 \caption{Properties of Truman and related work}
 \label{table:schedule}
 \centering
-\begin{tabular}{|p{1.5cm}||p{1.5cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
+\begin{tabular}{|p{1.5cm}||p{0.8cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
  \hline
- \textbf{Task} & Truman & \cite{vernize2013dissertation} & \cite{golle2004detecting} & \cite{patwardhan2006data} & \cite{minhas2010towards} \\
+ \textbf{Task} & Truman & \cite{vernize2013dissertation} & \cite{golle2004detecting} & \cite{minhas2010towards} & \cite{patwardhan2006data} & [00] & [00] \\
  \hline
- Decentralized & - & \checkmark & - & - & \\
+ Decentralized 	& \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & & \\
  \hline
- Sparsity & - & \checkmark & - & - & \\
+ Sparsity 		& \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & & \\
  \hline
- Dynamics & - & \checkmark & - & - & \\
+ Dynamics 		& \checkmark & - 		  & -		   & \checkmark & \checkmark & & \\
  \hline
- Scalability & - & \checkmark & - & - & \\
+ Scalability 	& \checkmark & \checkmark & -		   & \checkmark & \checkmark & & \\
  \hline
- Confidence & - & \checkmark & - & - & \\
+ Confidence 	& \checkmark & \checkmark & -		   & \checkmark & \checkmark & & \\
  \hline
- Security & - & \checkmark & - & - & \\
+ Security 		& \checkmark & - 		  & \checkmark & \checkmark & \checkmark & & \\
  \hline
- Privacy & - & \checkmark & - & - & \\
+ Privacy 		& - 		 & - 		  & \checkmark & \checkmark & - 		 & & \\
  \hline
- Robustness & - & \checkmark & - & - & \\
+ Robustness 	& \checkmark & - 		  & \checkmark & -			& - 		 & & \\
  \hline
- Cost & $O(|V| \times |O|)$ & $O(|V|+|O|)$ & n/a & n/a & n/a \\
- \hline
+% Cost & O(|V|* |E|) & O(|V|+|E|) & n/a & n/a & n/a \\
+% \hline
 \end{tabular}
 \end{table}
 
