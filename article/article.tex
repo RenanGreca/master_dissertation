@@ -16,6 +16,7 @@
 
 
 \usepackage{cleveref}
+\usepackage{subfig}
 
 \usepackage{tikz}
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
@@ -404,13 +405,42 @@ In order to test the Truman trust model, simulations were made using an implemen
 To generate the input graphs with node mobility, the ONE simulator \cite{keranen2009one} was used in conjunction with the Working Day Movement Model \cite{ekman2008working}, which provides strong similarity with vehicle movement in real life.
 Snapshots of the network were taken every 10 simulated seconds, and these snapshots were used as input for the algorithm.
 
+\begin{table}[h!]
+\caption{Simulation parameters}
+\label{table:parameters}
+\centering
+\begin{tabular}{|p{3cm}||p{3cm}|}
+ \hline
+ \textbf{Parameter}	& \textbf{Value} \\
+ \hline
+ \hline
+ Duration 			& 86400 seconds \\
+ \hline
+ Work day length 	& 28800 seconds \\
+ \hline
+ Std. dev. departure time & 7200 seconds \\
+ \hline
+ Node velocity 		& 7~10m/s \\
+ \hline
+ Simulation area	& approximately 14km\textsuperscript{2} \\
+ \hline
+ Number of nodes 	& 150 (WDMM) \\
+  					& + 10 (random) \\
+ \hline
+% Cost & O(|V|* |E|) & O(|V|+|E|) & n/a & n/a & n/a \\
+% \hline
+\end{tabular}
+\end{table}
+
 Most of the parameters for the simulator were taken from the article detailing the Working Day Movement Model \cite{ekman2008working}.
-The simulation ran for 86400 seconds (24 hours), with a work day length of 28800 seconds and a standard deviation of departure time of 7200 seconds.
-Nodes move between 7 and 10 m/s in an area of approximately 14 km\textsuperscript{2} based on a section of the map of Helsinki.
-%The number of nodes and their communication range vary for different simulations.
-There is a total of 160 nodes, 150 of which are following the Working Day Movement Model, and the other 10 are moving randomly to simulate vehicles that do not follow daily patterns.
+Different parameters are shown in \autoref{table:parameters}.
+%The simulation ran for 86400 seconds (24 hours), with a work day length of 28800 seconds and a standard deviation of departure time of 7200 seconds.
+%Nodes move between 7 and 10 m/s in an area of approximately 14 km\textsuperscript{2} based on a section of the map of Helsinki.
+%%The number of nodes and their communication range vary for different simulations.
+%There is a total of 160 nodes, 150 of which are following the Working Day Movement Model, and the other 10 are moving randomly to simulate vehicles that do not follow daily patterns.
 Since this simulation is for vehicles instead of pedestrians, there are no buses in the model and every node is guaranteed to own a vehicle and travel by car.
 The parameters regarding offices, meeting spots and shopping were kept intact.
+A small part of nodes move randomly to simulate vehicles that do not follow daily patterns.
 
 \subsection{Network Density}
 
@@ -486,18 +516,29 @@ After iteration 20000, the results are completely consistent.
 
 %==> AUMETEI UM POUCO AS FIGURAS, MAS ELAS PARECEM ESTAR MEIO DEFOCADAS, VE SE CONSEGUE MELHORAR UM POUCO A QUALIDADE DELAS.
 
-\begin{figure*}
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=0.329\linewidth]{Network_rA_10.0/new_plots/30.png}
-%\caption{Simulation with random nodes and range of 10m.} \label{fig:random10}
-%\hspace{1pt}
-\includegraphics[width=0.329\linewidth]{Network_rA_10.0/new_plots/30.png}
-%\caption{Simulation with random nodes and range of 30m.} \label{fig:random30}
-%\hspace{1pt}
-\includegraphics[width=0.329\linewidth]{Network_rA_10.0/new_plots/50.png}
-\caption{Simulation with random nodes, 10\% malicious and range of 10m, 30m and 50m.} 
+\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA_10.0/new_plots/10.png}%
+\label{subfig:random10}}
+\hfil
+\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA_10.0/new_plots/30.png}%
+\label{subfig:random30}}
+\hfil
+\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA_10.0/new_plots/50.png}%
+\label{subfig:random50}}
+\caption{Simulation with random nodes, 10\% malicious and range of (a) 10m, (b) 30m and (c) 50m.}
 \label{fig:random103050}
 \end{figure*}
+
+
+%\includegraphics[width=0.329\linewidth]{Network_rA_10.0/new_plots/30.png}
+%\caption{a}
+%%\caption{Simulation with random nodes and range of 30m.} \label{fig:random30}
+%%\hspace{1pt}
+%\includegraphics[width=0.329\linewidth]{Network_rA_10.0/new_plots/50.png}
+%\caption{Simulation with random nodes, 10\% malicious and range of 10m, 30m and 50m.} 
+%\label{fig:random103050}
+%\end{figure*}
 
 %\begin{figure}
 %\centering
@@ -513,16 +554,40 @@ After iteration 20000, the results are completely consistent.
 
 % ----
 
-\begin{figure*}
+\begin{figure*}[!t]
 \centering
-\includegraphics[width=0.329\linewidth]{Network_rA/10_1}
-%\hspace{1pt}
-\includegraphics[width=0.329\linewidth]{Network_rA/10_5}
-%\hspace{1pt}
-\includegraphics[width=0.329\linewidth]{Network_rA/10_10}
-\caption{Simulation with random nodes, range of 10m and 1\%, 5\% or 10\% malicious.}
+\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA/10_1}%
+\label{subfig:random1}}
+\hfil
+\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA/10_5}%
+\label{subfig:random2}}
+\hfil
+\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA/10_10}%
+\label{subfig:random3}}
+
+\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA/10_30}%
+\label{subfig:random4}}
+\hfil
+\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA/10_40}%
+\label{subfig:random5}}
+\hfil
+\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA/10_50}%
+\label{subfig:random6}}
+
+\caption{Simulation with random nodes, range of 10m and (a) 1\%, (b) 5\%, (c) 10\%, (d) 30\%, (e) 40\% or (f) 50\% malicious.}
 \label{fig:random0}
 \end{figure*}
+
+%\begin{figure*}
+%\centering
+%\includegraphics[width=0.329\linewidth]{Network_rA/10_1}
+%%\hspace{1pt}
+%\includegraphics[width=0.329\linewidth]{Network_rA/10_5}
+%%\hspace{1pt}
+%\includegraphics[width=0.329\linewidth]{Network_rA/10_10}
+%\caption{Simulation with random nodes, range of 10m and 1\%, 5\% or 10\% malicious.}
+%\label{fig:random0}
+%\end{figure*}
 
 %\begin{figure}
 %\centering0.5
@@ -542,14 +607,28 @@ After iteration 20000, the results are completely consistent.
 %\caption{Simulation with random nodes, range of 10m and 20\% malicious.} \label{fig:random3}
 %\end{figure}
 
-\begin{figure*}
-\centering
-\includegraphics[width=0.329\linewidth]{Network_rA/10_30}
-\includegraphics[width=0.329\linewidth]{Network_rA/10_40}
-\includegraphics[width=0.329\linewidth]{Network_rA/10_50}
-\caption{Simulation with random nodes, range of 10m and 30\%, 40\% or 50\% malicious.}
-\label{fig:random1}
-\end{figure*}
+%\begin{figure*}[!t]
+%\centering
+%\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA/10_30}%
+%\label{subfig:random4}}
+%\hfil
+%\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA/10_40}%
+%\label{subfig:random5}}
+%\hfil
+%\subfloat[]{\includegraphics[width=0.329\linewidth]{Network_rA/10_50}%
+%\label{subfig:random6}}
+%\caption{Simulation with random nodes, range of 10m and (a) 30\%, (b) 40\% or (c) 50\% malicious.}
+%\label{fig:random1}
+%\end{figure*}
+
+%\begin{figure*}
+%\centering
+%\includegraphics[width=0.329\linewidth]{Network_rA/10_30}
+%\includegraphics[width=0.329\linewidth]{Network_rA/10_40}
+%\includegraphics[width=0.329\linewidth]{Network_rA/10_50}
+%\caption{Simulation with random nodes, range of 10m and 30\%, 40\% or 50\% malicious.}
+%\label{fig:random1}
+%\end{figure*}
 
 %\begin{figure}
 %\centering
@@ -567,7 +646,7 @@ After iteration 20000, the results are completely consistent.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\linewidth]{Network_rA7/10_10}
+\includegraphics[width=\linewidth]{Network_rA7/10_10}
 \caption{Simulation with random nodes, range of 10m and 10\% malicious during 7 days.} \label{fig:random7}
 \end{figure}
 
@@ -682,13 +761,16 @@ After iteration 20000, the results are completely consistent.
 % \fnbelowfloat command of the stfloats package.
 
 
-\section{Previous work}
+\section{Related work}
 \label{section:previouswork}
 
 Several models have been proposed to solve the problem of trust in vehicular networks. 
 The analysis of related work is based on \cite{zhang2011survey}, which proposes eight desired properties of a trust management model for VANETs.
 In the first part of this section, these properties are described with an assessment of whether or not Truman satisfies their conditions.
-Then, some of the most relevant models are described, considering how well they satisfy the desired properties and how they compare with Truman.
+Then, some of the most relevant models are described, considering how well they satisfy the desired properties and \autoref{table:properties} shows how they compare with Truman.
+
+\subsection{Desired properties}
+\label{section:properties}
 
 The first property is \textit{decentralized trust establishment}, which means nodes must be able to form their own trust values about other nodes.
 Nodes may or not use information from other trustworthy nodes to build trust values.
@@ -715,42 +797,76 @@ This has not been used in simulations of Truman, but can be included as a separa
 The seventh is \textit{sensitivity to privacy concerns}, which avoids eavesdropping and stalking by malicious nodes.
 Truman has not been designed with this in mind, but it doesn't inhibit privacy protection, however it does require that nodes cannot be completely anonymous --- there must be some way of identifying the same node over time.
 
-Finally, there is \texit{robustness}, which is the model's resistance to attacks.
+Finally, there is \textit{robustness}, which is the model's resistance to attacks.
 Truman satisfies this as malicious nodes are usually identified quickly and accurately, making it difficult for them to perform attacks.
+
+\subsection{Comparison with other trust models}
+\label{section:comparison}
+
+For the Malicious Node Identification Algorithm (MaNI) proposed in \cite{vernize2015malicious}, the authors present a malicious node identification scheme based on strongly connected components and graph coloring.
+The model is proposed for complex networks in general, but is designed only for static networks and the algorithm relies on a global observer which has information about the complete network.
+It is, however, very efficient thanks to the classification of nodes into components and the usage of a fast heuristic.
+The usage of strongly connected components and coloring serve as basis for Truman, which is expanded to work on distributed and dynamic networks such as vehicular networks.
+
+The model proposed in \cite{minhas2010towards} uses several criteria to judge whether or not a received message is trustworthy.
+First, nodes are classified by their roles, used for vehicles which should be automatically trustworthy (i.e. police cars).
+Nodes also store their experience each time an event message is received (if one neighboring node reported an event which did not turn out to be true, its trust value is reduced).
+Additionally, messages have higher reliability when their senders are closer in time and space to the reported event.
+When several messages about the same event are received, a node can either choose the $n$ most trustworthy senders, according to the priority (fewer chosen nodes means a faster, but less precise, decision), or compute the majority opinion of the messages according to each sender's trust value.
+%The model considers both role-based trust and experience-based trust; although the work proposed here does not use role-based trust, the authors provide a useful method of calculating and updating an experience-based trust value, which might be used or adapted.
+However, the model relies only on direct interaction between pairs of nodes, so no form of indirect trust (that is, trust values received from other nodes) is considered.
+
+In \cite{chen2010trust}, the authors propose to evaluate messages utilizing a cluster-based trust model.
+By separating nodes into clusters with their geographical neighbors, it is possible to efficiently distribute the evaluation of messages using previously formed opinions.
+When a node sends a message, one node in the cluster (the leader) must aggregate the other nodes' opinions on that message.
+Afterward, the message is only forwarded to another cluster if that aggregate opinion is above a certain threshold; additionally, nodes that receive the message only act upon it if the overall trust on it is above another threshold, which can be different according to the nature of the message.
+However, it is unclear how the model behaves when the network is too sparse to form relevant clusters, neither do the authors inform how the aforementioned thresholds are decided.
+Furthermore, maintaining clusters in a highly dynamic network is a costly job and, if the cluster leader itself is malicious, all the information from that cluster becomes untrustworthy.
+
+The ART model proposed in \cite{li2016art} is similar to Truman in the sense that there are two main steps: data gathering and malicious node detection.
+It uses the Dempster-Shafter theory of evidence to merge data coming from other nodes.
+Then, it uses a Cosine-based metric to compare two nodes' trust vectors (a series of opinions regarding other nodes).
+However, these steps require several intensive calculations, which greatly increases the complexity of the algorithm.
+The authors present no details on how the model deals with sparsity, dynamics, scalability, security and privacy.
+
+The authors of \cite{chen2017cloud} propose a cloud-based solution for a trust model, which requires an Internet-based global trust manager.
+This has the advantage of simplifying properties such as handling sparsity and scalability, but also makes the system slower in general, especially in situations when cellular communication is slow or unreliable.
+It also makes the system prone to attacks, since the whole system collapses if the global trust manager is attacked.
+
+Finally, it is worth noting that, aside from MaNI, none of the mentioned related work presents complexity calculations for their algorithm.
+Considering the scale of the problem, Truman's cost of $O(|V|\times |E|)$ is very low without sacrificing quality.
+The model still satisfies or permits most of the desired properties of a trust model, making it viable for real-world use.
 
 %None of them provide a complete solution, but serve as pieces of a puzzle that is still incomplete. 
 %Many trust management solutions for VANETs have been proposed over the years, such as \cite{patwardhan2006data}, \cite{gerlach2007trust}, \cite{raya2008data}, \cite{huang2010situation}, \cite{ding2013novel}, \cite{haddadou2013trust}, \cite{liu2016lsot}, \cite{kerrache2016detection}.
 %There are also some review and/or survey articles on the subject of VANET trust models, such as \cite{zhang2011survey}, \cite{ma2011survey}, \cite{zhang2012trust}, \cite{mejri2014survey}, \cite{soleymani2015trust} \cite{sengar2016survey}, and \cite{dwivedi2016review}.
 %
-%For the Malicious Node Identification Algorithm (MaNI) proposed in \cite{vernize2015malicious}, the authors present a malicious node identification scheme based on strongly connected components and graph coloring.
-%The model is proposed for complex networks in general, but is not suited for VANETs because it is designed only for static networks.
-%Furthermore, the algorithm is executed by a global observer which has information about the complete network.
-%It is, however, very efficient thanks to the classification of nodes into components and the usage of a fast heuristic.
-%The usage of components and coloring serve as basis for the trust model proposed here, which is expanded to work on distributed and dynamic networks such as vehicular networks.
 
 \begin{table}[h!]
 \caption{Properties of Truman and related work}
-\label{table:schedule}
+\label{table:properties}
 \centering
 \begin{tabular}{|p{1.5cm}||p{0.8cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
  \hline
- \textbf{Task} & Truman & \cite{vernize2013dissertation} & \cite{golle2004detecting} & \cite{minhas2010towards} & \cite{patwardhan2006data} & [00] & [00] \\
+ \textbf{Property} & Truman & \cite{vernize2013dissertation} & \cite{minhas2010towards} & \cite{chen2010trust} & \cite{li2016art} & \cite{chen2017cloud} \\
  \hline
- Decentralized 	& \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & & \\
+ Decentralized 	& \checkmark & -		  & \checkmark & \checkmark & \checkmark & - \\
  \hline
- Sparsity 		& \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & & \\
+ Sparsity 		& \checkmark & -		  & \checkmark & \checkmark & -			 & \checkmark \\
  \hline
- Dynamics 		& \checkmark & - 		  & -		   & \checkmark & \checkmark & & \\
+ Dynamics 		& \checkmark & - 		  & \checkmark & \checkmark & -			 & - \\
  \hline
- Scalability 	& \checkmark & \checkmark & -		   & \checkmark & \checkmark & & \\
+ Scalability 	& \checkmark & \checkmark & \checkmark & \checkmark & -			 & \checkmark \\
  \hline
- Confidence 	& \checkmark & \checkmark & -		   & \checkmark & \checkmark & & \\
+ Confidence 	& \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & - \\
  \hline
- Security 		& \checkmark & - 		  & \checkmark & \checkmark & \checkmark & & \\
+ Security 		& \checkmark & - 		  & \checkmark & \checkmark & - 		 & \checkmark \\
  \hline
- Privacy 		& - 		 & - 		  & \checkmark & \checkmark & - 		 & & \\
+ Privacy 		& - 		 & - 		  & \checkmark & - 			& -			 & \checkmark \\
  \hline
- Robustness 	& \checkmark & - 		  & \checkmark & -			& - 		 & & \\
+ Robustness 	& \checkmark & -		  & -		   & - 			& \checkmark & - \\
+ \hline
+ Efficiency		& \checkmark & \checkmark & -		   & -			& -			 & - \\
  \hline
 % Cost & O(|V|* |E|) & O(|V|+|E|) & n/a & n/a & n/a \\
 % \hline
@@ -766,11 +882,13 @@ While malicious nodes can diminish the usefulness of vehicular networks, the con
 In this paper, a new trust model for vehicular networks was presented, which combines the efficiency of previous algorithms in order to generate fast and accurate results.
 
 As nodes travel across the network and collect more data from neighbor, they are able to form an abstraction of the network which can be used to detect malicious nodes.
-By placing nodes into strongly connected component with Tarjan's algorithm, a network containing a large amount of node can be simplified into a much smaller one.
+By placing nodes into strongly connected components, a network containing a large amount of node can be simplified into a much smaller one.
 And, using a simple graph coloring algorithm, most malicious nodes stand out by having colors different than the majority of nodes.
+This allows for a low complexity approach to malicious node identification in a dynamic network.
 
 The experiments show that vehicles within a network can form a sufficient model of the network in around one day, and by then they are also able to detect nearly every malicious node in the network, with a small amount of false positives.
-Since trust amongst nodes in the network is a value ranging between 0 and 1, the trust between two nodes gradually increases or decreases according to the results of each iteration.
+As the network changes in shape, nodes acquire more information and are able to make even more accurate classifications of malicious nodes around them.
+%Since trust amongst nodes in the network is a value ranging between 0 and 1, the trust between two nodes gradually increases or decreases according to the results of each iteration.
 
 % conference papers do not normally have an appendix
 
