@@ -154,63 +154,63 @@ Every node of the input graph $T$ must belong to a component.
 %In the implementation used, $index$, $lowlink$, $count$ and $stack$ are global variables accessible from every call of the function.
 %$index$ and $lowlink$ are arrays indexed by node IDs (predefined unique identifiers), $count$ is an integer and $stack$ is a last-in-first-out data structure.
 
-The algorithm works by performing a depth-first search, adding nodes to a stack as they are visited.
-If two nodes are present on the stack, then there is a path from the first node to the second one (in the order they were added to the stack).
-Each node has two attributes assigned to it during the execution of the algorithm: $index$ is used to number the nodes in the order they are visited, while $lowlink$ is the lowest indexed node reachable from each node.
-
-In the call that visits a node $u$, the algorithm must loop through each node $v$ trusted by $u$ (that is, $u \rightarrow v$ exists and has value greater than $h$).
-If node $v$ has not yet been visited, the algorithm is called for  $v$.
-The $lowlink$ of $u$ is then calculated as the smallest value between $lowlink[u]$ and $lowlink[v]$, because any node reachable from $v$ is also reachable from $u$.
-After the loop, if $lowlink[u]$ is equal to $index[u]$, it means that $u$ is the lowest indexed node reachable from itself and that it is the root of a component.
-Therefore, nodes must be popped from the stack until $u$ is found.
-Each node popped, including $u$, is a member of a strongly connected component.
+%The algorithm works by performing a depth-first search, adding nodes to a stack as they are visited.
+%If two nodes are present on the stack, then there is a path from the first node to the second one (in the order they were added to the stack).
+%Each node has two attributes assigned to it during the execution of the algorithm: $index$ is used to number the nodes in the order they are visited, while $lowlink$ is the lowest indexed node reachable from each node.
+%
+%In the call that visits a node $u$, the algorithm must loop through each node $v$ trusted by $u$ (that is, $u \rightarrow v$ exists and has value greater than $h$).
+%If node $v$ has not yet been visited, the algorithm is called for  $v$.
+%The $lowlink$ of $u$ is then calculated as the smallest value between $lowlink[u]$ and $lowlink[v]$, because any node reachable from $v$ is also reachable from $u$.
+%After the loop, if $lowlink[u]$ is equal to $index[u]$, it means that $u$ is the lowest indexed node reachable from itself and that it is the root of a component.
+%Therefore, nodes must be popped from the stack until $u$ is found.
+%Each node popped, including $u$, is a member of a strongly connected component.
 
 %---------------
 
 The number of components is, at most, $|v|$: in a worst-case scenario, each node is placed into its own component.
+The complexity of the algorithm is $O(|V|+|E|)$ for a graph $T = (V,E)$.
 %; however, this would not be the case for most useful input graphs.   ---> NÃO ENTENDI <---
 
-Algorithm \autoref{algorithm:tarjan} shows the general structure of Tarjan's algorithm  \cite{tarjan1972depth}.
-The complexity of the algorithm is $O(|V|+|E|)$ for a graph $T = (V,E)$.
+%Algorithm \autoref{algorithm:tarjan} shows the general structure of Tarjan's algorithm  \cite{tarjan1972depth}.
 
 With the results of Tarjan's algorithm, an undirected component graph $C = (V',E')$ is formed.
 Each $v' \in V'$ is the abstraction of one component identified by Tarjan's algorithm, while the edges $e' \in E'$ are edges from $T$ between nodes that do not belong in the same component.
 
-\begin{algorithm}
-\caption{Tarjan's strongly connected components algorithm}\label{algorithm:tarjan}
-\begin{algorithmic}[1]
-
-\Function{Tarjan}{vertex $u$}
-
-\State $index[u] = count$
-\State $lowlink[u] = count$
-\State $count \gets count + 1$
-\State \textbf{push} $u$ \textbf{to} $stack$
-
-\For{$v$ \textbf{in} neighbors of $u$ }
-	\If{weight of $u \rightarrow v$ $<$ $h$}
-		\State \textbf{continue}
-	\EndIf	
-		
-	\If{$index[v] = -1$}
-		\Comment{\emph{v has not been visited yet}}
-		\State \textbf{Tarjan}($v$)
-	\EndIf
-	
-	\State $lowlink[u] \gets \textbf{min}(lowlink[u],lowlink[v])$
-\EndFor
-
-\If{$lowlink[u] = index[u]$}
-	\Repeat
-		\Comment{\emph{unstack nodes until u is found}}
-		\State \textbf{pop} $w$ \textbf{from} $stack$
-		\State \textbf{add} $w$ \textbf{to} $component$
-	\Until {$w = u$}
-\EndIf
-
-\EndFunction
-\end{algorithmic}
-\end{algorithm}
+%\begin{algorithm}
+%\caption{Tarjan's strongly connected components algorithm}\label{algorithm:tarjan}
+%\begin{algorithmic}[1]
+%
+%\Function{Tarjan}{vertex $u$}
+%
+%\State $index[u] = count$
+%\State $lowlink[u] = count$
+%\State $count \gets count + 1$
+%\State \textbf{push} $u$ \textbf{to} $stack$
+%
+%\For{$v$ \textbf{in} neighbors of $u$ }
+%	\If{weight of $u \rightarrow v$ $<$ $h$}
+%		\State \textbf{continue}
+%	\EndIf	
+%		
+%	\If{$index[v] = -1$}
+%		\Comment{\emph{v has not been visited yet}}
+%		\State \textbf{Tarjan}($v$)
+%	\EndIf
+%	
+%	\State $lowlink[u] \gets \textbf{min}(lowlink[u],lowlink[v])$
+%\EndFor
+%
+%\If{$lowlink[u] = index[u]$}
+%	\Repeat
+%		\Comment{\emph{unstack nodes until u is found}}
+%		\State \textbf{pop} $w$ \textbf{from} $stack$
+%		\State \textbf{add} $w$ \textbf{to} $component$
+%	\Until {$w = u$}
+%\EndIf
+%
+%\EndFunction
+%\end{algorithmic}
+%\end{algorithm}
 
 % ---------------------------------------------------------------------------------------------------
 \subsection{Graph coloring with minimum colors}
@@ -228,33 +228,33 @@ The complexity of the algorithm is $O(|E'|)$ for a graph $C = (V',E')$.
 As a comparison, the classic DSATUR algorithm for graph coloring has complexity $O(|V'|^2)$ \cite{brelaz1979new}.
 %For the purposes of this study, it is not necessary to prove that the coloring algorithm's output uses the minimum possible number of colors.
 
-Algorithm \autoref{algorithm:coloring} shows the general structure of the graph coloring algorithm  \cite{mittal2011graph} \cite{vernize2013dissertation}.
+%Algorithm \autoref{algorithm:coloring} shows the general structure of the graph coloring algorithm  \cite{mittal2011graph}.
+%
+%A limitation of this algorithm is that the edges must be sorted according to node indexes beforehand.
+%It does not matter which nodes get assigned which indexes, but once they are assigned those numbers, the algorithm must follow the edges in numerical order.
+%This is demonstrated in \cite{vernize2013dissertation}.
 
-A limitation of this algorithm is that the edges must be sorted according to node indexes beforehand.
-It does not matter which nodes get assigned which indexes, but once they are assigned those numbers, the algorithm must follow the edges in numerical order.
-This is demonstrated in \cite{vernize2013dissertation}.
-
-\begin{algorithm}
-\caption{Graph coloring with minimum colors}\label{algorithm:coloring}
-\begin{algorithmic}[1]
-
-\Function{Coloring}{graph $G$}
-
-\State \textbf{color} all nodes of $G$ \textbf{with} 0
-\State $d \rightarrow 0$
-\For{$e=(u,v)$ \textbf{in} edges of $G$}
-	\If{$u$ and $v$ have the same color}
-		\If{$color[v] = d$}
-			\State $d \rightarrow d+1$
-		\EndIf
-		\State $color[v] \rightarrow d$
-	\EndIf
-\EndFor
-
-
-\EndFunction
-\end{algorithmic}
-\end{algorithm}
+%\begin{algorithm}
+%\caption{Graph coloring with minimum colors}\label{algorithm:coloring}
+%\begin{algorithmic}[1]
+%
+%\Function{Coloring}{graph $G$}
+%
+%\State \textbf{color} all nodes of $G$ \textbf{with} 0
+%\State $d \rightarrow 0$
+%\For{$e=(u,v)$ \textbf{in} edges of $G$}
+%	\If{$u$ and $v$ have the same color}
+%		\If{$color[v] = d$}
+%			\State $d \rightarrow d+1$
+%		\EndIf
+%		\State $color[v] \rightarrow d$
+%	\EndIf
+%\EndFor
+%
+%
+%\EndFunction
+%\end{algorithmic}
+%\end{algorithm}
 
 % ---------------------------------------------------------------------------------------------------
 \subsection{The Truman algorithm}
@@ -315,7 +315,7 @@ After the formation of $C^u_i$, a heuristic is used to classify the nodes as ben
 
 
 %==> PRIMEIRA FRASE ESTA ESTRANHA <==
-In this study, the coloring heuristic is used to classify nodes, which uses the algorithm described in \autoref{section:coloring} \cite{mittal2011graph}, although other heuristics may be considered.
+The coloring heuristic is used to classify nodes, which uses the algorithm described in \autoref{section:coloring} \cite{mittal2011graph}, although other heuristics may be considered.
 After running the graph coloring algorithm with graph $C^u_i$ as input, the color whose nodes in $C^u_i$ represent the most nodes in $T^u_i$ is classified as correct, and all others are classified as malicious.
 Once this information from $C^u_i$ is brought back to graph $T^u_i$, it is trivial to label the nodes in $T^u_i$ as either benign or malicious based on their components' classifications.
 
@@ -446,38 +446,35 @@ A small part of nodes move randomly to simulate vehicles that do not follow dail
 
 %==> PRECISA MOSTRAR A EQUAÇÃO DE CALCULO DA DENSIDADE, SENÃO FICA DIFICIL DE ENTENDER O CALCULO.
 
-The communication range of nodes vary from 10m to 50m, to illustrate the impact of different network densities.
+The communication range of nodes varies from 10m to 50m, to illustrate the impact of different network densities.
 The network density ($\delta$) is a value which abstracts the volume and frequency of connections in a vehicular network by estimating how much of the environment is covered by the network.
 For Truman, higher densities yield better results, since nodes can construct and update their models of the network faster (this is demonstrated in \autoref{subsection:simulations}).
-It is calculated using the transmission range of the nodes ($\sigma$), the amount of nodes($\eta$), and the total area of the simulation($\alpha$).
+It is calculated using the transmission range of the nodes ($\rho$), the amount of nodes ($\eta$), and the total area of the simulation ($\alpha$).
 
 The coverage of a single node is the circumference around it formed by the transmission radius; this is multiplied by the number of nodes in the network to estimate the maximum coverage area.
 Finally, the value is divided by the total area of the environment.
- formula is as follows:
+The network density formula is as follows:
 
-$$ \delta = \frac{\frac{\sigma^2\pi}{2} \times \eta}{\alpha} $$
+$$ \delta = \frac{\frac{\rho^2\pi}{2} \times \eta}{\alpha} $$
 
-Simulations shown here have densities that varying between 0.001 (10m range) and 0.04 (50m range).
-As a comparison, the density of São Paulo was calculated as 2.24 with 10m range, a value much higher than what is necessary for a satisfactory performance of the algorithm.
+Simulations shown here have densities that varying between 0.001 ($\rho = 10$m) and 0.04 ($\rho = 50$m).
+As a comparison, the density of São Paulo was calculated as 2.24 with $\rho = 10$m, a value much higher than what is necessary for a satisfactory performance of the algorithm.
 
 \subsection{Simulations}
 \label{subsection:simulations}
 To improve readability, all figures in this section follow the same format:
-
-\begin{itemize}
-\item $X$ axis shows the results of sequential iterations, ranging from 0 to 8639;
-\item $Y$ axis shows a percentage of all nodes in the network, ranging from 0 to 100;
-\item Blue line represents the percentage of nodes detected out of the complete network;
-\item Magenta is the percentage of malicious nodes in the network (ground truth);
-\item Green represents the nodes correctly identified as malicious (true positives);
-\item Cyan represents the undetected malicious nodes (false negatives); 
-\item Red represents the benign nodes incorrectly identified as malicious (false positives).
-\end{itemize}
+$X$ axis shows the results of sequential iterations, ranging from 0 to 8639;
+$Y$ axis shows a percentage of all nodes in the network, ranging from 0 to 100;
+blue line represents the percentage of nodes detected out of the complete network;
+magenta is the percentage of malicious nodes in the network (ground truth);
+green represents the nodes correctly identified as malicious (true positives);
+cyan represents the undetected malicious nodes (false negatives); 
+red represents the benign nodes incorrectly identified as malicious (false positives).
 
 \autoref{fig:random103050} shows the results of simulations running with 10\% of nodes acting maliciously, with communications range varying from 10m to 50m.
 It is possible to see how the increase in the communication range allows the algorithm to converge much sooner, taking over 8000 iterations with 10m range and achieving solid results at just over 1000 iterations with 50m range. 
 
-\autoref{fig:random0} and \autoref{fig:random1} show the variation of results for different amounts of malicious nodes in the network.
+\autoref{fig:random0} shows the variation of results for different amounts of malicious nodes in the network.
 By the end of one day, the algorithm is able to detect all malicious nodes when they are up to 30\% of the network.
 At 40\%, a small part of malicious nodes are yet to be detected.
 At 50\%, as expected, the results are inconsistent the network is completely split between benign and malicious nodes; at this point, the network is completely compromised.
@@ -765,48 +762,53 @@ After iteration 20000, the results are completely consistent.
 \label{section:previouswork}
 
 Several models have been proposed to solve the problem of trust in vehicular networks. 
-The analysis of related work is based on \cite{zhang2011survey}, which proposes eight desired properties of a trust management model for VANETs.
+This analysis of related work is based on \cite{zhang2011survey}, which proposes eight desired properties for a trust management model for VANETs.
 In the first part of this section, these properties are described with an assessment of whether or not Truman satisfies their conditions.
 Then, some of the most relevant models are described, considering how well they satisfy the desired properties and \autoref{table:properties} shows how they compare with Truman.
 
-\subsection{Desired properties}
+\subsection{Properties}
 \label{section:properties}
 
-The first property is \textit{decentralized trust establishment}, which means nodes must be able to form their own trust values about other nodes.
+\textit{Decentralized trust establishment}: nodes must be able to form their own trust values about other nodes.
 Nodes may or not use information from other trustworthy nodes to build trust values.
 Truman satisfies this as it is built from the ground up for decentralized systems.
 
-The second is \textit{coping with sparsity}, meaning the model still functions when there are few nodes populating the network.
+\textit{Coping with sparsity}: the model still functions when there are few nodes populating the network.
 The experiments using low density values demonstrate that Truman works in reasonably sparse networks.
 Due to its decentralized nature, it can also work on isolated chunks of the network.
 
-Then there are \textit{event/task and location/time dynamics}, which is how the model reacts to different situations depending on what, where and when events happen.
-Although this has not been used in the simulations in this paper, Truman can easily be extended to receive time and location dynamics as long as nodes store the geolocation and timestamp data when it acquires new information.
+\textit{Event/task and location/time dynamics}: how the model reacts to different situations depending on what, where and when events happen.
+Although this has not been used in the simulations in this paper, Truman can easily be extended to consider time and location as long as nodes store geolocation and timestamp data.
 
-The fourth desired property is \textit{scalability}, meaning the model can work on very large networks at high speeds.
-Due to the low complexity of the algorithms used in the model, Truman can be highly scalable, as it does not put substantial pressure on the vehicles' on-board units.
+\textit{Scalability}: the model can work on very large networks at high speeds.
+Due to the low complexity of the algorithms used in the model, Truman can be highly scalable, as it does not incur substantial pressure on the vehicles' on-board units.
 It has also been demonstrated that iterations of the algorithm do not need to run extremely frequently in order to detect malicious nodes with high accuracy.
 
-The fifth is an \textit{integrated confidence measure}, a value that allows nodes to estimate just how useful the output of the algorithm is.
+\textit{Integrated confidence measure}: a value that allows nodes to estimate just how useful the output of the algorithm is.
 Since nodes using Truman store trust values as a number between 0 and 1, this value can be used as a confidence measure of the opinion.
 The closer it is to 1, the higher the chance that it is accurate.
 
-The sixth is \textit{system level security}, which requires authentication of nodes participating in the network.
-This has not been used in simulations of Truman, but can be included as a separate security model during the transmission of messages.
+\textit{System level security}: requires authentication of nodes participating in the network.
+This has not been considered in evaluations of Truman, however it can be included as a separate security model during the transmission of messages.
 
-The seventh is \textit{sensitivity to privacy concerns}, which avoids eavesdropping and stalking by malicious nodes.
-Truman has not been designed with this in mind, but it doesn't inhibit privacy protection, however it does require that nodes cannot be completely anonymous --- there must be some way of identifying the same node over time.
+\textit{Sensitivity to privacy concerns}: avoids eavesdropping and stalking by malicious nodes.
+Truman has not been designed with this in mind, but it doesn't inhibit privacy protection, however it does require that nodes cannot be completely anonymous.
 
-Finally, there is \textit{robustness}, which is the model's resistance to attacks.
+\textit{Robustness}: the model's resistance to attacks.
 Truman satisfies this as malicious nodes are usually identified quickly and accurately, making it difficult for them to perform attacks.
+Experiments show that, when fewer than 50\% of nodes in the network are malicious, Truman performs as expected.
+Collusion attacks must be performed by more than half of the entire network, in which case the network is considered compromised.
+\textbf{Furthermore, since nodes take into consideration experiences from other trustworthy nodes, a malicious node that occasionally behaves correctly can still be identified. ( - CHEGUEI A ESTA CONCLUSÃO INTUITIVAMENTE, MAS NÃO MOSTRAMOS ISSO NOS EXPERIMENTOS. PRECISA? - ) }
+
+( - EU ADICIONEI CUSTO/EFICIÊNCIA COMO PROPRIEDADE NA TABELA; DEVO MENCIONAR AQUI? - )
 
 \subsection{Comparison with other trust models}
 \label{section:comparison}
 
 For the Malicious Node Identification Algorithm (MaNI) proposed in \cite{vernize2015malicious}, the authors present a malicious node identification scheme based on strongly connected components and graph coloring.
-The model is proposed for complex networks in general, but is designed only for static networks and the algorithm relies on a global observer which has information about the complete network.
+The model is proposed for complex networks in general, but it is designed only for static networks and the algorithm relies on a global observer which has information about the complete network.
 It is, however, very efficient thanks to the classification of nodes into components and the usage of a fast heuristic.
-The usage of strongly connected components and coloring serve as basis for Truman, which is expanded to work on distributed and dynamic networks such as vehicular networks.
+The usage of strongly connected components and coloring serves as basis for Truman, which is expanded to work on distributed and dynamic networks such as vehicular networks.
 
 The model proposed in \cite{minhas2010towards} uses several criteria to judge whether or not a received message is trustworthy.
 First, nodes are classified by their roles, used for vehicles which should be automatically trustworthy (i.e. police cars).
@@ -833,8 +835,8 @@ The authors of \cite{chen2017cloud} propose a cloud-based solution for a trust m
 This has the advantage of simplifying properties such as handling sparsity and scalability, but also makes the system slower in general, especially in situations when cellular communication is slow or unreliable.
 It also makes the system prone to attacks, since the whole system collapses if the global trust manager is attacked.
 
-Finally, it is worth noting that, aside from MaNI, none of the mentioned related work presents complexity calculations for their algorithm.
-Considering the scale of the problem, Truman's cost of $O(|V|\times |E|)$ is very low without sacrificing quality.
+Finally, it is worth noting that, aside from \cite{vernize2015malicious}, none of the mentioned related work presents complexity calculations for their algorithm.
+Considering the scale of the problem, Truman's cost of $O(|V|\times |E|)$ is very low without sacrificing completeness and correctness.
 The model still satisfies or permits most of the desired properties of a trust model, making it viable for real-world use.
 
 %None of them provide a complete solution, but serve as pieces of a puzzle that is still incomplete. 
@@ -848,7 +850,7 @@ The model still satisfies or permits most of the desired properties of a trust m
 \centering
 \begin{tabular}{|p{1.5cm}||p{0.8cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|p{0.4cm}|}
  \hline
- \textbf{Property} & Truman & \cite{vernize2013dissertation} & \cite{minhas2010towards} & \cite{chen2010trust} & \cite{li2016art} & \cite{chen2017cloud} \\
+ \textbf{Property} & Truman & \cite{vernize2015malicious} & \cite{minhas2010towards} & \cite{chen2010trust} & \cite{li2016art} & \cite{chen2017cloud} \\
  \hline
  Decentralized 	& \checkmark & -		  & \checkmark & \checkmark & \checkmark & - \\
  \hline
