@@ -1,5 +1,5 @@
-\chapter{Project}
-\label{chap:project}
+\chapter{TruMan}
+\label{chap:truman}
 
 This work proposes that it is possible to adapt a trust management scheme originally designed for static networks to a dynamic environment, such as a VANET.
 In order to make this possible, it is necessary to identify features in VANETs that show that nodes can share a long-term relationship, as is the case for social networks.
@@ -170,30 +170,30 @@ The color with the most nodes is deemed benign, while the others are considered 
 
 \section{Tarjan's strongly connected components algorithm}
 \label{section:tarjan}
-An important aspect of \cite{vernize2015malicious} is the use of Tarjan's strongly connected components algorithm \cite{tarjan1972depth}.
-This allows a large graph to be abstracted into a smaller graph, which therefore reduces the input for further algorithms.
-Given a directed graph $T = (V,O)$, a strongly connected component is defined as a group of nodes in which, for any $u, v \in O$, there exists a path from $u$ to $v$ and a path from $v$ to $u$.
+The use of Tarjan's strongly connected components algorithm \cite{tarjan1972depth} is an important aspect of TruMan's efficiency.
+This allows a large graph to be abstracted into a smaller one, which therefore reduces the input for further steps.
+Given a directed graph $T = (V,E)$, a strongly connected component is defined as a group of nodes in which, for any pair of nodes $u, v \in V$, there is a path from $u$ to $v$ and a path from $v$ to $u$.
+For the purposes of trust management, this definition is extended to accept only paths of edges with weight above a predetermined threshold $h$.
 Every node of the input graph $T$ must belong to a component.
 
-The algorithm works by performing a depth-first search, adding nodes to $stack$ as they are visited.
-If two nodes are present on $stack$, then there is a path from the first node to the second one (in the order they were added to the stack).
+The algorithm works by performing a depth-first search, adding nodes to a stack as they are visited.
+If two nodes are present on the stack, then there is a path from the first node to the second one (in the order they were added to the stack).
+
 Each node has two attributes assigned to it during the execution of the algorithm: $index$ is used to number the nodes in the order they are visited, while $lowlink$ is the lowest indexed node reachable from each node.
-
 In the implementation used, $index$, $lowlink$, $count$ and $stack$ are global variables accessed from every call of the function.
-$index$ and $lowlink$ are arrays indexed by node IDs, $count$ is an integer and $stack$ is a last-in-first-out data structure.
+$index$ and $lowlink$ are arrays indexed by unique node identifiers, $count$ is an integer and $stack$ is a last-in-first-out data structure.
 
-In the call that visits a node $u$, the algorithm must loop through each node $v$ for which $u \rightarrow v$ exists.
-If node $v$ has not yet been visited, the algorithm is called for  $v$.
+In the call that visits a node $u$, the algorithm must loop through each node $v$ trusted by $u$ (that is, $u \rightarrow v$ exists and has value greater than $h$).
+If node $v$ has not yet been visited, the algorithm is called for $v$.
 The $lowlink$ of $u$ is then calculated as the smallest value between $lowlink[u]$ and $lowlink[v]$, because any node reachable from $v$ is also reachable from $u$.
 After the loop, if $lowlink[u]$ is equal to $index[u]$, it means that $u$ is the lowest indexed node reachable from itself and that it is the root of a component.
-Therefore, nodes must be popped from the $stack$ until $u$ is found.
+Therefore, nodes must be popped from the stack until $u$ is found.
 Each node popped, including $u$, is a member of a strongly connected component.
 
-The number of components is, at most, $|v|$.
-In a worst-case scenario, each node is put into its own component; however, this would not be the case for most useful input graphs.
-
-Algorithm \autoref{algorithm:tarjan} shows the general structure of Tarjan's algorithm  \cite{tarjan1972depth} \cite{vernize2013dissertation}.
+The number of components is, at most, $|V|$: in a worst-case scenario, each node is placed into its own component.
 The complexity of the algorithm is $O(|V|+|E|)$ for a graph $T = (V,E)$.
+
+Algorithm \autoref{algorithm:tarjan} shows the general structure of Tarjan's algorithm  \cite{tarjan1972depth}.
 
 \begin{algorithm}
 \caption{Tarjan's strongly connected components algorithm}\label{algorithm:tarjan}
@@ -295,21 +295,22 @@ Once the function calls return to node 0, a strongly connected component is form
 
 \section{Graph coloring with minimum colors}
 \label{section:coloring}
-The algorithm proposed in \cite{mittal2011graph} is an efficient approach to graph coloring, a classic graph theory problem.
-Graph coloring is one of the heuristics used in \cite{vernize2013dissertation} to detect malicious nodes after the generation of the component graph using Tarjan's algorithm.
-Since it was the heuristic that presented the best results, it has been chosen as the heuristic for this current study as well.
+%The algorithm proposed in \cite{mittal2011graph} is an efficient approach to graph coloring, a classic graph theory problem.
+Graph coloring is one of the possible heuristics used by TruMan to detect malicious nodes after the generation of the component graph using Tarjan's algorithm.
+Out of the tested heuristics, it presents the best results, so it has been chosen as the heuristic for the trust model.
 
 The process of graph coloring consists of giving each node a label (represented by a color) so that no two neighboring nodes share the same color.
 This problem has been studied in Computer Science since, at least, 1972 \cite{karp1972reducibility} and has been studied as a classic mathematics problem for even longer \cite{kempe1879geographical}.
 It has been proven mathematically that any planar graph can be colored with at most four colors \cite{appel1976every}, but discovering the smallest number of colors necessary to color an arbitrary graph (called the graph's chromatic number) is an NP-hard problem \cite{sanchez1989determining}.
 
-In \cite{mittal2011graph}, the authors propose to color a graph using the minimum possible amount of colors.
+In \cite{mittal2011graph}, the authors present an efficient approach to graph coloring using the minimum possible amount of colors.
 Although they do not prove that their algorithm always uses the smallest possible amount of colors, the output is always a correct coloration and the algorithm is nevertheless efficient.
-The complexity of the algorithm is $O(|E|)$ for an undirected graph $G = (V,E)$.
-As a comparison, the DSATUR algorithm for graph coloring has complexity $O(|V|^2)$ \cite{brelaz1979new}.
 For the purposes of this study, it is not necessary to prove that the coloring algorithm's output uses the minimum possible number of colors.
 
-Algorithm \autoref{algorithm:coloring} shows the general structure of the graph coloring algorithm  \cite{mittal2011graph} \cite{vernize2013dissertation}.
+The complexity of the algorithm is $O(|E'|)$ for a graph $C = (V',E')$.
+As a comparison, the DSATUR algorithm for graph coloring has complexity $O(|V|^2)$ \cite{brelaz1979new}.
+
+Algorithm \autoref{algorithm:coloring} shows the general structure of the graph coloring algorithm  \cite{mittal2011graph}.
 
 \begin{algorithm}
 \caption{Graph coloring with minimum colors}\label{algorithm:coloring}
@@ -387,43 +388,94 @@ However, the fact that the result does not use the minimum amount of colors.
 By coloring node 4 as cyan and node 3 as magenta, the sample graph could have been colored with only three colors.
 However, as described above, this is not a substantial problem for the purposes of this study.
 
-\section{Trust management algorithm}
+\section{The TruMan algorithm}
 \label{section:algorithm}
 
-The MaNI algorithm works well and is efficient for static graphs.
-However, some important modifications had to be made to accommodate dynamic graphs.
-The main changes made are described below.
+TruMan is based on the MaNI algorithm \cite{vernize2015malicious}, which suggested the use of Tarjan's algorithm and the graph coloring algorithm.
+However, MaNI was developed for static networks such as social networks, and is executed by an external supervising agent (i.e. outside of the network), making it unsuitable for a vehicular network.
 
-\subsection{Graph knowledge and graph building}
-First of all, there is an important change to the graph knowledge used to run the algorithm.
-The complete trust graph is a parameter to the MaNI algorithm, which executes with complete knowledge of the graph.
+In order to work with dynamic networks, the TruMan algorithm runs iterations at predetermined intervals.
+%As nodes acquire more information, their model of the network will change.
+Furthermore, the algorithm runs in a decentralized fashion, meaning each node in the network runs its own instance of the algorithm.
+Each node starts knowing information only about itself and maintains its own abstraction of the network surrounding it.
+Every node $u$ stores a representation of the network in the form of a static, connected and directed trust graph $T = (V, E)$, in which $V$ is the set of nodes node $u$ is aware of and $E$ is the set of trust relationships (opinions) $u$ knows between members of $V$.
+Since each node has its own network representation and it changes over time, there is a $T^u_i = (V^u_i, E^u_i)$ for every node $u$ and iteration $i$.
 
-Given the complete topology graph $G = (V, E)$, each node $u \in V$ has its own vision of the network and $u$ has to build a graph, $G_u$, to represent its surrounding network.
-In each iteration of the algorithm, $u$ receives information from its neighbors about their own graphs.
-For every neighbor $v \in V$, $G_u$ must me merged with $G_v$.
-In sufficient iterations, $G_u$ forms a complete or nearly complete vision of the network.
+At first, the node collects and organizes information.
+A prerequisite of this step is a test that correctly classifies a neighboring node as benign or malicious.
+There are several ways to perform such a test, but a study between these methods is beyond the scope of this paper.
+Every time a neighboring node $v$ is tested as benign, the value of $u \rightarrow v$ increases and the trust graph $T^v_{i-1}$ is merged into $u$'s trust graph.
+After this, a new $T^u_i$ is formed, which is used for the remaining steps.
 
-Alongside $G$, there is the trust graph $T = (V, O)$ which stores trust relationships between pairs of nodes in the form of directed edges.
-Again, each node $u$ has its own $T_u$, which contains the trust information node $u$ knows about.
-When a node $u$ asks for network information from node $v$, it also merges $T_u$ with $T_v$, but only if $u$ trusts $v$.
-If $u$ deems $v$ malicious, any information originating from $v$ cannot be considered valid.
+After the collection of data, $T^u_i$ is separated into strongly connected components using Tarjan's algorithm \cite{tarjan1972depth}.
+For each node in a component, there is a path formed by edges of weight higher than the threshold $h$ to each other node in the same component.
+In other words, within a single component, all nodes trust one another directly or indirectly; nodes that do not satisfy this condition are separated into different components.
+Each of these components becomes a node of a component graph $C^u_i = (V'^u_i, E'^u_i)$.
 
-[Illustrate graph building here]
+The creation of $C^u_i$ simplifies the remaining computation.
+Since each vertex $v' \in V'^u_i$ is a component of $T^u_i$ in which all nodes trust each other, for the purposes of identifying malicious nodes, all nodes within each of those components can be treated as the same.
+They can either be benign nodes which legitimately trust one another, or malicious nodes colluding with each other.
+After the formation of $C^u_i$, a heuristic is used to classify the nodes as benign or malicious.
 
-Furthermore, this implies that the malicious node detection algorithm runs using incomplete graph knowledge.
-This is expected and generally unavoidable in vehicular networks, which have high mobility and can be extremely large.
+The coloring heuristic is used to classify nodes, which uses the algorithm described in \autoref{section:coloring} \cite{mittal2011graph}, although other heuristics may be considered.
+After running the graph coloring algorithm with graph $C^u_i$ as input, the color whose nodes in $C^u_i$ represent the most nodes in $T^u_i$ is classified as correct, and all others are classified as malicious.
+Once this information from $C^u_i$ is brought back to graph $T^u_i$, it is trivial to label the nodes in $T^u_i$ as either benign or malicious based on the classifications of their components.
+
+The complexity of the whole algorithm can be calculated by adding the most costly operations involved.
+As discussed above, Tarjan's algorithm has a complexity of $O(|V|+|E|)$ (for the trust graph $T$), while the graph coloring algorithm has a complexity of $O(|E'|)$ (for the component graph $C$).
+The most costly part of the algorithm is the graph merge operation that happens between trusted nodes.
+The complexity of the graph merge algorithm is $O(|E|)$ for each neighbor a node has in an iteration; this number is at most $|V|$.
+The total complexity of TruMan is, therefore, $O(|V|+|E|)+O(|E'|)+O(|V|\times |E|)$.
+Since $|E'| \leq |E|$ and $|V|+|E| \leq |V|\times |E|$, the complexity can be simplified to $O(|V| \times |E|)$.
+
+In summary, every node $u$ runs the following steps in each iteration to detect malicious nodes in the network:
+
+\begin{enumerate}
+	\item Node $u$ checks which are its neighbors (nodes within its communication range).
+		  New discovered nodes and new formed edges are added to $T^u_i$.
+		  Edges are created with weight 0.5.
+	\item Node $u$ tests all its neighbors to discover which ones can be directly trusted or not.
+		  New trust values are computed for the edges using the average between the previous value and either 1 (if the neighbor is trustworthy) or 0 (otherwise).
+	\item If a neighbor $v$ is trustworthy, $u$ merges $T^v_{i-1}$ into $T^u_i$.
+	\item Tarjan's algorithm is executed to identify the strongly connected components of $T^u_i$, resulting in a component graph $C^u_i$.
+	\item The graph coloring algorithm is executed on $C^u_i$ and nodes are classified as benign or malicious.
+\end{enumerate}
 
 
-
--\\
-----------\\
-This paragraph is probably pertinent to delimiting the size of graphs:\\
-The authors of \cite{patwardhan2006data} provide important observations regarding the collection of data from local conditions.
-Most crucially, they mention how the quality of information is higher when the origin of such information is close to the destination node.
-That is, data collected by the node's own sensors have the highest quality, which diminishes as information starts to come from neighbors, neighbors of neighbors and so forth.
-They adopt a broadcast model in which RSUs send data about its surroundings and OBUs capture the information.
-The trust model proposed here might use a similar broadcast model, although adapted so all nodes are vehicles (OBUs).\\
-----------\\
+%The MaNI algorithm works well and is efficient for static graphs.
+%However, some important modifications had to be made to accommodate dynamic graphs.
+%The main changes made are described below.
+%
+%\subsection{Graph knowledge and graph building}
+%First of all, there is an important change to the graph knowledge used to run the algorithm.
+%The complete trust graph is a parameter to the MaNI algorithm, which executes with complete knowledge of the graph.
+%
+%Given the complete topology graph $G = (V, E)$, each node $u \in V$ has its own vision of the network and $u$ has to build a graph, $G_u$, to represent its surrounding network.
+%In each iteration of the algorithm, $u$ receives information from its neighbors about their own graphs.
+%For every neighbor $v \in V$, $G_u$ must me merged with $G_v$.
+%In sufficient iterations, $G_u$ forms a complete or nearly complete vision of the network.
+%
+%Alongside $G$, there is the trust graph $T = (V, O)$ which stores trust relationships between pairs of nodes in the form of directed edges.
+%Again, each node $u$ has its own $T_u$, which contains the trust information node $u$ knows about.
+%When a node $u$ asks for network information from node $v$, it also merges $T_u$ with $T_v$, but only if $u$ trusts $v$.
+%If $u$ deems $v$ malicious, any information originating from $v$ cannot be considered valid.
+%
+%[Illustrate graph building here]
+%
+%Furthermore, this implies that the malicious node detection algorithm runs using incomplete graph knowledge.
+%This is expected and generally unavoidable in vehicular networks, which have high mobility and can be extremely large.
+%
+%
+%
+%-\\
+%----------\\
+%This paragraph is probably pertinent to delimiting the size of graphs:\\
+%The authors of \cite{patwardhan2006data} provide important observations regarding the collection of data from local conditions.
+%Most crucially, they mention how the quality of information is higher when the origin of such information is close to the destination node.
+%That is, data collected by the node's own sensors have the highest quality, which diminishes as information starts to come from neighbors, neighbors of neighbors and so forth.
+%They adopt a broadcast model in which RSUs send data about its surroundings and OBUs capture the information.
+%The trust model proposed here might use a similar broadcast model, although adapted so all nodes are vehicles (OBUs).\\
+%----------\\
 
 %The original work's scope does not include the generation of the trust graph, as it is a parameter to the algorithm.
 %In dynamic graphs, trust relationships change over time, so how those changes affect the proposed trust model have to be considered.
