@@ -4,11 +4,11 @@
 \section{SNAP library}
 \label{section:snap}
 In order to run the simulations necessary to validate the project, a robust library was required to handle graph data structures.
-The Stanford Network Analysis Platform (SNAP) library \cite{snap} was chosen primarily because it is memory efficient.
+The Stanford Network Analysis Platform (SNAP) library \citep{snap} was chosen primarily because it is memory efficient.
 The simulations require multiple graphs that share the same set of nodes (because each node in the network has its own knowledge of the surrounding network), and the SNAP library uses pointers to nodes and edges, saving memory by not having to duplicate the entire data structure.
 It is written in C++, but, for these simulations, the Snap.py Python library was used.
 
-%The datasets available from SNAP's website were used for the simulations in \cite{vernize2015malicious} and the static network simulations shown in \autoref{chap:simulations}.
+%The datasets available from SNAP's website were used for the simulations in \citep{vernize2015malicious} and the static network simulations shown in \autoref{chap:simulations}.
 
 \section{Working Day Movement Model}
 \label{section:workingday}
@@ -17,7 +17,7 @@ Most VANET trust models use the Random Waypoint mobility model for simulations, 
 While this model is efficient for testing trust protocols, it doesn't truly represent vehicle mobility in the real world.
 
 To make use of the properties described in \autoref{section:socialvanets}, it is important to choose a mobility pattern that properly represents the way vehicles move on a daily basis in the real world.
-Therefore, the Working Day Movement Model \cite{ekman2008working} (WDMM) is useful.
+Therefore, the Working Day Movement Model \citep{ekman2008working} (WDMM) is useful.
 The model, developed for use in Delay-Tolerant Network (DTN) simulations, includes many of the features that are necessary to simulate the daily movement of a vehicular network.
 
 As the name implies, the Working Day Movement Model abstracts people's movement from their homes to their offices and back.
@@ -89,21 +89,21 @@ Contact duration time is an important metric to measure how much data can be exc
 
 \section{The ONE Simulator}
 \label{section:theone}
-The Opportunistic Network Environment simulator \cite{keranen2009one} \cite{onerepo} is a Delay-Tolerant Network simulator, used in this study to generate mobility patterns used as input for simulations.
+The Opportunistic Network Environment simulator \citep{keranen2009one} \citep{onerepo} is a Delay-Tolerant Network simulator, used in this study to generate mobility patterns used as input for simulations.
 It was chosen for the simulations of TruMan primarily because it already includes integration with the Working Day Movement Model.
 
 In order to use data from the ONE simulator as input for TruMan, a new report module had to be created for it.
 The \texttt{AdjacencySnapshotReport} module creates a report consisting of all adjacencies in the network every $x$ number of simulated seconds.
 That is, at a given timestamp $t$, all pairs of nodes that are within communication range of each other are added to the report.
 This report is then used as input to TruMan, which uses the adjacencies to build the topology graph for each iteration of the algorithm.
-The \texttt{AdjacencySnapshotReport} module has been submitted to the ONE repository as a pull request \cite{adjacencypull}.
+The \texttt{AdjacencySnapshotReport} module has been submitted to the ONE repository as a pull request \citep{adjacencypull}.
 
 
 \section{Simulation parameters and methodology}
 \label{section:parameters}
 
 In order to test the TruMan trust model, simulations were made using an implementation of the algorithm in Python.
-To generate the input graphs with node mobility, the ONE simulator \cite{keranen2009one} was used in conjunction with the Working Day Movement Model \cite{ekman2008working}, which provides a strong similarity with vehicle movement in real life.
+To generate the input graphs with node mobility, the ONE simulator \citep{keranen2009one} was used in conjunction with the Working Day Movement Model \citep{ekman2008working}, which provides a strong similarity with vehicle movement in real life.
 
 Snapshots of the network were taken every 10 simulated seconds using the \texttt{AdjacencySnapshotReport} module for the ONE simulator.
 However, a few experiments showed that it was not necessary to run iterations of TruMan that frequently; therefore, iterations run at an interval of 100 simulated seconds and only use one tenth of the snapshots saved.
@@ -123,9 +123,9 @@ However, a few experiments showed that it was not necessary to run iterations of
  \hline
  Std. dev. departure time & 7200 seconds \\
  \hline
- Node velocity 		& 7 to 10m/s \\
+ Node velocity 		& 7 to 10 m/s \\
  \hline
- Simulation area	& approximately 14km\textsuperscript{2} \\
+ Simulation area	& 14,689,750 m\textsuperscript{2} \\
  \hline
  Number of nodes 	& 150 (WDMM) + 10 (random) \\
  \hline
@@ -136,9 +136,9 @@ However, a few experiments showed that it was not necessary to run iterations of
 \end{tabular}
 \end{table}
 
-Most of the parameters for the ONE simulator were taken from the article detailing the Working Day Movement Model \cite{ekman2008working}; the most important parameters are shown in \autoref{table:parameters}.
+Most of the parameters for the ONE simulator were taken from the article detailing the Working Day Movement Model \citep{ekman2008working}; the most important parameters are shown in \autoref{table:parameters}.
 The simulation ran for 86400 seconds (24 hours), with a work day length of 28800 seconds (8 hours) and a standard deviation of departure time of 7200 seconds (2 hours).
-Nodes move between 7 and 10 m/s in an area of approximately 14 km\textsuperscript{2} based on a section of the map of Helsinki.
+Nodes move between 7 and 10 m/s in an area of approximately 14.7 km\textsuperscript{2} based on a section of the map of Helsinki.
 %The number of nodes and their communication range vary for different simulations.
 There is a total of 160 nodes, 150 of which follow the Working Day Movement Model, and 10 that follow the random waypoint mobility model to simulate vehicles that do not follow daily patterns.
 Since this simulation is for vehicles instead of pedestrians, there are no buses in the model and every node is guaranteed to own a vehicle and travel by car.
@@ -173,50 +173,62 @@ Simulations for TruMan have densities between 0.0017 ($\rho = 10$m) and 0.0428 (
 \caption{Simulation densities}
 \label{table:simdensities}
 \centering
-\begin{tabular}{|p{1.5cm}|p{1.5cm}|p{2cm}|p{2cm}|}
+\begin{tabular}{|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
  \hline
- $\rho$ & $\eta$ & $\alpha$ & $\delta$ \\
+ \textbf{Range ($\rho$)} & \textbf{Nodes ($\eta$)} & \textbf{Area ($\alpha$)} & \textbf{Density($\delta$)} \\
  \hline
  \hline
- 10 m & 160 & 14.689.750 & 0.0017 \\
+ 10 m & 160 & 14,689,750 & 0.0017 \\
  \hline
- 30 m & 160 & 14.689.750 & 0.0154 \\
+ 30 m & 160 & 14,689,750 & 0.0154 \\
  \hline
- 50 m & 160 & 14.689.750 & 0.0428 \\
+ 50 m & 160 & 14,689,750 & 0.0428 \\
  \hline
- 100 m & 160 & 14.689.750 & 0.1604 \\
+ 100 m & 160 & 14,689,750 & 0.1604 \\
  \hline
- 150 m & 160 & 14.689.750 & 0.3609 \\
+ 150 m & 160 & 14,689,750 & 0.3609 \\
  \hline
- 200 m & 160 & 14.689.750 & 0.6416 \\
+ 200 m & 160 & 14,689,750 & 0.6416 \\
  \hline
 \end{tabular}
 \end{table}
 
-As a comparison, the city of São Paulo (Brazil), which has a fleet of over 8 million vehicles in an area of 1521.11 km\textsuperscript{2}, has a density of 0.8884 at $\rho = 10$m, a much higher value than what is necessary for a satisfactory performance of the algorithm.
+As a comparison, the city of São Paulo (Brazil), which has a fleet of over 8 million vehicles \citep{saopaulofleet} in an area of 1,521.11 km\textsuperscript{2} \citep{saopauloarea}, has a density of 0.8884 at $\rho = 10$m, a much higher value than what is necessary for a satisfactory performance of the algorithm.
 \autoref{table:citydensities} shows the densities of a few major cities around the world, using $\rho = 10$m for all of them.
-Areas are shown in km\textsuperscript{2} (values were converted to m\textsuperscript{2} for calculation).
+All data is taken from local government sources regarding the number of licensed vehicles in each city; these numbers do not include vehicles from the larger metropolitan aras that surround these cities.
+%Areas are shown in km\textsuperscript{2} (values were converted to m\textsuperscript{2} for calculation).
+
+\defcitealias{saopauloarea}{IBGE, 2016}
+\defcitealias{newyorkfleet}{NY DMV, 2016}
+\defcitealias{losangelesfleet}{CA DMV, 2016}
+\defcitealias{usarea}{US Census, 2017}
+\defcitealias{tokyoarea}{Tokyo MG, 2017}
+\defcitealias{londonfleet}{UK DfT, 2016}
+\defcitealias{londonarea}{GLA, 2011}
 
 \begin{table}[h!]
-\caption{Simulation densities}
+\caption{Calculated densities of major cities}
 \label{table:citydensities}
 \centering
 \begin{tabular}{|p{3cm}||p{4cm}|p{4cm}|p{2cm}|}
  \hline
- \textbf{City} & \textbf{$\eta$} & $\alpha$ & $\delta$ \\
+ \textbf{City (country)} & \textbf{Nodes ($\eta$)} & \textbf{Area ($\alpha$)} & \textbf{Density ($\delta$)} \\
  \hline
  \hline
- São Paulo (BR) & 8.603.239 & 1.521,11 & 0.8884 \\
+ São Paulo (BR) 	& 8,603,239 					& 1,521,110,000  				& 0.8884 	\\
+ 				 	& \citep{saopaulofleet}			& \citepalias{saopauloarea}		& 			\\
  \hline
- 30 m & 160 & 14.689.750 & 0.0154 \\
+ New York (US) 		& 2,162,349  					& 777,934,030  					& 0.4366 	\\
+ 					& \citepalias{newyorkfleet}		& \citepalias{usarea}			&			\\
  \hline
- 50 m & 160 & 14.689.750 & 0.0428 \\
+ Los Angeles (US) 	& 8,050,850  					& 1,213,820,883  				& 1.041 	\\
+ 					& \citepalias{losangelesfleet}	& \citepalias{usarea}			&			\\
  \hline
- 100 m & 160 & 14.689.750 & 0.1604 \\
+ Tokyo (JP) 		& 3,159,455  					& 2,191,000,000  				& 0.2265 	\\
+ 					& \citep{tokyofleet}			& \citepalias{tokyoarea}		&			\\
  \hline
- 150 m & 160 & 14.689.750 & 0.3609 \\
- \hline
- 200 m & 160 & 14.689.750 & 0.6416 \\
+ London (UK)		& 3,091,393						& 1,572,100,000					& 0.3089 	\\
+ 					& \citepalias{londonfleet}		& \citepalias{londonarea}		&			\\
  \hline
 \end{tabular}
 \end{table}
@@ -230,14 +242,17 @@ Areas are shown in km\textsuperscript{2} (values were converted to m\textsupersc
 \label{section:results}
 
 To improve readability, all figures in this section follow the same format:
-$X$ axis shows the results of sequential iterations, ranging from 0 to 8639;
-$Y$ axis shows a percentage of all nodes in the network, ranging from 0 to 100;
-blue line represents the percentage of nodes detected out of the complete network;
-magenta is the percentage of malicious nodes in the network (ground truth);
-green represents the nodes correctly identified as malicious (true positives);
-%cyan represents the undetected malicious nodes (false negatives); 
-red represents the benign nodes incorrectly identified as malicious (false positives).
-The lines represent average values between all benign nodes on the network, while the colored regions represent the standard deviation present in the data.
+\begin{itemize}
+	\item The $X$ axis shows the results of sequential iterations, ranging from 0 to 8639 in most cases;
+	\item The $Y$ axis shows a percentage of all nodes in the network, ranging from 0 to 100;
+	\item The blue line represents the percentage of nodes detected out of the complete network;
+	\item The magenta line is the percentage of malicious nodes in the network (ground truth);
+	\item The green line represents the nodes correctly identified as malicious (true positives);
+	\item When present, the cyan line represents the undetected malicious nodes (false negatives); 
+	\item The red line represents the benign nodes incorrectly identified as malicious (false positives);
+	\item The lines represent average values between all benign nodes on the network, while the colored regions represent the standard deviation present in the data.
+\end{itemize}
+
 
 It is expected that the results are very inconsistent at the beginning of the simulations, since nodes are still building their models of the network and have relatively little information to use.
 

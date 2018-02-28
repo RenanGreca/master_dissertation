@@ -21,6 +21,8 @@
 %\documentclass[final,twoside]{ppginf}
 
 % configurações de diversos pacotes, inclusive o fonte principal do texto
+\usepackage[square]{natbib}
+%\setcitestyle{authoryear, open={[},close={]}
 \include{packages}
 
 %=====================================================
@@ -104,8 +106,10 @@
 %=====================================================
 
 % Estilos de bibliografia recomendados (só descomentar um estilo!)
-\bibliographystyle{apalike}	% [Maziero et al., 2006]
+%\bibliographystyle{apalike}	% [Maziero et al., 2006]
 %\bibliographystyle{plain}		% [1], [1, 2]
+%\bibliographystyle{alpha}		% [Maz06], ...
+\bibliographystyle{plainnat}		% vide Google "LaTeX Natbib"
 
 % base de bibliografia (BibTeX)
 \bibliography{refs, dissertation}
