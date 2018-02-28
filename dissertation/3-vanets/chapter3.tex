@@ -131,9 +131,10 @@ Some of these properties provide advantages or disadvantages when developing tru
 \section{Trust in VANETs}
 \label{section:trustvanet}
 Like in other types of networks, the proper functioning of a VANET depends on the reliability of the vehicles (nodes) which participate in it.
-If one node is malicious or faulty, it can spread incorrect data that may compromise the network's utility.
+If a node is malicious or faulty, it can spread incorrect data that may compromise the network's utility.
 Once the concept of VANETs was established, researchers have been attempting to predict ways in which malicious users might use the network to their advantage.
-Examples include triggering false alarms about inexistent accidents, lying about the average speed in one road to make it less desirable for others, and falsifying geolocation data to exploit location-based routing algorithms. Therefore, the concept of trust must be established in the vehicular network context, allowing for nodes to judge the validity of information transmitted by others and share those conclusions with other nodes.
+Examples include triggering false alarms about inexistent accidents, lying about the average speed in a road to make it less desirable for others, and falsifying geolocation data to exploit location-based routing algorithms.
+Therefore, the concept of trust must be established in the vehicular network context, allowing for nodes to judge the validity of information transmitted by others and share those conclusions with other nodes.
 
 There is an important distinction between a malicious node and a faulty one; both of them may be sharing false data, but for different reasons and with different consequences.
 For example, a malicious node may lie about its location in order to make routing protocols use it \cite{leinmuller2005influence}, in order to try to store or alter messages, while a faulty GPS module may cause an accident because its position data was incorrect.
@@ -217,23 +218,23 @@ Furthermore, since nodes take into consideration experiences from other trustwor
  \hline
  \textbf{Property} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
  \hline
- TruMan & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
- \hline
- \cite{vernize2015malicious} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+ TruMan & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & - & - & \checkmark \\
+% \hline
+% \cite{vernize2015malicious} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
  \hline
  \cite{dotzer2005vars} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
  \hline
- \cite{minhas2010towards} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+ \cite{minhas2010towards} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & -\\
  \hline
- \cite{chen2010trust} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+ \cite{chen2010trust} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & - & -\\
  \hline
  \cite{park2011long} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
  \hline
  \cite{huang2014social} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
  \hline
- \cite{li2016art} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+ \cite{li2016art} & \checkmark & - & - & - & \checkmark & - & - & \checkmark\\
  \hline
- \cite{chen2017cloud} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+ \cite{chen2017cloud} & - & \checkmark & - & \checkmark & - & \checkmark & \checkmark & -\\
  \hline
 \end{tabular}
 \end{table}
@@ -254,7 +255,7 @@ The authors use what they call \textit{opinion piggybacking}, which means that, 
 That opinion is formed using a combination of the forwarding node's own observations of the event, its opinion of the origin node and previous opinions appended to the message.
 This process adds credibility to a message through validation by nodes in a decentralized fashion.
 It combines aspect of data- and entity- based trust, since nodes share their opinion of the data as well as their opinion of the sender. 
-One interesting observation is setting higher trust values for certain vehicles based on their familiarity with the region (vehicles that reside in a given city may have more experience with certain types of events than newcomers).
+An interesting observation is setting higher trust values for certain vehicles based on their familiarity with the region (vehicles that reside in a given city may have more experience with certain types of events than newcomers).
 However, opinion piggybacking has its own share of problems.
 First, it allows forwarding nodes to access (at least some of) the contents of a message so it can form an opinion on it, diminishing privacy; a malicious forwarding node could even attempt to alter those contents.
 Second, using previously appended opinions from other nodes to form a new opinion causes the first nodes to forward the message to have a substantially greater impact over the final opinion than the later ones.

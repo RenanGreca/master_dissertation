@@ -10,27 +10,29 @@ It is written in C++, but, for these simulations, the Snap.py Python library was
 
 %The datasets available from SNAP's website were used for the simulations in \cite{vernize2015malicious} and the static network simulations shown in \autoref{chap:simulations}.
 
-\section{The ONE Simulator}
-\label{section:theone}
-
 \section{Working Day Movement Model}
 \label{section:workingday}
 
-Most VANET trust models consider the Random Waypoint mobility model, i.e. each node has an origin point, chooses a random location, gets to that location, then chooses another random location and goes there, and so forth.
+Most VANET trust models use the Random Waypoint mobility model for simulations, i.e. each node has an origin point, chooses a random location, gets to that location, then chooses another random location and goes there, and so forth.
 While this model is efficient for testing trust protocols, it doesn't truly represent vehicle mobility in the real world.
 
 To make use of the properties described in \autoref{section:socialvanets}, it is important to choose a mobility pattern that properly represents the way vehicles move on a daily basis in the real world.
-Therefore, the Working Day Movement Model \cite{ekman2008working} (WDM) is useful.
+Therefore, the Working Day Movement Model \cite{ekman2008working} (WDMM) is useful.
 The model, developed for use in Delay-Tolerant Network (DTN) simulations, includes many of the features that are necessary to simulate the daily movement of a vehicular network.
 
-As the name implies, the Working Day Model abstracts people's movement from their homes to their offices and back.
+As the name implies, the Working Day Movement Model abstracts people's movement from their homes to their offices and back.
 Each node has a home and a workplace and they need to travel back and forth between those locations on a daily basis.
 Occasionally, nodes can also go to other locations for leisure.
-As mentioned above, many drivers have routes they travel on daily, so the Working Day model is a more accurate representation, although it represents the mobility of humans instead of vehicle and requires some adjustments, which are listed later in this section.
+As mentioned above, many drivers have routes they travel on daily, so the Working Day Movement Model is a reasonably accurate representation of daily movement in a city.
+
+\subsection{Original model}
+The Working Day Movement Model was developed for Delay-Tolerant Networks in which nodes are devices (such as smartphones) carried by people.
+Therefore, the Working Day model represents not only people's movements inside their cars, but also within their offices, walking on foot, or riding a bus.
+In this subsection, the word node refers to a mobile device instead of a vehicle.
 
 The model proposed by the authors makes use of several other models for specific tasks.
 The main mobility model defines nodes and gives them their destinations.
-Within it, five other models are used:
+Within it, five submodels are used:
 \begin{enumerate}
 \item 
 The \textbf{home activity submodel} describes what nodes do at night, within their homes.
@@ -39,56 +41,72 @@ Nodes can be relatives or neighbors, and therefore share the same home.
 \item 
 The \textbf{office activity submodel} describes the nodes' routines within their offices.
 Nodes can go to other locations within the office (such as meeting rooms) and such movement is modeled.
-Nodes with share the same office are coworkers.
+Nodes which share the same office are coworkers.
 \item 
 The \textbf{evening activity submodel} is responsible for mobility outside the nodes' standard routine. 
-They can meet at certain locations (such as restaurants) and spend a few hours gathered with friends.
+They can meet at certain locations (such as restaurants) and spend a few hours with friends.
 \item
 The \textbf{transport submodel} shows how nodes move around the city.
 It includes another tier of submodels, responsible for modeling three different types of transportation: walking, driving, and riding a bus.
-Nodes which own a car always use it, while the others can decide to walk or ride a bus depending on the distance between the origin and destination and the available bus stops.
+Nodes that own cars always use them, while the others can decide to walk or ride a bus depending on the distance between the origin and destination and the available bus stops.
 The walking and driving submodels represent similar types of movement, although at different speeds, while the bus submodel follows cyclical routes and can take or deliver passengers at bus stops.
 \item
 The \textbf{map} represents the city in which the simulation runs.
-Its streets constrain the movement of nodes and all homes and offices must be within the map boundaries.
+Its streets constrain the movement of nodes and all homes, offices and meeting spots must be within the map boundaries.
 The map can be divided into districts, which increases what the authors define as \textit{locality}.
 In the simulation parameters, the number of nodes which reside and work within the same district can be chosen, which means those nodes rarely leave the district.
-Nodes which reside and work in different districts serve to connect the network with their commutes.
+Nodes which reside and work in different districts allow information to spread across different parts of the network.
 \end{enumerate}
 
-By thinking of these submodels for vehicles instead of people, it can become apparent how the frequency and length of encounters between nodes are similar in both instances.
+\subsection{Adaptation for a vehicular simulation}
+By thinking of these submodels for vehicles instead of people, it becomes apparent that the frequency and length of encounters between nodes are similar in both instances.
 If two vehicles belong to family members or neighbors, they likely spend most of the night within communication distance, while coworkers' cars spend the office hours close by.
 Cars can also meet each other frequently if their drivers go out with friends.
-In the vehicular case, there is the added layer of encounters: cars can communicate frequently with buses and other cars that take the same route daily, although the drivers are likely complete strangers.
+In the vehicular case, there is the added layer of encounters: cars can communicate frequently with buses and other cars that take the same route daily, even if the drivers are complete strangers.
 
-In the original article, nodes are devices (such as smartphones) being carried by humans.
-Therefore, the Working Day model represents not only people's movements inside their cars, but also within their offices, walking on foot, or riding a bus.
-To adapt it to a VANET environment, changes need to be made to their definition of node, since they now represent vehicles instead of people. Some of those changes are as follows:
+To adapt the Working Day Movement Model to a VANET environment, a few changes had to be made so the nodes represent vehicles instead of people (or the devices they carry). 
+Instead of altering the model itself, all of these changes were implemented as parameters for the model.
+The changes are as follows:
 \begin{enumerate}
 \item
 The office activity submodel no longer needs to model movement within the office and can be identical to the home submodel.
 In both, a node can move a small amount once after reaching the office or home, to simulate parking.
-This can be done using the Working Day model's parameters.
+This was done by setting the \texttt{officeSize} parameter to 1, so vehicles do not move around while their drivers are at work.
 \item
-The walking submodel needs to be disabled, since all nodes are either cars or buses.
+The walking submodel needs to be disabled, since all nodes are cars.
+By setting the \texttt{ownCarProb} parameter to 1, mobility is always done by car.
 \item
-The bus submodel needs to be changed so that each bus is one node in the network, which follows a predefined route with bus stops.
-In the original model, each bus could carry several nodes, but this is no longer necessary.
+While the bus submodel could be used for a vehicular simulation, this was not used for TruMan's simulations.
+%The bus submodel needs to be changed so that each bus is one node in the network, which follows a predefined route with bus stops.
+%In the original model, each bus could carry several nodes, but this is no longer necessary.
 \end{enumerate}
-Other necessary changes might become apparent during the development of the study.
 
-One important topic raised in the Working Day movement model article is the use of two metrics: \textit{inter-contact times} and \textit{contact duration}.
+One important topic raised in the Working Day Movement Model article is the use of two metrics: \textit{inter-contact times} and \textit{contact duration}.
 The choice of this movement model for tests is more strongly related to inter-contact times, i.e. how much time it takes for two nodes to meet again.
 On the other hand, the contact duration is how long each meeting lasts.
-For the reasons explained earlier in this section, relatively short inter-contact times is important for the proposed trust model.
-Contact duration time is an important metric to measure how much data can be exchanged during each encounter, although taking it into consideration might add excessive complexity to the model.
+For the reasons explained earlier in this section, relatively short inter-contact times is important for TruMan's functionality.
+Contact duration time is an important metric to measure how much data can be exchanged during each encounter, although, for the purposes of the simulation, this was not considered.
+
+\section{The ONE Simulator}
+\label{section:theone}
+The Opportunistic Network Environment simulator \cite{keranen2009one} \cite{onerepo} is a Delay-Tolerant Network simulator, used in this study to generate mobility patterns used as input for simulations.
+It was chosen for the simulations of TruMan primarily because it already includes integration with the Working Day Movement Model.
+
+In order to use data from the ONE simulator as input for TruMan, a new report module had to be created for it.
+The \texttt{AdjacencySnapshotReport} module creates a report consisting of all adjacencies in the network every $x$ number of simulated seconds.
+That is, at a given timestamp $t$, all pairs of nodes that are within communication range of each other are added to the report.
+This report is then used as input to TruMan, which uses the adjacencies to build the topology graph for each iteration of the algorithm.
+The \texttt{AdjacencySnapshotReport} module has been submitted to the ONE repository as a pull request \cite{adjacencypull}.
+
 
 \section{Simulation parameters and methodology}
 \label{section:parameters}
 
 In order to test the TruMan trust model, simulations were made using an implementation of the algorithm in Python.
 To generate the input graphs with node mobility, the ONE simulator \cite{keranen2009one} was used in conjunction with the Working Day Movement Model \cite{ekman2008working}, which provides a strong similarity with vehicle movement in real life.
-Snapshots of the network were taken every 10 simulated seconds, and these snapshots were used as input for the algorithm.
+
+Snapshots of the network were taken every 10 simulated seconds using the \texttt{AdjacencySnapshotReport} module for the ONE simulator.
+However, a few experiments showed that it was not necessary to run iterations of TruMan that frequently; therefore, iterations run at an interval of 100 simulated seconds and only use one tenth of the snapshots saved.
 
 \begin{table}[h!]
 \caption{Simulation parameters}
@@ -105,35 +123,38 @@ Snapshots of the network were taken every 10 simulated seconds, and these snapsh
  \hline
  Std. dev. departure time & 7200 seconds \\
  \hline
- Node velocity 		& 7~10m/s \\
+ Node velocity 		& 7 to 10m/s \\
  \hline
  Simulation area	& approximately 14km\textsuperscript{2} \\
  \hline
  Number of nodes 	& 150 (WDMM) + 10 (random) \\
+ \hline
+ Office size 		& 1 \\
  \hline
 % Cost & O(|V|* |E|) & O(|V|+|E|) & n/a & n/a & n/a \\
 % \hline
 \end{tabular}
 \end{table}
 
-Most of the parameters for the simulator were taken from the article detailing the Working Day Movement Model \cite{ekman2008working}.
-Different parameters are shown in \autoref{table:parameters}.
-The simulation ran for 86400 seconds (24 hours), with a work day length of 28800 seconds and a standard deviation of departure time of 7200 seconds.
+Most of the parameters for the ONE simulator were taken from the article detailing the Working Day Movement Model \cite{ekman2008working}; the most important parameters are shown in \autoref{table:parameters}.
+The simulation ran for 86400 seconds (24 hours), with a work day length of 28800 seconds (8 hours) and a standard deviation of departure time of 7200 seconds (2 hours).
 Nodes move between 7 and 10 m/s in an area of approximately 14 km\textsuperscript{2} based on a section of the map of Helsinki.
 %The number of nodes and their communication range vary for different simulations.
-There is a total of 160 nodes, 150 of which are following the Working Day Movement Model, and the other 10 are moving randomly to simulate vehicles that do not follow daily patterns.
+There is a total of 160 nodes, 150 of which follow the Working Day Movement Model, and 10 that follow the random waypoint mobility model to simulate vehicles that do not follow daily patterns.
 Since this simulation is for vehicles instead of pedestrians, there are no buses in the model and every node is guaranteed to own a vehicle and travel by car.
-The parameters regarding offices, meeting spots and shopping were kept intact.
+Aside from the office size parameter, the parameters regarding offices, meeting spots and shopping were kept intact.
 A small part of nodes move randomly to simulate vehicles that do not follow daily patterns.
+The transmission range of nodes varies from simulation to simulation, for reasons explained in \autoref{section:density}.
 
 \subsection{Network Density}
+\label{section:density}
 
 %==> PRECISA MOSTRAR A EQUAÇÃO DE CALCULO DA DENSIDADE, SENÃO FICA DIFICIL DE ENTENDER O CALCULO.
 
 The communication range of nodes varies from 10m to 50m, to illustrate the impact of different network densities.
 The network density ($\delta$) is a value which abstracts the volume and frequency of connections in a vehicular network by estimating how much of the environment is covered by the network.
-For TruMan, higher densities yield better results, since nodes can construct and update their models of the network faster (this is demonstrated in \autoref{subsection:simulations}).
-It is calculated using the transmission range of the nodes ($\rho$), the amount of nodes ($\eta$), and the total area of the simulation ($\alpha$).
+For TruMan, higher densities yield better results, since nodes can construct and update their models of the network faster (this is demonstrated in \autoref{chap:simulations}).
+It is calculated using the transmission range of the nodes ($\rho$), the amount of nodes ($\eta$), and the total area of the simulation ($\alpha$, in m\textsuperscript{2}).
 
 The coverage of a single node is the circumference around it formed by the transmission radius. This is divided by two to compensate for overlapping circumferences, then multiplied by the number of nodes in the network to estimate the maximum coverage area.
 Finally, the value is divided by the total area of the environment.
@@ -141,8 +162,64 @@ The network density formula is as follows:
 
 $$ \delta = \frac{\frac{\rho^2\pi}{2} \times \eta}{\alpha} $$
 
-Simulations shown here have densities between 0.001 ($\rho = 10$m) and 0.04 ($\rho = 50$m).
-As a comparison, the density of the city of São Paulo (Brazil) was calculated as 2.24 with $\rho = 10$m, a much higher value than what is necessary for a satisfactory performance of the algorithm.
+For example, in a simulation with $\rho = 30$m, the calculation is as follows:
+
+$$ \delta = \frac{\frac{30^2\pi}{2} \times 160}{14.689.750} = 0.0154$$
+
+In \autoref{table:simdensities}, a few densities for different values of $\rho$, $\eta$ and $\alpha$ are shown. 
+Simulations for TruMan have densities between 0.0017 ($\rho = 10$m) and 0.0428 ($\rho = 50$m).
+
+\begin{table}[h!]
+\caption{Simulation densities}
+\label{table:simdensities}
+\centering
+\begin{tabular}{|p{1.5cm}|p{1.5cm}|p{2cm}|p{2cm}|}
+ \hline
+ $\rho$ & $\eta$ & $\alpha$ & $\delta$ \\
+ \hline
+ \hline
+ 10 m & 160 & 14.689.750 & 0.0017 \\
+ \hline
+ 30 m & 160 & 14.689.750 & 0.0154 \\
+ \hline
+ 50 m & 160 & 14.689.750 & 0.0428 \\
+ \hline
+ 100 m & 160 & 14.689.750 & 0.1604 \\
+ \hline
+ 150 m & 160 & 14.689.750 & 0.3609 \\
+ \hline
+ 200 m & 160 & 14.689.750 & 0.6416 \\
+ \hline
+\end{tabular}
+\end{table}
+
+As a comparison, the city of São Paulo (Brazil), which has a fleet of over 8 million vehicles in an area of 1521.11 km\textsuperscript{2}, has a density of 0.8884 at $\rho = 10$m, a much higher value than what is necessary for a satisfactory performance of the algorithm.
+\autoref{table:citydensities} shows the densities of a few major cities around the world, using $\rho = 10$m for all of them.
+Areas are shown in km\textsuperscript{2} (values were converted to m\textsuperscript{2} for calculation).
+
+\begin{table}[h!]
+\caption{Simulation densities}
+\label{table:citydensities}
+\centering
+\begin{tabular}{|p{3cm}||p{4cm}|p{4cm}|p{2cm}|}
+ \hline
+ \textbf{City} & \textbf{$\eta$} & $\alpha$ & $\delta$ \\
+ \hline
+ \hline
+ São Paulo (BR) & 8.603.239 & 1.521,11 & 0.8884 \\
+ \hline
+ 30 m & 160 & 14.689.750 & 0.0154 \\
+ \hline
+ 50 m & 160 & 14.689.750 & 0.0428 \\
+ \hline
+ 100 m & 160 & 14.689.750 & 0.1604 \\
+ \hline
+ 150 m & 160 & 14.689.750 & 0.3609 \\
+ \hline
+ 200 m & 160 & 14.689.750 & 0.6416 \\
+ \hline
+\end{tabular}
+\end{table}
 
 \subsection{Validation}
 
@@ -158,37 +235,53 @@ $Y$ axis shows a percentage of all nodes in the network, ranging from 0 to 100;
 blue line represents the percentage of nodes detected out of the complete network;
 magenta is the percentage of malicious nodes in the network (ground truth);
 green represents the nodes correctly identified as malicious (true positives);
-cyan represents the undetected malicious nodes (false negatives); 
+%cyan represents the undetected malicious nodes (false negatives); 
 red represents the benign nodes incorrectly identified as malicious (false positives).
+The lines represent average values between all benign nodes on the network, while the colored regions represent the standard deviation present in the data.
+
+It is expected that the results are very inconsistent at the beginning of the simulations, since nodes are still building their models of the network and have relatively little information to use.
 
 \autoref{fig:random103050} shows the results of simulations running with 10\% of nodes acting maliciously, with communications range varying from 10m to 50m.
-It is possible to see how the increase in the range allows the algorithm to converge sooner, taking over 8000 iterations with 10m range and achieving solid results at just over 1000 iterations with 50m range. 
+It is possible to see how the increase in the range allows the algorithm to produce better results.
+At $\rho = 10$m and $\delta = 0.0017$, a large amount of time is spent with only about half of malicious nodes being accurately identified.
+Results with $\rho = 30$m and $\delta = 0.0153$ are better, but still less than ideal; during this simulation, there were more false positive detections happening, although it was still a small amount.
+At $\rho = 50$m and $\delta = 0.0427$, results are solid before the 2000th iteration of the algorithm, since at that point over 90\% of the network has been acknowledged by most nodes.
+The amount of false positive detections is extremely low, and, by the end of the simulation, all benign nodes have identified 100\% of malicious nodes.
 
-\autoref{fig:random0} shows the variation of results for different amounts of malicious nodes in the network.
-By the end of one day, the algorithm is able to detect all malicious nodes when they are up to 30\% of the network.
-At 40\%, a small part of malicious nodes are yet to be detected.
-At 50\%, as expected, the results are inconsistent as the network is completely split between benign and malicious nodes; at this point, the network is completely compromised.
-The amount of malicious nodes also affects the convergence of the algorithm, since nodes do not trust information from malicious neighbors.
+% taking over 8000 iterations with 10m range and achieving solid results at just over 1000 iterations with 50m range.
+
+\autoref{fig:randommalicious} shows the variation of results for different amounts of malicious nodes in the network.
+By the end of one day, the algorithm is able to detect all malicious nodes when they are up to 30\% of the network, although there is still a small amount of false positive detections.
+At 40\%, a small part of malicious nodes are yet to be detected and the standard deviation is larger overall.
+At 50\%, as expected, the results are inconsistent as the network is completely split between benign and malicious nodes; at this point, the network is considered completely compromised.
+True positive and false positive detections are often inverted, because whenever there are more malicious nodes than benign one in a certain node's network model, the algorithm will classify the malicious ones as correct.
+The amount of malicious nodes also affects how quickly nodes are able to acquire information about the network, since nodes do not trust information from malicious neighbors.
+
+All simulations were performed with trust threshold $h=0.5$, except for the ones in \autoref{fig:randomthresholds}, performed to demonstrate the impact of different threshold values.
+The plots illustrate that there is not a significance change in results depending on the different thresholds.
+The results are slightly better at $h=0.7$, however not in a significant way.
+It still takes over 8000 iterations to detect all malicious nodes and there are still some false positive detections.
 
 \autoref{fig:random7} shows the execution of the algorithm over the course of 7 days.
-Most malicious nodes are identified by the end of the first day; in the following iterations, the algorithm finishes building the network model and sorts out remaining false negative or false positive results.
-After iteration 20000, the results are completely consistent.
+Most malicious nodes are identified by the end of the first day, before iteration 9000.
+However, not all nodes have finished building their model of the network and therefore there are still a number of false positive detections occurring.
+Around iteration 20000, all nodes finish building their models and the false positive detection rate drops to an insignificant amount.
 
 \begin{figure}
 \centering
 
-\begin{subfigure}{0.5\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/10.png}
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/10_10.png}
 \caption{$\rho$ = 10m.} \label{fig:tarjan0}
 \end{subfigure}
 
-\begin{subfigure}{0.5\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/30.png}
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/30_10.png}
 \caption{$\rho$ = 30m.} \label{fig:tarjan0}
 \end{subfigure}
 
-\begin{subfigure}{0.5\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/50.png}
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/50_10.png}
 \caption{$\rho$ = 50m.} \label{fig:tarjan0}
 \end{subfigure}
 
@@ -235,13 +328,37 @@ After iteration 20000, the results are completely consistent.
 \caption{50\% malicious.}
 \end{subfigure}
 
-
-\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes.}\label{fig:tarjan}
+\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes.}
+\label{fig:randommalicious}
 \end{figure}
+
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\textwidth]{images/plots/Network_rA7/10_10}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/thresholds/03_30_10}
+\caption{$h = 0.3$.} \label{fig:tarjan0}
+\end{subfigure}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/thresholds/05_30_10}
+\caption{$h = 0.5$.} \label{fig:tarjan0}
+\end{subfigure}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/thresholds/07_30_10}
+\caption{$h = 0.7$.} \label{fig:tarjan0}
+\end{subfigure}
+
+\caption{Simulation with 10\% malicious nodes, $\rho = 30$m and varying values of $h$.}
+\label{fig:randomthresholds}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{images/plots/Network_rA7/10_10}
 \caption{7 days scenario: 10m range and 10\% malicious nodes.} \label{fig:random7}
 \end{figure}
 

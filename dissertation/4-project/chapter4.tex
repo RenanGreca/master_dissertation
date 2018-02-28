@@ -1,25 +1,32 @@
 \chapter{TruMan}
 \label{chap:truman}
 
-This work proposes that it is possible to adapt a trust management scheme originally designed for static networks to a dynamic environment, such as a VANET.
+This work shows that it is possible to adapt a trust management scheme originally designed for static networks to a dynamic environment, such as a VANET.
 In order to make this possible, it is necessary to identify features in VANETs that show that nodes can share a long-term relationship, as is the case for social networks.
 %The arguments for such features are presented in \autoref{section:socialvanets}, while the movement model that enables the simulation of the features is explained in \autoref{section:workingday}.
 Through these long-term relationships, it then becomes feasible for nodes to store trust data and share it with other nodes.
 By combining a node's own opinions about familiar nodes and trust information received from its neighbors, it is possible to create a model of the surrounding network.
-This model includes a trust graph, showing the trust relationships between pair of nodes, which can then be used as input for a malicious node detection algorithm.
+This model includes a trust graph, showing the trust relationships between pair of nodes, which can then be used as in conjunction with other algorithms in order to classify nodes as correct or malicious.
 
 %The previous chapters show why vehicular networks require distinguished trust models compared to social networks and traditional MANETs.
 %In this chapter, it is proposed that certain aspects from social networks can be found in vehicular networks and, through those aspects, it is possible to adapt a trust model designed for traditional complex networks to a vehicular environment.
 %These social properties allow for long-term trust relationships to be established amongst nodes of a network and, therefore, previously existing trust models can be adapted to the vehicular environment.
 
-In this chapter, the details for the above process are presented.
+In this chapter, the reasoning behind TruMan and details of how it works are presented.
 First, it is shown how vehicles can form long-term relationships and trust one another in a similar way to social networks.
-Then, the Working Day Movement Model is introduced, along with the reasons why it is best fitted for this work.
-Next, a previously existing trust model for complex networks is described, including its advantages and reasons why it could be well-fitted for a vehicular environment, followed by a list of changes that must be made to the model in order for it to handle dynamic networks.
-Finally, a schedule for the next steps of the project is shown.
+Then, two algorithms are introduced: Tarjan's strongly connected components algorithm \cite{tarjan1972depth} and an efficient algorithm for graph coloring \cite{mittal2011graph}.
+Next, the Malicious Node Identification Algorithm (MaNI) \cite{vernize2013dissertation} is explained, for it is the work that suggests the usage of strongly connected components and graph coloring for malicious node detection.
+Finally, TruMan itself is explained, showing how it combines features from existing algorithms and adapts them to a dynamic environment, enabled by the social properties found in vehicular networks.
+%Then, the Working Day Movement Model is introduced, along with the reasons why it is best fitted for this work.
+%Next, a previously existing trust model for complex networks is described, including its advantages and reasons why it could be well-fitted for a vehicular environment, followed by a list of changes that must be made to the model in order for it to handle dynamic networks.
+%Finally, a schedule for the next steps of the project is shown.
 
 \section{Goals}
 \label{section:goals}
+Building from the foundation set by MaNI \cite{vernize2013dissertation}, TruMan strives to enable efficient trust management in highly dynamic networks such as VANETs.
+In addition to efficiency, it is desirable that the trust model is both simple to understand and to implement, making it appealing for real-world usage.
+
+Furthermore, the desired properties of a VANET trust model described in \cite{zhang2011survey} (explained in detail in \autoref{section:properties}) were considered, so TruMan attempts to fulfill or enable as many of those properties as possible.
 
 \section{Social Networks and VANETs}
 \label{section:socialvanets}
@@ -56,117 +63,6 @@ Although the authors do not quantify the encounters between specific pairs of no
 %That might not always be the case, since there may be malicious hackers controlling the node and its driver is oblivious to it.
 %In any case, this approach is not covered in this work.
 
-\section{Malicious Node Identification Algorithm}
-
-The basis of the presented trust model is the Malicious Node Identification Algorithm (MaNI) proposed in \cite{vernize2015malicious}, \cite{vernize2013dissertation}.
-This article presents a malicious node identification scheme based on strongly connected components and graph coloring.
-The model is proposed for complex networks in general, but is not suited for VANETs because it is designed only for static networks.
-Furthermore, the algorithm is executed by a global observer which has information about the complete network.
-
-The input graph $T = (V,O)$ is a static, connected, and directed graph containing all trust relationships in the network.
-Such relationships are binary, so there are no varying degrees of trust: either one node trusts another completely (edge value is $1$), or it distrusts the other completely (edge value is $0$).
-The relationships are also directed, meaning that if the value of $A\rightarrow B$ is $1$, $B\rightarrow A$ is not necessarily $1$.
-
-The process for identifying malicious nodes within $T$ is as follows:
-
-First, $T$ is separated into strongly connected components using Tarjan's algorithm \cite{tarjan1972depth}, which is described in detail in \autoref{section:tarjan}.
-In each of these components, all nodes are connected by edges of value $1$.
-In other words, within a single component, all nodes trust one another; nodes connected by edges of value $0$ are separated into different components.
-Each of these components becomes a node of a component graph $C = (V', O')$.
-
-The creation of the graph $C$ simplifies the remaining computation.
-Since each node of $C$ is a vertex $v' \in V'$ and each vertex $v'$ is a component of $T$ in which all nodes trust each other, for the purposes of identifying malicious nodes, all nodes within each of those components can be treated as one.
-They can either be benign nodes which legitimately trust one another, or malicious nodes colluding with each other.
-After the formation of $C$, one or more heuristics can be used to classify the nodes as benign or malicious.
-
-The article describes the coloring heuristic, which uses a graph coloring algorithm, either DSATUR \cite{brelaz1979new} or the algorithm proposed in \cite{mittal2011graph}.
-Graph coloring is a classic problem of graph theory, in which the objective is to assign each node in a graph a color so that no two neighboring nodes share the same color.
-After running either algorithms with graph $C$, the color whose nodes in $C$ represent the most nodes in $T$ is classified as correct, and all others are classified as malicious.
-Once this information in $C$ is brought back to graph $T$, it is trivial to label the nodes in $T$ as either benign or malicious based on their components' classifications.
-
-In the experiments shown in \cite{vernize2013dissertation}, the coloring heuristic shows the most promising results, identifying a high ratio of the malicious nodes in the network.
-Other heuristics were experimented with, but were either less effective in detecting malicious nodes, or provided too many false positives.
-Therefore, for the purposes of this research, only the coloring heuristic is considered.
-
-Two types of experiments were made in each network: first, all malicious nodes inverted the edge weights leading to their neighbors; second, malicious nodes randomly inverted or not the weights.
-In the first scenario, the results show excellent precision in most networks, detecting nearly every malicious node.
-Experimenting with the second scenario, the results are less precise, however still promising: with up to 20\% of malicious nodes in the network, the error rate is under 7\%, while with the worst case, 50\% of the network being malicious, the error rate is approximately 15\%.
-
-The authors suggest running the algorithm repeatedly after removing the malicious nodes from the network.
-By doing this, nearly all malicious nodes are detected by it even when randomly changing edge weights.
-
-%\begin{algorithm}
-%\caption{MaNI algorithm}\label{algorithm:mani}
-%\begin{algorithmic}[1]
-%
-%\Function{MaNI}{graph $T$}
-%
-%\State $C \gets$ \textbf{Tarjan}$(T[0])$
-%\State $colors \gets$ \textbf{Coloring}$(C)$
-%\State \textbf{color} nodes of $T$ \textbf{according to} $colors$
-%\State \textbf{count} 
-%
-%\EndFunction
-%\end{algorithmic}
-%\end{algorithm}
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.25\textwidth}
-\includegraphics[width=\linewidth]{images/mani/0-trust.png}
-\caption{Initial graph $T$.} \label{fig:mani0}
-\end{subfigure}
-\hspace*{2cm} % separation between the subfigures
-\begin{subfigure}{0.25\textwidth}
-\includegraphics[width=\linewidth]{images/mani/1-tarjan.png}
-\caption{Tarjan's algorithm is used to identify the strongly connected components.} \label{fig:mani1}
-\end{subfigure}
-
-
-\vspace{1cm} % separation between the subfigures
-
-\begin{subfigure}{0.3\textwidth}
-\includegraphics[width=\linewidth]{images/mani/2-components.png}
-\caption{The graph $C$ is formed from the components of $T$.} \label{fig:mani2}
-\end{subfigure}
-\hspace*{2cm} % separation between the subfigures
-\begin{subfigure}{0.3\textwidth}
-\includegraphics[width=\linewidth]{images/mani/3-colored-components.png}
-\caption{The coloring algorithm is used to label the nodes of $C$.} \label{fig:mani3}
-\end{subfigure}
-
-\vspace{1cm} % separation between the subfigures
-
-\begin{subfigure}{0.25\textwidth}
-\includegraphics[width=\linewidth]{images/mani/4-result.png}
-\caption{The colors from $C$ are used to label nodes in $T$ as correct or malicious.} \label{fig:mani4}
-\end{subfigure}
-
-
-\caption{Example of an execution of the MaNI algorithm.}\label{fig:mani}
-\end{figure}
-
-
-\autoref{fig:mani} illustrates the execution of the MaNI algorithm.
-With the starting graph $T$, whose edges represent the trust relationships between nodes, Tarjan's strongly connected component algorithm is executed.
-\autoref{fig:mani1} shows nodes colored according to their placement in a strongly connected component.
-The strongly connected components form a graph $C$ according to edges present in $T$.
-In \autoref{fig:mani2}, component $0$ is the one containing node $5$; component $1$ contains nodes $6$, $7$ and $8$; component $2$ contains nodes $0$, $1$, $2$ and $3$; and component $3$ contains node $4$.
-The graph coloring with minimum colors algorithm is executed on $C$, producing the coloration shown in \autoref{fig:mani3}.
-Finally, each node in $T$ is colored according to which color its component received in $C$.
-The color with the most nodes is deemed benign, while the others are considered malicious. 
-
-
-%$G = (V,E)$: undirected topology graph, in which $V$ are the vertices and $E$ are the edges.
-%
-%$T = (V,O)$: directed trust graph, in which $O$ are the nodes' opinions about each other.
-%
-%$G_t,T_t$: snapshots of $G$ and $T$ in a timestamp $t$.
-%
-%$G_i,T_i$: local knowledge of $G$ and $T$ of a node $i$.
-%
-%$C = (V',O')$: component graph of $T$.
 
 \section{Tarjan's strongly connected components algorithm}
 \label{section:tarjan}
@@ -207,6 +103,10 @@ Algorithm \autoref{algorithm:tarjan} shows the general structure of Tarjan's alg
 \State \textbf{push} $u$ \textbf{to} $stack$
 
 \For{$v$ \textbf{in} neighbors of $u$ }
+
+	\If{weight of $u\rightarrow v < h$}
+		\State \textbf{continue}
+	\EndIf
 	
 	\If{$index[v] = -1$}
 		\Comment{\emph{v has not been visited yet}}
@@ -387,6 +287,119 @@ It is notable how few iterations the algorithm takes to fully color the graph.
 However, the fact that the result does not use the minimum amount of colors.
 By coloring node 4 as cyan and node 3 as magenta, the sample graph could have been colored with only three colors.
 However, as described above, this is not a substantial problem for the purposes of this study.
+
+\section{Malicious Node Identification Algorithm}
+
+The basis of TruMan is the Malicious Node Identification Algorithm (MaNI) proposed in \cite{vernize2015malicious}, which suggests the use of strongly connected components and graph coloring for malicious node detection.
+This article presents a malicious node identification scheme based on strongly connected components and graph coloring.
+The model is proposed for complex networks in general, but is not suited for VANETs because it is designed only for static networks.
+Furthermore, the algorithm is executed by a global observer which has information about the complete network.
+
+The input graph $T = (V,E)$ is a static, connected, and directed graph containing all trust relationships in the network.
+Such relationships are binary, so there are no varying degrees of trust: either one node trusts another completely (edge value is $1$), or it distrusts the other completely (edge value is $0$).
+The relationships are also directed, meaning that if the value of $A\rightarrow B$ is $1$, $B\rightarrow A$ is not necessarily $1$.
+
+The process for identifying malicious nodes within $T$ is as follows:
+
+First, $T$ is separated into strongly connected components using Tarjan's algorithm \cite{tarjan1972depth}, which is described in detail in \autoref{section:tarjan}.
+In each of these components, all nodes are connected by edges of value $1$.
+In other words, within a single component, all nodes trust one another; nodes connected by edges of value $0$ are separated into different components.
+Each of these components becomes a node of a component graph $C = (V', E')$.
+
+The creation of the graph $C$ simplifies the remaining computation.
+Since each node of $C$ is a vertex $v' \in V'$ and each vertex $v'$ is a component of $T$ in which all nodes trust each other, for the purposes of identifying malicious nodes, all nodes within each of those components can be treated as one.
+They can either be benign nodes which legitimately trust one another, or malicious nodes colluding with each other.
+After the formation of $C$, one or more heuristics can be used to classify the nodes as benign or malicious.
+
+The article describes the coloring heuristic, which uses a graph coloring algorithm, either DSATUR \cite{brelaz1979new} or the algorithm proposed in \cite{mittal2011graph}.
+Graph coloring is a classic problem of graph theory, in which the objective is to assign each node in a graph a color so that no two neighboring nodes share the same color.
+After running either algorithms with graph $C$, the color whose nodes in $C$ represent the most nodes in $T$ is classified as correct, and all others are classified as malicious.
+Once this information in $C$ is brought back to graph $T$, it is trivial to label the nodes in $T$ as either benign or malicious based on their components' classifications.
+
+In the experiments shown in \cite{vernize2013dissertation}, the coloring heuristic shows the most promising results, identifying a high ratio of the malicious nodes in the network.
+Other heuristics were experimented with, but were either less effective in detecting malicious nodes, or provided too many false positives.
+Therefore, for the purposes of this research, only the coloring heuristic is considered.
+
+Two types of experiments were made in each network: first, all malicious nodes inverted the edge weights leading to their neighbors; second, malicious nodes randomly inverted or not the weights.
+In the first scenario, the results show excellent precision in most networks, detecting nearly every malicious node.
+Experimenting with the second scenario, the results are less precise, however still promising: with up to 20\% of malicious nodes in the network, the error rate is under 7\%, while with the worst case, 50\% of the network being malicious, the error rate is approximately 15\%.
+
+The authors suggest running the algorithm repeatedly after removing the malicious nodes from the network.
+By doing this, nearly all malicious nodes are detected by it even when randomly changing edge weights.
+
+%\begin{algorithm}
+%\caption{MaNI algorithm}\label{algorithm:mani}
+%\begin{algorithmic}[1]
+%
+%\Function{MaNI}{graph $T$}
+%
+%\State $C \gets$ \textbf{Tarjan}$(T[0])$
+%\State $colors \gets$ \textbf{Coloring}$(C)$
+%\State \textbf{color} nodes of $T$ \textbf{according to} $colors$
+%\State \textbf{count} 
+%
+%\EndFunction
+%\end{algorithmic}
+%\end{algorithm}
+
+\begin{figure}
+\centering
+
+\begin{subfigure}{0.25\textwidth}
+\includegraphics[width=\linewidth]{images/mani/0-trust.png}
+\caption{Initial graph $T$.} \label{fig:mani0}
+\end{subfigure}
+\hspace*{2cm} % separation between the subfigures
+\begin{subfigure}{0.25\textwidth}
+\includegraphics[width=\linewidth]{images/mani/1-tarjan.png}
+\caption{Tarjan's algorithm is used to identify the strongly connected components.} \label{fig:mani1}
+\end{subfigure}
+
+
+\vspace{1cm} % separation between the subfigures
+
+\begin{subfigure}{0.3\textwidth}
+\includegraphics[width=\linewidth]{images/mani/2-components.png}
+\caption{The graph $C$ is formed from the components of $T$.} \label{fig:mani2}
+\end{subfigure}
+\hspace*{2cm} % separation between the subfigures
+\begin{subfigure}{0.3\textwidth}
+\includegraphics[width=\linewidth]{images/mani/3-colored-components.png}
+\caption{The coloring algorithm is used to label the nodes of $C$.} \label{fig:mani3}
+\end{subfigure}
+
+\vspace{1cm} % separation between the subfigures
+
+\begin{subfigure}{0.25\textwidth}
+\includegraphics[width=\linewidth]{images/mani/4-result.png}
+\caption{The colors from $C$ are used to label nodes in $T$ as correct or malicious.} \label{fig:mani4}
+\end{subfigure}
+
+
+\caption{Example of an execution of the MaNI algorithm.}\label{fig:mani}
+\end{figure}
+
+
+\autoref{fig:mani} illustrates the execution of the MaNI algorithm.
+With the starting graph $T$, whose edges represent the trust relationships between nodes, Tarjan's strongly connected component algorithm is executed.
+\autoref{fig:mani1} shows nodes colored according to their placement in a strongly connected component.
+The strongly connected components form a graph $C$ according to edges present in $T$.
+In \autoref{fig:mani2}, component $0$ is the one containing node $5$; component $1$ contains nodes $6$, $7$ and $8$; component $2$ contains nodes $0$, $1$, $2$ and $3$; and component $3$ contains node $4$.
+The graph coloring with minimum colors algorithm is executed on $C$, producing the coloration shown in \autoref{fig:mani3}.
+Finally, each node in $T$ is colored according to which color its component received in $C$.
+The color with the most nodes is deemed benign, while the others are considered malicious. 
+
+
+%$G = (V,E)$: undirected topology graph, in which $V$ are the vertices and $E$ are the edges.
+%
+%$T = (V,O)$: directed trust graph, in which $O$ are the nodes' opinions about each other.
+%
+%$G_t,T_t$: snapshots of $G$ and $T$ in a timestamp $t$.
+%
+%$G_i,T_i$: local knowledge of $G$ and $T$ of a node $i$.
+%
+%$C = (V',O')$: component graph of $T$.
+
 
 \section{The TruMan algorithm}
 \label{section:algorithm}
