@@ -8,31 +8,31 @@
 %=====================================================
 
 As computers grow in power and shrink in size, more aspects of everyday life can be enhanced by adding processing units to common devices.
-While many of these applications focus on conveniences, such as home automation \cite{mccole2016} (the collection of connected and smart devices is dubbed the Internet of Things or IoT \cite{morgan2014}), the integration of computers with other objects and devices can also be important to save time and save lives \cite{rti2014}.
-One way of achieving this is by adding computers and wireless transmitters to vehicles — such as cars, buses, and trains — so they can share data which may increase traffic efficiency or reduce the chance of accidents \cite{saini2015close}.
+While many of these applications focus on conveniences, such as home automation \citep{mccole2016} (the collection of connected and smart devices is dubbed the Internet of Things or IoT \citep{morgan2014}), the integration of computers with other objects and devices can also be important to save time and save lives \citep{rti2014}.
+One way of achieving this is by adding computers and wireless transmitters to vehicles — such as cars, buses, and trains — so they can share data which may increase traffic efficiency or reduce the chance of accidents \citep{saini2015close}.
 
-In 2013, an estimated 1.25 million people lost their lives due to traffic accidents globally \cite{whotraffic}.
-While this number has greatly reduced over the past decades \cite{johnson2010traffic} thanks to better safety features (seat belts, air bags, ABS, etc.) and stronger laws (drunk driving, motorcycle helmets, speed limits, etc.), it may still rise as a major cause of death in the years to come \cite{whofactsheet}, so further actions are necessary.
-Furthermore, as the car population increases, congestions consume ever more time of the daily commuter, peaking at over 100 hours per year for the residents of Los Angeles, CA \cite{inrixtraffic}.
+In 2013, an estimated 1.25 million people lost their lives due to traffic accidents globally \citep{whotraffic}.
+While this number has greatly reduced over the past decades \citep{johnson2010traffic} thanks to better safety features (seat belts, air bags, ABS, etc.) and stronger laws (drunk driving, motorcycle helmets, speed limits, etc.), it may still rise as a major cause of death in the years to come \citep{whofactsheet}, so further actions are necessary.
+Furthermore, as the car population increases, congestions consume ever more time of the daily commuter, peaking at over 100 hours per year for the residents of Los Angeles, CA \citep{inrixtraffic}.
 
 Smart vehicles and vehicular networks are ways that technology can aid both of the aforementioned problems.
-Through the use of sensors and wireless communications, these vehicles are able to avoid accidents by alerting distracted drivers \cite{lee2004collision}, or by knowing in advance another vehicle's position and speed \cite{hafner2011automated}.
-By communicating, they can also collaborate to offer driving and route suggestions, therefore reducing the possibility of traffic jams \cite{knorr2012reducing}.
+Through the use of sensors and wireless communications, these vehicles are able to avoid accidents by alerting distracted drivers \citep{lee2004collision}, or by knowing in advance another vehicle's position and speed \citep{hafner2011automated}.
+By communicating, they can also collaborate to offer driving and route suggestions, therefore reducing the possibility of traffic jams \citep{knorr2012reducing}.
 %These features are possible with the development of a vehicular ad-hoc network (VANET), in which vehicles can quickly share data amongst themselves without the need of a server or an Internet connection.
 
-When dealing with safety or traffic-efficiency applications, it is crucial that network communications occur with low latency (approximately 100 milliseconds \cite{camp2005vehicle}).
-Current cellular technology, such as LTE, could be used to connect vehicles to the Internet, but the delay added by the transmission would make safety applications unfeasible or unreliable \cite{mangel2010comparison}.
+When dealing with safety or traffic-efficiency applications, it is crucial that network communications occur with low latency (approximately 100 milliseconds \citep{camp2005vehicle}).
+Current cellular technology, such as LTE, could be used to connect vehicles to the Internet, but the delay added by the transmission would make safety applications unfeasible or unreliable \citep{mangel2010comparison}.
 Cellular connections also have other problems: the connection would require an active subscription with a carrier; the connection depends on available infrastructure; the wireless frequency would be shared with phones and other mobile devices, increasing the possibility of interference and congestion; server-side issues could impact the vehicles' communications.
 
 For these reasons, ad-hoc solutions are preferred over centralized ones.
-An ad-hoc network is one that has no reliance on pre-existing infrastructure (such as routers or access points) \cite{wu2004ad}.
+An ad-hoc network is one that has no reliance on pre-existing infrastructure (such as routers or access points) \citep{wu2004ad}.
 Instead, each node is able to communicate directly with others and a routing protocol allows for messages to be forwarded until they reach their destinations.
 Every time a node wants to send a message and the recipient is not a direct neighbor, it must choose which nearby node is the most likely one to get the message to its destination.
-Routing techniques can use either the network's topology or geographical coordinates \cite{saini2015close} to choose which node should be the next hop.
+Routing techniques can use either the network's topology or geographical coordinates \citep{saini2015close} to choose which node should be the next hop.
 
 These issues — the additional safety and efficiency as well as the low-latency communications — can be tackled through the use of a vehicular ad-hoc network (VANET), in which vehicles share data amongst themselves without relying on external devices, an Internet connection or server availability.
-Neighboring vehicles can share their position and velocity data at high frequencies, allowing, for example, for autonomous vehicles to plan a platooning approach to traffic \cite{amoozadeh2015platoon}.
-In the case of a collision or other event, nearby nodes can broadcast alerts, which other nodes pick up and forward \cite{li2007routing}.
+Neighboring vehicles can share their position and velocity data at high frequencies, allowing, for example, for autonomous vehicles to plan a platooning approach to traffic \citep{amoozadeh2015platoon}.
+In the case of a collision or other event, nearby nodes can broadcast alerts, which other nodes pick up and forward \citep{li2007routing}.
 That way, an alert can travel long distances in little time, allowing approaching vehicles to safely slow down or pick alternative routes.
 
 \begin{figure}[h]
@@ -42,8 +42,8 @@ That way, an alert can travel long distances in little time, allowing approachin
     \label{fig:collision}
 \end{figure}
 
-As is the case with most new technologies, VANETs are expected to be a notable target of attacks for a diversity of reasons \cite{isaac2010security}.
-A local malicious user might alter the data his or her vehicle broadcasts in order to manipulate traffic conditions, while remote attackers could invade vehicles' computers and obtain partial control of the network  \cite{garip2015congestion}.
+As is the case with most new technologies, VANETs are expected to be a notable target of attacks for a diversity of reasons \citep{isaac2010security}.
+A local malicious user might alter the data his or her vehicle broadcasts in order to manipulate traffic conditions, while remote attackers could invade vehicles' computers and obtain partial control of the network  \citep{garip2015congestion}.
 These attacks can vary from time-consuming annoyances to life-threatening, so it is important that real-world implementations of vehicular networks are prepared to handle them.
 
 %However, as is the case for many types of networks, VANETs must be reliable in order to be functional.
@@ -62,8 +62,8 @@ In case the trust value of a sender is too low, a receiver node can choose to ig
 Trust allows for better cooperation of nodes in a network, since incorrect messages might be detected and discarded.
 
 Furthermore, once nodes form their own opinions about others, they can propagate pre-existing trust values when necessary.
-For example, if two nodes are not direct neighbors and do not have any pre-existing trust information about each other, they can ask intermediary nodes for their opinions on the other node \cite{wang2009trust}.
-The management of trust values (i.e. how one node acquires and updates trust values) and the use of these values to derive further information (such as designating nodes as malicious or not) is called \textit{trust management} \cite{ma2011survey}. 
+For example, if two nodes are not direct neighbors and do not have any pre-existing trust information about each other, they can ask intermediary nodes for their opinions on the other node \citep{wang2009trust}.
+The management of trust values (i.e. how one node acquires and updates trust values) and the use of these values to derive further information (such as designating nodes as malicious or not) is called \textit{trust management} \citep{ma2011survey}. 
 %The combination of one node's trust of another with the opinions of other nearby nodes form what is called \textit{trust management}.
 The effective use of trust management allows for the detection of malicious, misbehaving or faulty nodes in the network, and for such information to be shared amongst the benign participants. 
 Throughout this document, trust and trust management may be used interchangeably.
@@ -74,7 +74,7 @@ Throughout this document, trust and trust management may be used interchangeably
 %Without trust management\footnote{} features, a vehicle cannot judge whether or not received messages are benign or malicious in order to make an informed decision and, therefore, incorrect data might be presented to the driver.
 
 While the detection of incorrect nodes and/or messages is an important aspect of security and safety in vehicular networks, it does not address all of the problems.
-Trust solutions are not viable without a solid identity verification scheme, for instance, since nodes would not be able to form trust opinions without being sure of the others' identities (these schemes often use a Public Key Infrastructure \cite{wasef2010complementing}).
+Trust solutions are not viable without a solid identity verification scheme, for instance, since nodes would not be able to form trust opinions without being sure of the others' identities (these schemes often use a Public Key Infrastructure \citep{wasef2010complementing}).
 They also do not address issues such as driver and passenger privacy when using the facilities of a VANET.
 Furthermore, cryptography must be used in order to guarantee that the secrecy of messages is not violated.
 Therefore, trust and trust management must be viewed as an important aspect of vehicular ad-hoc networks, but not as a definitive solutions to all of the related concerns.
@@ -84,12 +84,12 @@ VANETs are a subset of technological networks, therefore it is useful to conside
 Furthermore, VANETs contain several features often found in social networks, which can be directly tied to how nodes form and develop trust relationships with each other.
 
 %While this work emphasizes on the characteristics of VANETs, they are only a subset of the much broader field of complex networks.
-%The study of complex networks dates back decades, including analysis of biological or social networks \cite{wang2003complex} \cite{newmannetworks}.
+%The study of complex networks dates back decades, including analysis of biological or social networks \citep{wang2003complex} \citep{newmannetworks}.
 %Trust issues are present in many of these types of networks, although each one requires a specific approach that addresses the peculiarities involved.
 
 %Often, when people hear the term ``network'', they think only of technological examples, such as computer networks.
 %Such networks are only a subset of a much larger field of study: that of complex networks.
-%The study of complex networks dates back decades, including analysis of biological or social networks \cite{wang2003complex} \cite{newmannetworks}.
+%The study of complex networks dates back decades, including analysis of biological or social networks \citep{wang2003complex} \citep{newmannetworks}.
 %Technological networks, and VANETs by extension, are only a subset of that much larger field of study.
 %
 %Trust issues and their solutions are an important aspect of the study of complex networks, and of social or technological networks in particular.
@@ -98,7 +98,7 @@ Furthermore, VANETs contain several features often found in social networks, whi
 %Despite the differences, there are some concepts that overlap across most types of networks.
 
 This work proposes a method for identifying malicious nodes in a vehicular network, although it may also be viable for other dynamic and decentralized networks.
-The solution is based on a previously existing algorithm \cite{vernize2015malicious}, which was limited to centralized networks.
+The solution is based on a previously existing algorithm \citep{vernize2015malicious}, which was limited to centralized networks.
 In order to adapt the algorithm to a dynamic and decentralized environment, it is necessary to locate network features that allow for trust relationships to be developed amongst the network members over time, since there is no centralizing agent to store and process the whole network's trust values.
 These features are found by tracing analogies to social networks, i.e. identifying how and why two nodes (in the case of VANETs, vehicles) would meet more than once and at a somewhat predictable interval.
 

@@ -5,7 +5,7 @@
 
 %Often, when people hear the term ``network'', they think only of technological examples, such as computer networks.
 %Such networks are only a subset of a much larger field of study: that of complex networks.
-%The study of complex networks dates back decades, including analysis of biological or social networks \cite{wang2003complex} \cite{newmannetworks}.
+%The study of complex networks dates back decades, including analysis of biological or social networks \citep{wang2003complex} \citep{newmannetworks}.
 %Technological networks, and VANETs by extension, are only a subset of that much larger field of study.
 %
 %Trust issues and their solutions are an important aspect of the study of complex networks, and of social or technological networks in particular.
@@ -14,12 +14,12 @@
 %Despite the differences, there are some concepts that overlap across most types of networks.
 
 
-Complex networks can describe many systems which are observed in nature and society through a collection of \textit{vertices} (or \textit{nodes}) and \textit{edges} \cite{newmannetworks}.
+Complex networks can describe many systems which are observed in nature and society through a collection of \textit{vertices} (or \textit{nodes}) and \textit{edges} \citep{newmannetworks}.
 They can be comprised of palpable components (such as computers and cables), somewhat abstract entities (such as the World Wide Web's collection of webpages and URLs), or both (like the people and relationships that form a social network).
 The study of networks is tied to graph theory, since graphs are a useful way to generate models of networks, and therefore many concepts of the two fields overlap.
 Mathematical, computational and statistical concepts developed for graphs can be translated to be useful for a variety of different types of networks, like, for example, finding articulation vertices in a graph to locate bandwidth bottlenecks in a computer network.
 
-Complex networks are generally divided into four categories \cite{newmannetworks}:
+Complex networks are generally divided into four categories \citep{newmannetworks}:
 
 \begin{enumerate}
 	\item \textbf{Technological Networks} are grids purposefully engineered to provide services to consumers and/or citizens.
@@ -55,7 +55,7 @@ In most networks, trust can be a useful tool to aid the security and safety of i
 Therefore, the study of the concept and applications of trust is an important part of the study of networks. 
 
 Trust is a concept studied in fields such as psychology and economics, with specific definitions.
-In complex networks, under the perspective of computer science, it is a measure of one entity's confidence that another will behave properly and provide valid and/or meaningful data \cite{sherchan2013survey}.
+In complex networks, under the perspective of computer science, it is a measure of one entity's confidence that another will behave properly and provide valid and/or meaningful data \citep{sherchan2013survey}.
 What follows is the basis of how a network can be modelled using a graph and how a trust model can be applied to it.
 
 Consider an undirected graph $G = (V,E)$, which models one complex network of any kind.
@@ -78,13 +78,13 @@ Furthermore, features of both are relevant when analyzing network structure and 
 \section{Trust in Social Networks}
 \label{section:trustsocial}
 There are two types of social networks: real-world ones formed by relationships between people, and online ones that attempt to abstract the former into a digital environment.
-Examples of the first one are all around, present in any family, workplace, school or group of friends \cite{newmannetworks}.
+Examples of the first one are all around, present in any family, workplace, school or group of friends \citep{newmannetworks}.
 Online social networks started by connecting people who already knew each other and giving them an additional form of interaction (analogous to what telephones and email did before), but, today, it is not unusual for people to form relationships with others whom they have only met online. 
 
 In a traditional social network, it is simple to perceive how trust is relevant and how it works, since trust relationships between people are used on a daily basis to make decisions.
 When adapted to a digital environment, these social relationships can be used to automatically increase the relevance of certain information.
 For instance, upon reading an online review for a certain product, a user will be more likely to accept the review's conclusion if it was written by a close friend than if it were written by a stranger.
-Social trust is a way of estimating how much a certain recommendation will lead to a positive outcome \cite{golbeck2006inferring}. 
+Social trust is a way of estimating how much a certain recommendation will lead to a positive outcome \citep{golbeck2006inferring}. 
 
 The absence of trust or the presence of distrust have consequences as well.
 Both in the real world and online, information which comes from a stranger is received with uncertainty; there is no reason to trust the sender, so the data itself must be analyzed and compared to other sources in order to judge whether or not it may be trusted.
@@ -95,8 +95,8 @@ In online social networks, for example, one user can ``block'' another in order 
 
 Social networks also have the property of carrying trust from one relationship to another:
 information shared by a close friend of a person might be considered almost as trustworthy as some collected by the person him or herself.
-Therefore, it is possible to model social trust relationships as a graph, in which nodes represent people and edges represent a certain degree of trust \cite{newmannetworks}.
-Expanding on that property, there is the concept friends of friends \cite{boissevain1974friends}.
+Therefore, it is possible to model social trust relationships as a graph, in which nodes represent people and edges represent a certain degree of trust \citep{newmannetworks}.
+Expanding on that property, there is the concept friends of friends \citep{boissevain1974friends}.
 If, for example, nodes $A$ and $B$ have mutual trust and are considered friends, then it is reasonable to assume that some of $A$'s trust for $B$ carries over to other nodes that enjoy mutual trust with $B$.
 In other words, a friend of a friend can be considered more trustworthy than the average stranger.
 This property is similar, although not identical, to transitivity, since trust is diminished for each extra step an origin node needs to reach a destination, and there is also the possibility that one node distrusts another even if they share a mutual friend.
@@ -182,7 +182,7 @@ In networks in which nodes can meet more than once, it might be valuable to stor
 %In networks in which nodes can meet more than once, it may be valuable to store information from previous encounters to use in the future, although this process can be too slow or resource-consuming to be viable in certain devices.
 
 
-Another important aspect of trust in ad-hoc networks is that information is, generally, uncertain and incomplete \cite{baras2005cooperation}.
+Another important aspect of trust in ad-hoc networks is that information is, generally, uncertain and incomplete \citep{baras2005cooperation}.
 That is, since nodes form their own model and opinions of the surrounding network, it is unlikely that this data will be certain and accurate with reality.
 For this reason, it is also possible to use data gathered by neighboring nodes to complement the model.
 This data itself is subject to the trust evaluation of the neighbors, but it is crucial to better approximate the trust values of other nodes.
@@ -192,7 +192,7 @@ Finally, MANETs must consider the processing and battery limitations of the devi
 Nodes may disable wireless communications to save power and therefore become uncooperative, or it may be too slow to be a reliable source of information.
 
 There are few examples of MANETs implemented for consumer devices.
-Two examples are networks created to quickly share data between devices using Wi-Fi or Bluetooth \cite{krochmal2014discovery}, or ones that allow for multiplayer gaming sessions amongst multiple nearby devices \cite{sasaki2011wireless}.
+Two examples are networks created to quickly share data between devices using Wi-Fi or Bluetooth \citep{krochmal2014discovery}, or ones that allow for multiplayer gaming sessions amongst multiple nearby devices \citep{sasaki2011wireless}.
 In both cases, there is no need for a complicated system-level trust model, since those activities involve active participation from the users wielding the device (that is, the user chooses whether or not to communicate with other devices); rather, the trust relationship occurs socially amongst the users themselves.
 
 Naturally, VANETs are an instance of MANETs and therefore share some of the same features.
