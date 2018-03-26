@@ -16,8 +16,6 @@
 
 Complex networks can describe many systems which are observed in nature and society through a collection of \textit{vertices} (or \textit{nodes}) and \textit{edges} \citep{newmannetworks}.
 They can be comprised of palpable components (such as computers and cables), somewhat abstract entities (such as the World Wide Web's collection of webpages and URLs), or both (like the people and relationships that form a social network).
-The study of networks is tied to graph theory, since graphs are a useful way to generate models of networks, and therefore many concepts of the two fields overlap.
-Mathematical, computational and statistical concepts developed for graphs can be translated to be useful for a variety of different types of networks, like, for example, finding articulation vertices in a graph to locate bandwidth bottlenecks in a computer network.
 
 Complex networks are generally divided into four categories \citep{newmannetworks}:
 
@@ -36,10 +34,10 @@ Complex networks are generally divided into four categories \citep{newmannetwork
 		Often, information networks are directly associated with technological or social networks.
 		For instance, while the World Wide Web is an information network (in which the nodes are webpages and the edges are the links that users click on to navigate), it relies on the Internet, as it contains the physical infrastructure that makes the web possible.
 		Online social networks can also be classified as information networks, since their nodes are actually information about people rather than the people themselves.
-		Trust in information networks can be observed in some instances, like peer-to-peer networks [cite], although its usages are not relevant for this work.
+		Trust in information networks can be observed in some instances, like peer-to-peer networks, although its usages are not relevant for this work.
 	\item \textbf{Biological Networks} are the networks found in nature.
 		Their nodes can be chemicals, cells, animals, groups of lifeforms, and more.
-		An example is the brain, which contains a neural network formed by neurons, cells which enable information processing; connections in the network represent signals that are sent from one neuron to another.
+		An example is the brain, which contains a neural network formed by neurons; connections in the network represent signals that are sent from one neuron to another.
 		Another instance of biological networks are food chains, categorized as ecological webs.
 		Species of animals are the nodes, while the predation of other species form the edges.
 		In biological networks, it is difficult to clearly define trust, since nodes may not have any sort of awareness or intelligence (such as cells or proteins).
@@ -58,19 +56,22 @@ Trust is a concept studied in fields such as psychology and economics, with spec
 In complex networks, under the perspective of computer science, it is a measure of one entity's confidence that another will behave properly and provide valid and/or meaningful data \citep{sherchan2013survey}.
 What follows is the basis of how a network can be modelled using a graph and how a trust model can be applied to it.
 
-Consider an undirected graph $G = (V,E)$, which models one complex network of any kind.
+Consider an undirected graph $G = (V, E_G)$, which models one complex network of any kind.
 The vertices are the members of the network (computers, humans, etc.) and each edge represents a pair of vertices' ability to exchange data freely.
 This graph represents the network's \textit{topology}, that is, the basic structure of the network.
-Then, there is also a directed graph $T = (V, O)$, called a \textit{trust graph}.
-$T$ contains the same nodes as $G$, although its edges represent the degree of trust (or opinion) each node has towards another.
+Then, there is also a directed graph $T = (V, E)$, called a \textit{trust graph}.
+$T$ contains the same vertices as $G$, although its edges represent the degree of trust (or opinion) each node has towards another.
 
-There are two main ways to describe the edges in $O$: they can be binary, either existing when there is trust or not otherwise, or they can hold a specific trust value within a certain range.
-This means the shape of $T$ is not necessarily similar to that of $G$.
-For instance, two people can have contact with each other but not maintain a trust relationship, thus altering the layout of the trust graph compared to the network topology.
+There are two main ways to describe the edges in $E$: they can be binary, either existing when there is trust or not otherwise, or they can hold a specific trust value within a certain range.
+In some cases, an edge $a\rightarrow b$ with value 0 indicates lack of trust, meaning $a$ has no reason to trust $b$.
+In others, it indicates \textit{negative trust}, meaning $a$ has reason to believe $b$ is malicious.
 
-In the following two sections of this chapter, trust in the contexts of social and technological networks is further explained.
+Since $G$ and $T$ represent different types of information, the shape of $T$ is not necessarily similar to that of $G$, even though they share the same vertices.
+For instance, two people can have contact with each other (therefore sharing an edge in $G$) but not maintain a trust relationship (therefore not sharing an edge in $T$), thus altering the layout of the trust graph compared to the network topology.
+
+In the following two sections of this chapter, trust is further explained in the contexts of social and technological networks.
 Both types of network can be fitted into the model above, but contain distinct features that demand closer examination.
-Furthermore, features of both are relevant when analyzing network structure and trust graphs for vehicular networks, which is expanded upon in \autoref{chap:vanets}.
+Furthermore, features of both are relevant when analyzing network structure and trust graphs for vehicular networks, which are expanded upon in \autoref{chap:vanets}.
 
 %As this work relates to trust issues in complex networks, it is interesting to further examine social networks and the importance of trust within them.
 %While the end result of the study will be applied to technological networks, certain aspects of social networks provide useful analogies to trust management in other kinds of networks.
@@ -97,10 +98,10 @@ Social networks also have the property of carrying trust from one relationship t
 information shared by a close friend of a person might be considered almost as trustworthy as some collected by the person him or herself.
 Therefore, it is possible to model social trust relationships as a graph, in which nodes represent people and edges represent a certain degree of trust \citep{newmannetworks}.
 Expanding on that property, there is the concept friends of friends \citep{boissevain1974friends}.
-If, for example, nodes $A$ and $B$ have mutual trust and are considered friends, then it is reasonable to assume that some of $A$'s trust for $B$ carries over to other nodes that enjoy mutual trust with $B$.
+If, for example, nodes $a$ and $b$ have mutual trust and are considered friends, then it is reasonable to assume that some of $a$'s trust for $b$ carries over to other nodes that enjoy mutual trust with $b$.
 In other words, a friend of a friend can be considered more trustworthy than the average stranger.
 This property is similar, although not identical, to transitivity, since trust is diminished for each extra step an origin node needs to reach a destination, and there is also the possibility that one node distrusts another even if they share a mutual friend.
-Naturally, social trust is not commutative ($A$ trusting $B$ does not imply that $B$ trusts $A$).
+Naturally, social trust is not commutative ($a$ trusting $b$ does not imply that $b$ trusts $a$).
 
 In general, social networks' topology and trust graphs are mostly static.
 Although friendships are formed and ended frequently (i.e. the topology is dynamic), those connections do not disrupt the general shape of the network, because members of the network will usually have other friends whose relationships remain stable.

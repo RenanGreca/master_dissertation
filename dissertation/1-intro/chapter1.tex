@@ -97,10 +97,26 @@ Furthermore, VANETs contain several features often found in social networks, whi
 %It is interesting to review the solutions proposed for social networks and technological networks in general, and then narrow down on how dynamic networks, and VANETs in particular, are handled.
 %Despite the differences, there are some concepts that overlap across most types of networks.
 
-This work proposes a method for identifying malicious nodes in a vehicular network, although it may also be viable for other dynamic and decentralized networks.
-The solution is based on a previously existing algorithm \citep{vernize2015malicious}, which was limited to centralized networks.
-In order to adapt the algorithm to a dynamic and decentralized environment, it is necessary to locate network features that allow for trust relationships to be developed amongst the network members over time, since there is no centralizing agent to store and process the whole network's trust values.
-These features are found by tracing analogies to social networks, i.e. identifying how and why two nodes (in the case of VANETs, vehicles) would meet more than once and at a somewhat predictable interval.
+The study of networks is tied to graph theory, since graphs are a useful way to generate models of networks, and therefore many concepts of the two fields overlap.
+Mathematical, computational and statistical concepts developed for graphs can be translated to be useful for a variety of different types of networks.
+%, like, for example, finding articulation vertices in a graph to locate bandwidth bottlenecks in a computer network.
+Therefore, this document utilizes notation from graph theory in order to represent various kinds of networks.
+
+This work introduces TruMan, a trust management solution for vehicular networks. 
+TruMan combines solutions to two classic graph theory problems, strongly connected components and graph coloring, in order to provide an efficient approach to identifying malicious nodes in a dynamic and decentralized network.
+This is based on a previously existing algorithm, called MaNI \citep{vernize2015malicious}, which is limited to centralized networks.
+
+In order to function in a dynamic and decentralized environment, TruMan takes advantage of features that allow the development of trust relationships between members of the network.
+Since there is no unifying agent supervising the network, trust relationships are built over time, as nodes move around the network and meet other nodes.
+
+These features are discovered by tracing analogies with social networks.
+There might be groups of nodes which meet each other with a predictable frequency and at predictable intervals, for example vehicles which belong to family members, neighbors or work colleagues.
+By considering such features, TruMan allows the formation of strong trust relationships,  which in turn facilitate the discovery of malicious members of the network.
+
+%This work proposes a method for identifying malicious nodes in a vehicular network, although it may also be viable for other dynamic and decentralized networks.
+
+%In order to adapt the algorithm to a dynamic and decentralized environment, it is necessary to locate network features that allow for trust relationships to be developed amongst the network members over time, since there is no centralizing agent to store and process the whole network's trust values.
+%These features are found by tracing analogies to social networks, i.e. identifying how and why two nodes (in the case of VANETs, vehicles) would meet more than once and at a somewhat predictable interval.
 
 % Seems like there's a paragraph missing to explain why we mention social and technological networks at all.
 
@@ -110,8 +126,8 @@ These features are found by tracing analogies to social networks, i.e. identifyi
 
 %why mention social networks
 
-\section{Document organization}
-The remainder of this dissertation is organized as follows. \Cref{chap:complexnetworks} explains the broad study of complex networks and the importance of trust in technological and social networks.
+%\section{Document organization}
+The remainder of this document is organized as follows. \Cref{chap:complexnetworks} explains the broad study of complex networks and the importance of trust in technological and social networks.
 Then, \autoref{chap:vanets} goes into details regarding VANETs and the importance of trust solutions in the field, presenting previous studies made on the subject.
 \Cref{chap:truman} describes the goals of TruMan, its underlying hypothesis and the work done to achieve those goals, as well as the previously existing algorithms which form parts of TruMan.
 Next, \autoref{chap:simulations} explains the tools used to validate TruMan's functionality and presents the results of the experiments that were performed.
