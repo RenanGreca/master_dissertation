@@ -1,12 +1,13 @@
 \chapter{TruMan}
 \label{chap:truman}
 
-This work shows that it is possible to adapt a trust management scheme originally designed for static networks to a dynamic environment, such as a VANET.
+%This work shows that it is possible to adapt a trust management scheme originally designed for static networks to a dynamic environment, such as a VANET.
+This work introduces an efficient solution to trust management in dynamic networks such as VANETs.
 In order to make this possible, it is necessary to identify features in VANETs that show that nodes can share a long-term relationship, as is the case for social networks.
 %The arguments for such features are presented in \autoref{section:socialvanets}, while the movement model that enables the simulation of the features is explained in \autoref{section:workingday}.
 Through these long-term relationships, it then becomes feasible for nodes to store trust data and share it with other nodes.
 By combining a node's own opinions about familiar nodes and trust information received from its neighbors, it is possible to create a model of the surrounding network.
-This model includes a trust graph, showing the trust relationships between pair of nodes, which can then be used as in conjunction with other algorithms in order to classify nodes as correct or malicious.
+This model includes a trust graph, showing the trust relationships between pair of nodes, which can then be used in conjunction with other algorithms in order to classify nodes as correct or malicious.
 
 %The previous chapters show why vehicular networks require distinguished trust models compared to social networks and traditional MANETs.
 %In this chapter, it is proposed that certain aspects from social networks can be found in vehicular networks and, through those aspects, it is possible to adapt a trust model designed for traditional complex networks to a vehicular environment.
@@ -15,8 +16,8 @@ This model includes a trust graph, showing the trust relationships between pair 
 In this chapter, the reasoning behind TruMan and details of how it works are presented.
 First, it is shown how vehicles can form long-term relationships and trust one another in a similar way to social networks.
 Then, two algorithms are introduced: Tarjan's strongly connected components algorithm \citep{tarjan1972depth} and an efficient algorithm for graph coloring \citep{mittal2011graph}.
-Next, the Malicious Node Identification Algorithm (MaNI) \citep{vernize2013dissertation} is explained, for it is the work that suggests the usage of strongly connected components and graph coloring for malicious node detection.
-Finally, TruMan itself is explained, showing how it combines features from existing algorithms and adapts them to a dynamic environment, enabled by the social properties found in vehicular networks.
+Next, the Malicious Node Identification Algorithm (MaNI) \citep{vernize2013dissertation} is explained, because it is the work that suggests the usage of strongly connected components and graph coloring for malicious node detection.
+Finally, TruMan itself is detailed, showing how it combines features from existing algorithms and adapts them to a dynamic environment, enabled by the social properties found in vehicular networks.
 %Then, the Working Day Movement Model is introduced, along with the reasons why it is best fitted for this work.
 %Next, a previously existing trust model for complex networks is described, including its advantages and reasons why it could be well-fitted for a vehicular environment, followed by a list of changes that must be made to the model in order for it to handle dynamic networks.
 %Finally, a schedule for the next steps of the project is shown.

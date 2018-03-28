@@ -173,93 +173,89 @@ The model proposed in this work utilizes entity-based and experience-based trust
 \label{section:properties}
 
 The analysis of related work is based on \citep{zhang2011survey}, which proposes eight desired properties for a trust management model for VANETs.
-In this section, these properties are described with an assessment of whether or not TruMan satisfies their conditions.
-\autoref{table:properties} shows how well TruMan and previous work satisfy the properties.
+In this section, these properties are briefly described.
+% with an assessment of whether or not TruMan satisfies their conditions.
+%\autoref{table:properties} shows how well TruMan and previous work satisfy the properties.
 
-\textit{1. Decentralized trust establishment}: nodes must be able to form their own trust values about other nodes.
-Nodes may or may not use information from other trustworthy nodes to build trust values.
-TruMan satisfies this as it is built from the ground up for decentralized systems.
+\textit{1. Decentralized trust establishment}: nodes must be able to form their own trust values about other nodes without the aid of an Internet connection or centralizing agents.
+Nodes may or may not use information from other trustworthy nodes to build trust values (in other words, trust might be transitive).
+%TruMan satisfies this as it is built from the ground up for decentralized systems.
 
 \textit{2. Coping with sparsity}: the model still functions when there are few nodes populating the network.
-The experiments using low density values demonstrate that TruMan works in reasonably sparse networks.
-Due to its decentralized nature, it can also work on isolated chunks of the network.
+Due to the dynamic nature of vehicular networks, it is possible that nodes will find themselves with few other nodes in range.
+In such scenarios, a trust model should be able to establish trust even if there are few neighbors with whom to share data.
+%In some cases, this can be achieved by using information that is immediately available; for example, if a vehicle broadcasting information happens to be a certified ambulance, its role is enough to guarantee trust.
+%In other cases, models must consider solutions similar to delay-tolerant networks: storing information as it is received and sharing it with other trustworthy nodes when possible.
+%The experiments using low density values demonstrate that TruMan works in reasonably sparse networks.
+%Due to its decentralized nature, it can also work on isolated chunks of the network.
 
-\textit{3. Event/task and location/time dynamics}: how the model reacts to different situations depending on what, where and when events happen.
-Although this has not been used in the simulations in this paper, TruMan can easily be extended to consider time and location as long as nodes store geolocation and timestamp data.
+\textit{3. Event/task and location/time dynamics}: the model reacts to different situations depending on what, where and when events happen.
+The event or task dynamics involve managing different situations in different ways.
+Messages can carry different types of alerts, and not all of them need to be addressed with the same urgency.
+A message about a nearby crash, for example, requires a much quicker reaction than one about an upcoming change in weather; malicious nodes that broadcast false information about critical events are especially important to detect.
+Similarly, in order to satisfy location and time dynamics, nodes might behave differently according to where and when certain messages are received.
+To do this, messages about events must contain timestamp and geolocation data attached; nodes close to the event in space and in time could be considered more trustworthy. 
+Furthermore, by attaching timestamp data to messages, it is possible to age information, allowing the model to consider only data that is recent enough to be relevant.
+%Although this has not been used in the simulations in this paper, TruMan can easily be extended to consider time and location as long as nodes store geolocation and timestamp data.
 
 \textit{4. Scalability}: the model can work on very large networks at high speeds.
-Due to the low complexity of the algorithms used in the model, TruMan can be highly scalable, as it does not incur substantial pressure on the vehicles' on-board units.
-It has also been demonstrated that iterations of the algorithm do not need to run extremely frequently in order to detect malicious nodes with high accuracy.
+This is very important in vehicular networks, since, at certain times or locations, there might be a very large number of vehicles very close to one another. 
+%In order to attain scalability, a model may consider limiting the volume or frequency of trust-related messages a node can receive at a given moment.
+In the case of a model that allows transitive trust, a high volume of nearby vehicles can be advantageous because it allows nodes to share a lot of recent data with each other.
+
+%Due to the low complexity of the algorithms used in the model, TruMan can be highly scalable, as it does not incur substantial pressure on the vehicles' on-board units.
+%It has also been demonstrated that iterations of the algorithm do not need to run extremely frequently in order to detect malicious nodes with high accuracy.
 
 \textit{5. Integrated confidence measure}: allows nodes to estimate how useful the output of the algorithm is.
-Since nodes using TruMan store trust values as a number between 0 and 1, this value can be used as a confidence measure of the opinion.
-The closer it is to 1, the higher the chance that it is accurate.
+Along with the information of whether or not a node $a$ trusts $b$, there should also be information regarding \textit{how sure} $a$ is of its trust in $b$.
+Generally, a higher confidence measure is the result of more and/or better evidence.
+%Since nodes using TruMan store trust values as a number between 0 and 1, this value can be used as a confidence measure of the opinion.
+%The closer it is to 1, the higher the chance that it is accurate.
 
 \textit{6. System level security}: requires authentication of nodes participating in the network.
-This has not been considered in evaluations of TruMan.
-However, it can be included as a separate security model during the transmission of messages.
+There should be an infrastructure in place in order to avoid identity falsification from potentially malicious nodes as well as verifying which node is the sender of a given message.
+
+%A public-private key solution can be used to  allows nodes to verify that messages it received were truly sent by who claimed to send it.
+%This has not been considered in evaluations of TruMan.
+%However, it can be included as a separate security model during the transmission of messages.
 
 \textit{7. Sensitivity to privacy concerns}: avoids eavesdropping and stalking by malicious nodes.
-TruMan has not been designed with this in mind, but it does not inhibit privacy protection.
-However, it does require that nodes cannot be completely anonymous.
+A message should only be received by the nodes it was meant for, avoiding eavedropping of its contents.
+Additionally, it should not be possible to track the activity of a node based on the messages it sends.
+
+%TruMan has not been designed with this in mind, but it does not inhibit privacy protection.
+%However, it does require that nodes cannot be completely anonymous.
 
 \textit{8. Robustness}: the model's resistance to attacks.
-TruMan satisfies this property. Malicious nodes are quickly and accurately identified, making it difficult for them to perform attacks.
-Experiments show that, when fewer than 50\% of nodes in the network are malicious, Truman performs as expected.
-Collusion attacks must be performed by more than half of the entire network, in which case the network is considered compromised.
-Furthermore, since nodes take into consideration experiences from other trustworthy nodes, a malicious node that occasionally behaves correctly can still be identified. 
+There are already some studied attacks for vehicular networks, such as the Sybil Attack, Newcomer Attack and Betrayal Attack.
+Models must show that they function in the event of such attacks.
+%TruMan satisfies this property. Malicious nodes are quickly and accurately identified, making it difficult for them to perform attacks.
+%Experiments show that, when fewer than 50\% of nodes in the network are malicious, Truman performs as expected.
+%Collusion attacks must be performed by more than half of the entire network, in which case the network is considered compromised.
+%Furthermore, since nodes take into consideration experiences from other trustworthy nodes, a malicious node that occasionally behaves correctly can still be identified. 
 %Furthermore, the analysis also takes into account the complexity of the algorithm necessary to implement the trust model, because a high priority of TruMan is the 
 
-\begin{table}[t!]
-\caption{Properties of Truman and related work}
-\label{table:properties}
-\centering
-\begin{tabular}{|p{4cm}||p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|}
- \hline
- \textbf{Property} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
- \hline
- \hline
- TruMan & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & - & - & \checkmark \\
-% \hline
-% \citep{vernize2015malicious} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
- \hline
- \citep{dotzer2005vars} & \checkmark & - & \checkmark & - & - & - & \checkmark & -\\
- \hline
- \citep{minhas2010towards} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & -\\
- \hline
- \citep{chen2010trust} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & - & -\\
- \hline
- \citep{park2011long} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
- \hline
- \citep{huang2014social} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
- \hline
- \citep{li2016art} & \checkmark & - & - & - & \checkmark & - & - & \checkmark\\
- \hline
- \citep{chen2017cloud} & - & \checkmark & - & \checkmark & - & \checkmark & \checkmark & -\\
- \hline
-\end{tabular}
-\end{table}
-
-Finally, it is worth noting that, considering the scale of the problem, TruMan's cost is very low without sacrificing completeness and correctness.
-The model still satisfies or permits most of the desired properties of a trust model, making it viable for real-world use.
+%Finally, it is worth noting that, considering the scale of the problem, TruMan's cost is very low without sacrificing completeness and correctness.
+%The model still satisfies or permits most of the desired properties of a trust model, making it viable for real-world use.
 
 \section{Existing trust models for VANETs}
  
 Several models have been proposed to solve the problem of trust in vehicular networks. 
-In this section, some of the most relevant ones are described, considering the time in which they were proposed, the advantages they bring and their contributions to later study. 
+In this section, the most relevant ones are described, considering the time in which they were proposed, the advantages they bring and their contributions to later study. 
 None of them provide a complete solution, but serve as pieces of a puzzle that is still incomplete. 
 Many trust management solutions for VANETs have been proposed over the years, such as \citep{patwardhan2006data}, \citep{gerlach2007trust}, \citep{raya2008data}, \citep{huang2010situation}, \citep{ding2013novel}, \citep{haddadou2013trust}, \citep{liu2016lsot}, \citep{kerrache2016detection}.
 There are also some review and/or survey articles on the subject of VANET trust models, such as \citep{zhang2011survey}, \citep{ma2011survey}, \citep{zhang2012trust}, \citep{mejri2014survey}, \citep{soleymani2015trust} \citep{sengar2016survey}, and \citep{dwivedi2016review}. 
 
 \citep{dotzer2005vars} is one of the earliest examples of VANET trust models, establishing a system called VARS, based on the reputation of nodes and messages throughout the network.
-The authors use what they call \textit{opinion piggybacking}, which means that, for each hop between the origin and the destination of an event-related message, the forwarding node appends its opinion of the message's contents.
-That opinion is formed using a combination of the forwarding node's own observations of the event, its opinion of the origin node and previous opinions appended to the message.
+The authors use what they call \textit{opinion piggybacking}, which means that, for each hop between the origin and the destination of an event-related message, the forwarding node appends its opinion of the message's contents and the message's sender.
+In other words, when a node $a$ receives a message about a certain event from $b$, it calculates a new opinion considering  it rebroadcasts the message to other nearby nodes, but with its own opinions about the event and about node $b$ attached.
+%That opinion is formed using a combination of the forwarding node's own observations of the event, its opinion of the origin node and previous opinions appended to the message.
 This process adds credibility to a message through validation by nodes in a decentralized fashion.
 It combines aspect of data- and entity- based trust, since nodes share their opinion of the data as well as their opinion of the sender. 
 An interesting observation is setting higher trust values for certain vehicles based on their familiarity with the region (vehicles that reside in a given city may have more experience with certain types of events than newcomers).
 However, opinion piggybacking has its own share of problems.
 First, it allows forwarding nodes to access (at least some of) the contents of a message so it can form an opinion on it, diminishing privacy; a malicious forwarding node could even attempt to alter those contents.
-Second, using previously appended opinions from other nodes to form a new opinion causes the first nodes to forward the message to have a substantially greater impact over the final opinion than the later ones.
+Second, since each new opinion appended to the message considers the previously appended opinions, the first nodes to forward the message to have a substantially greater impact over the final opinion than the later ones.
 Finally, there is an issue with scalability, since appending new information to a message on each hop may add a significant overhead to the transmission. Additionally, the authors provide little to no experimentation or proof that their approach would be sound in a real-world network.
 
 The model proposed in \citep{minhas2010towards} uses several criteria to judge whether or not a received message is trustworthy.
@@ -286,8 +282,9 @@ Furthermore, maintaining clusters in a highly dynamic network is a costly job an
 The trust model in \citep{park2011long} takes advantage of daily commutes.
 In this article, the focus is on the early stages of VANETs, in which a very small percentage of vehicles are equipped with OBUs.
 To make trust viable in such a scenario, the authors rely on RSUs to store reputation information from passing vehicles.
-Each vehicle must have an ``Agent RSU'', which is be tasked with sharing that vehicle's trust data to other vehicles and RSUs as well as keeping the data updated when the vehicle is near it once again.
-To make this viable, the properties of daily commutes are used: it is assumed the vehicle would be near that RSU with reasonable frequency because it is located within the driver's home-to-work route.
+Each vehicle must have an ``Agent RSU'', which is in charge of storing and sharing that vehicle's trust data to other passing vehicles and connected RSUs.
+It must also keep the data updated when the vehicle approaches it again.
+To make this viable, the properties of daily commutes are used: it is assumed that the vehicle is near its Agent RSU with reasonable frequency because it is located within the driver's home-to-work route.
 The main problem with this model is that it relies on the presence of frequent RSUs, which might not always be viable.
 It also does not make it clear what should happen when a vehicle stops using a route or does not have a daily predictable path (it does, however, handle occasions in which a vehicle chooses an alternate route or is absent for some days such as weekends and holidays).
 
@@ -306,10 +303,46 @@ It uses the Dempster-Shafter theory of evidence to merge data coming from other 
 Then, it uses a Cosine-based metric to compare two nodes' trust vectors (a series of opinions regarding other nodes).
 However, these steps require several intensive calculations, which greatly increase the complexity of the algorithm.
 The authors present no details on how it deals with sparsity, dynamics, scalability, security and privacy.
+%extend
+
 
 The authors of \citep{chen2017cloud} propose a cloud-based solution for a trust model, which requires an Internet-based global trust manager.
 This has the advantage of simplifying properties such as handling sparsity and scalability, but also makes the system slower in general, especially in situations in which mobile communication is slow or unreliable.
 It also makes the system prone to attacks, since the whole system collapses if the global trust manager is attacked.
+%extend
+
+%conclude
+\autoref{table:properties} shows how well each studied trust model satisfies the eight properties described in \autoref{section:properties}.
+
+\begin{table}[t!]
+\caption{Properties of the related work}
+\label{table:properties}
+\centering
+\begin{tabular}{|p{4cm}||p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|}
+ \hline
+ \textbf{Property} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+ \hline
+ \hline
+% TruMan & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & - & - & \checkmark \\
+% \hline
+% \citep{vernize2015malicious} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+% \hline
+ \citep{dotzer2005vars} & \checkmark & - & \checkmark & - & - & - & \checkmark & -\\
+ \hline
+ \citep{minhas2010towards} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & -\\
+ \hline
+ \citep{chen2010trust} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & - & -\\
+ \hline
+ \citep{park2011long} & - & - & - & - & - & \checkmark & \checkmark & \checkmark \\
+ \hline
+ \citep{huang2014social} & \checkmark & - & \checkmark & \checkmark & \checkmark & - & - & -\\
+ \hline
+ \citep{li2016art} & \checkmark & - & - & - & \checkmark & - & - & \checkmark\\
+ \hline
+ \citep{chen2017cloud} & - & \checkmark & - & \checkmark & - & \checkmark & \checkmark & -\\
+ \hline
+\end{tabular}
+\end{table}
 
 %\begin{table}[t!]
 %\caption{Properties of Truman and related work}
