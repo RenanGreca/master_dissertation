@@ -55,7 +55,7 @@ Trains travel on rails, so their contact with cars is less frequent, but it can 
 In the same way that cars have a high probability of meeting more than once during their commutes, it is also very likely that they meet the same buses and/or trains frequently.
 
 In \citep{da2013effective}, \citep{cunha2014vehicular}, and \citep{cunha2014possible}, the authors attempt to find features usually attributed to social networks in vehicular networks.
-By using a data set from Zurich, they show that some metrics, such as clustering coefficient and number of encounters, have peaks during the rush hours.
+By using a data set from the city of Zurich, Switzerland, they show that some metrics, such as clustering coefficient and number of encounters, have peaks during the rush hours.
 They note that, during rush hours, the diameter of the graph decreases to around 6 hops; additionally, the frequency of total encounters between pairs of nodes in the network increases during those hours.
 Although the authors do not quantify the encounters between specific pairs of nodes, these numbers support the idea that daily commutes do indeed cause vehicular networks to exhibit social network features.
 
@@ -89,7 +89,6 @@ Each node popped, including $u$, is a member of a strongly connected component.
 
 The number of components is, at most, $|V|$: in a worst-case scenario, each node is placed into its own component.
 The complexity of the algorithm is $O(|V|+|E|)$ for a graph $T = (V,E)$.
-
 Algorithm \autoref{algorithm:tarjan} shows the general structure of Tarjan's algorithm  \citep{tarjan1972depth}.
 
 \begin{algorithm}
@@ -197,8 +196,8 @@ Once the function calls return to node 0, a strongly connected component is form
 \section{Graph coloring with minimum colors}
 \label{section:coloring}
 %The algorithm proposed in \citep{mittal2011graph} is an efficient approach to graph coloring, a classic graph theory problem.
-Graph coloring is one of the possible heuristics used by TruMan to detect malicious nodes after the generation of the component graph using Tarjan's algorithm.
-Out of the tested heuristics, it presents the best results, so it has been chosen as the heuristic for the trust model.
+Graph coloring is one of the possible heuristics suggested by MaNI to detect malicious nodes after the generation of the component graph using Tarjan's algorithm.
+Out of the tested heuristics, it presents the best results, so it has been chosen as the heuristic for TruMan.
 
 The process of graph coloring consists of giving each node a label (represented by a color) so that no two neighboring nodes share the same color.
 This problem has been studied in Computer Science since, at least, 1972 \citep{karp1972reducibility} and has been studied as a classic mathematics problem for even longer \citep{kempe1879geographical}.
@@ -206,11 +205,10 @@ It has been proven mathematically that any planar graph can be colored with at m
 
 In \citep{mittal2011graph}, the authors present an efficient approach to graph coloring using the minimum possible amount of colors.
 Although they do not prove that their algorithm always uses the smallest possible amount of colors, the output is always a correct coloration and the algorithm is nevertheless efficient.
-For the purposes of this study, it is not necessary to prove that the coloring algorithm's output uses the minimum possible number of colors.
+For the purposes of trust management, it is not necessary to prove that the coloring algorithm's output uses the minimum possible number of colors.
 
 The complexity of the algorithm is $O(|E'|)$ for a graph $C = (V',E')$.
 As a comparison, the DSATUR algorithm for graph coloring has complexity $O(|V|^2)$ \citep{brelaz1979new}.
-
 Algorithm \autoref{algorithm:coloring} shows the general structure of the graph coloring algorithm  \citep{mittal2011graph}.
 
 \begin{algorithm}
@@ -283,11 +281,11 @@ A limitation of this algorithm is that the edges must be sorted according to nod
 It doesn't matter which nodes get assigned which indexes, but once they are assigned those numbers, the algorithm must follow the edges in numerical order.
 This is demonstrated in \citep{vernize2013dissertation}.
 
-Figure \autoref{fig:coloring} illustrates the execution of the graph coloring algorithm.
-It is notable how few iterations the algorithm takes to fully color the graph.
-However, the fact that the result does not use the minimum amount of colors.
-By coloring node 4 as cyan and node 3 as magenta, the sample graph could have been colored with only three colors.
-However, as described above, this is not a substantial problem for the purposes of this study.
+\autoref{fig:coloring} illustrates the execution of the graph coloring algorithm.
+It is notable how the algorithm takes few iterations to fully color the graph.
+However, it is also possible to observe that the result does not use the minimum amount of colors.
+By coloring node 4 as cyan and node 3 as magenta, the sample graph could have been colored with only three colors instead of four.
+As described above, this is not a problem for the usage of the algorithm in TruMan.
 
 \section{Malicious Node Identification Algorithm}
 
@@ -312,21 +310,19 @@ Since each node of $C$ is a vertex $v' \in V'$ and each vertex $v'$ is a compone
 They can either be benign nodes which legitimately trust one another, or malicious nodes colluding with each other.
 After the formation of $C$, one or more heuristics can be used to classify the nodes as benign or malicious.
 
-The article describes the coloring heuristic, which uses a graph coloring algorithm, either DSATUR \citep{brelaz1979new} or the algorithm proposed in \citep{mittal2011graph}.
-Graph coloring is a classic problem of graph theory, in which the objective is to assign each node in a graph a color so that no two neighboring nodes share the same color.
-After running either algorithms with graph $C$, the color whose nodes in $C$ represent the most nodes in $T$ is classified as correct, and all others are classified as malicious.
-Once this information in $C$ is brought back to graph $T$, it is trivial to label the nodes in $T$ as either benign or malicious based on their components' classifications.
+In the experiments performed by the authors of MaNI, the coloring heuristic shows the most promising results, identifying a high ratio of the malicious nodes in the network.
+The coloring heuristic uses a graph coloring algorithm, such as DSATUR \citep{brelaz1979new} or the algorithm detailed in \autoref{section:coloring}.
+Other heuristics were experimented with, but were either less effective in detecting malicious nodes, provided too many false positives, or were not efficient enough.
 
-In the experiments shown in \citep{vernize2013dissertation}, the coloring heuristic shows the most promising results, identifying a high ratio of the malicious nodes in the network.
-Other heuristics were experimented with, but were either less effective in detecting malicious nodes, or provided too many false positives.
-Therefore, for the purposes of this research, only the coloring heuristic is considered.
+After running a graph coloring algorithm with graph $C$ as input, the color whose nodes in $C$ represent the most nodes in $T$ is classified as correct, and all others are classified as malicious.
+Once this information from $C$ is brought back to graph $T$, it is trivial to label the nodes in $T$ as either benign or malicious based on their components' classifications.
 
 Two types of experiments were made in each network: first, all malicious nodes inverted the edge weights leading to their neighbors; second, malicious nodes randomly inverted or not the weights.
 In the first scenario, the results show excellent precision in most networks, detecting nearly every malicious node.
 Experimenting with the second scenario, the results are less precise, however still promising: with up to 20\% of malicious nodes in the network, the error rate is under 7\%, while with the worst case, 50\% of the network being malicious, the error rate is approximately 15\%.
 
 The authors suggest running the algorithm repeatedly after removing the malicious nodes from the network.
-By doing this, nearly all malicious nodes are detected by it even when randomly changing edge weights.
+By doing this a small number of times, nearly all malicious nodes are detected by it even when randomly changing edge weights.
 
 %\begin{algorithm}
 %\caption{MaNI algorithm}\label{algorithm:mani}
@@ -412,21 +408,21 @@ In order to work with dynamic networks, the TruMan algorithm runs iterations at 
 %As nodes acquire more information, their model of the network will change.
 Furthermore, the algorithm runs in a decentralized fashion, meaning each node in the network runs its own instance of the algorithm.
 Each node starts knowing information only about itself and maintains its own abstraction of the network surrounding it.
-Every node $u$ stores a representation of the network in the form of a static, connected and directed trust graph $T = (V, E)$, in which $V$ is the set of nodes node $u$ is aware of and $E$ is the set of trust relationships (opinions) $u$ knows between members of $V$.
+Every node $u$ stores a representation of the network in the form of a static, connected and directed trust graph $T^u = (V^u, E^u)$, in which $V^u$ is the set of nodes node $u$ is aware of and $E^u$ is the set of trust relationships (opinions) $u$ knows of between members of $V^u$.
 Since each node has its own network representation and it changes over time, there is a $T^u_i = (V^u_i, E^u_i)$ for every node $u$ and iteration $i$.
 
 At first, the node collects and organizes information.
 A prerequisite of this step is a test that correctly classifies a neighboring node as benign or malicious.
 There are several ways to perform such a test, but a study between these methods is beyond the scope of this paper.
-Every time a neighboring node $v$ is tested as benign, the value of $u \rightarrow v$ increases and the trust graph $T^v_{i-1}$ is merged into $u$'s trust graph.
-After this, a new $T^u_i$ is formed, which is used for the remaining steps.
+Every time a neighboring node $v$ is tested as benign, the value of $u \rightarrow v$ increases.
+Additionally, node $u$ performs an union between its trust graph and $v$'s trust graph, forming a new graph $T^u_i = T^u_{i-1} \bigcup T^v_{i-1}$, which is used for the remaining steps.
 
-After the collection of data, $T^u_i$ is separated into strongly connected components using Tarjan's algorithm \citep{tarjan1972depth}.
-For each node in a component, there is a path formed by edges of weight higher than the threshold $h$ to each other node in the same component.
-In other words, within a single component, all nodes trust one another directly or indirectly; nodes that do not satisfy this condition are separated into different components.
+After the collection of data, $T^u_i$ is separated into strongly connected components using Tarjan's algorithm \citep{tarjan1972depth}, although the implementation of the algorithm slightly differs from the one used in MaNI.
+Since MaNI uses binary trust, Tarjan's algorithm only checks whether edges have value 0 or 1; in TruMan, edges can have a range of values between 0 and 1.
+Therefore, a threshold $h$ is defined so Tarjan's algorithm can consider only edges represent a significant trust relationship when forming strongly connected components.
+So, for each node in a component, there is a path formed by edges of weight higher than the threshold $h$ to each other node in the same component.
 Each of these components becomes a node of a component graph $C^u_i = (V'^u_i, E'^u_i)$.
 
-The creation of $C^u_i$ simplifies the remaining computation.
 Since each vertex $v' \in V'^u_i$ is a component of $T^u_i$ in which all nodes trust each other, for the purposes of identifying malicious nodes, all nodes within each of those components can be treated as the same.
 They can either be benign nodes which legitimately trust one another, or malicious nodes colluding with each other.
 After the formation of $C^u_i$, a heuristic is used to classify the nodes as benign or malicious.
@@ -434,13 +430,6 @@ After the formation of $C^u_i$, a heuristic is used to classify the nodes as ben
 The coloring heuristic is used to classify nodes, which uses the algorithm described in \autoref{section:coloring} \citep{mittal2011graph}, although other heuristics may be considered.
 After running the graph coloring algorithm with graph $C^u_i$ as input, the color whose nodes in $C^u_i$ represent the most nodes in $T^u_i$ is classified as correct, and all others are classified as malicious.
 Once this information from $C^u_i$ is brought back to graph $T^u_i$, it is trivial to label the nodes in $T^u_i$ as either benign or malicious based on the classifications of their components.
-
-The complexity of the whole algorithm can be calculated by adding the most costly operations involved.
-As discussed above, Tarjan's algorithm has a complexity of $O(|V|+|E|)$ (for the trust graph $T$), while the graph coloring algorithm has a complexity of $O(|E'|)$ (for the component graph $C$).
-The most costly part of the algorithm is the graph merge operation that happens between trusted nodes.
-The complexity of the graph merge algorithm is $O(|E|)$ for each neighbor a node has in an iteration; this number is at most $|V|$.
-The total complexity of TruMan is, therefore, $O(|V|+|E|)+O(|E'|)+O(|V|\times |E|)$.
-Since $|E'| \leq |E|$ and $|V|+|E| \leq |V|\times |E|$, the complexity can be simplified to $O(|V| \times |E|)$.
 
 In summary, every node $u$ runs the following steps in each iteration to detect malicious nodes in the network:
 
@@ -454,6 +443,29 @@ In summary, every node $u$ runs the following steps in each iteration to detect 
 	\item Tarjan's algorithm is executed to identify the strongly connected components of $T^u_i$, resulting in a component graph $C^u_i$.
 	\item The graph coloring algorithm is executed on $C^u_i$ and nodes are classified as benign or malicious.
 \end{enumerate}
+
+\subsection{Complexity}
+The complexity of TruMan must calculated for each iteration executed and each node in the network.
+It can be estimated by adding the complexity of most costly operations involved, which are: ($i$) Tarjan's algorithm, ($ii$) the graph coloring algorithm, and ($iii$) the graph union process.
+Tarjan's algorithm and the graph coloring algorithm are executed once per iteration on each node of the network.
+The graph union, however, is executed once every time a neighboring node shares information.
+Each neighbor shares information once per iteration, so the complexity of the graph union procedure is multiplied by $n^u_i$, the number of neighbors node $u$ has during iteration $i$.
+
+Therefore, the general complexity equation for each node and each iteration is as follows:
+
+$$ TruMan = Tarjan + Coloring + (Union\times(n^u_i)) $$
+
+As discussed above, Tarjan's algorithm has a complexity of $O(|V|+|E|)$ and is executed on graph $T$.
+Meanwhile, the graph coloring algorithm has a complexity of $O(|E'|)$ and is executed on graph $C$.
+The complexity of the graph merge algorithm is $O(|E|)$ and, in a worst-case scenario, $n^u_i$ is at most $|V|$ (every node in the network is a neighbor), resulting in a total complexity of $O(|V|\times |E|)$ for a whole iteration.
+The total complexity of each iteration of TruMan is, therefore:
+
+$$ O(|V|+|E|) + O(|E'|) + O(|V|\times |E|)$$
+
+However, $|E'| \leq |E|$ is always true, because the graph $C$ is a reduction of graph $T$.
+Furthermore, $|V|+|E| \leq |V|\times |E|$ is also true, except for the irrelevant scenarios of $|V| \leq 1$ or $|E| \leq 1$.
+
+Therefore, the complexity can be simplified to: $O(|V| \times |E|)$.
 
 
 %The MaNI algorithm works well and is efficient for static graphs.
