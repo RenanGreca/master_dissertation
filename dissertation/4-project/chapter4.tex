@@ -418,7 +418,7 @@ Every time a neighboring node $v$ is tested as benign, the value of $u \rightarr
 Additionally, node $u$ performs an union between its trust graph and $v$'s trust graph, forming a new graph $T^u_i = T^u_{i-1} \bigcup T^v_{i-1}$, which is used for the remaining steps.
 
 After the collection of data, $T^u_i$ is separated into strongly connected components using Tarjan's algorithm \citep{tarjan1972depth}, although the implementation of the algorithm slightly differs from the one used in MaNI.
-Since MaNI uses binary trust, Tarjan's algorithm only checks whether edges have value 0 or 1; in TruMan, edges can have a range of values between 0 and 1.
+Since MaNI uses binary trust, Tarjan's algorithm only checks whether edges have value 0 or 1; in TruMan, each edge stores a trust value $t \in [0, 1]$.%can have a range of values between 0 and 1.
 Therefore, a threshold $h$ is defined so Tarjan's algorithm can consider only edges represent a significant trust relationship when forming strongly connected components.
 So, for each node in a component, there is a path formed by edges of weight higher than the threshold $h$ to each other node in the same component.
 Each of these components becomes a node of a component graph $C^u_i = (V'^u_i, E'^u_i)$.
@@ -449,6 +449,31 @@ In summary, every node $u$ runs the following steps in each iteration to detect 
 	\item Tarjan's algorithm is executed to identify the strongly connected components of $T^u_i$, resulting in a component graph $C^u_i$.
 	\item The graph coloring algorithm is executed on $C^u_i$ and nodes are classified as benign or malicious.
 \end{enumerate}
+
+\subsection{Information aging}
+
+In order to make TruMan resistant to attacks, it is necessary to age the information nodes store about the network, so old information does not affect the identification of malicious nodes.
+
+To do this, each edge stores a timestamp value $s$ in addition to the trust value $t$.
+When two nodes $u$ and $v$ interact with each other, the edge $u\rightarrow v$ in $T_u$ stores the timestamp $s$, which is set according to node $v$'s internal clock.
+
+Then, when node $u$ interacts with another node $w$ in the future, $u$'s opinion of $v$ comes with the timestamp attached, so $w$ has the information to know how much time has passed since the interaction between $u$ and $v$ happened.
+Once $w$ performs the graph merge procedure with $T_u$ and $T_w$, but $T_w$ already has an edge $u\rightarrow v$ stored, it checks the two timestamps and only updates the edge if the incoming information is more recent than what is already stored.
+Since the timestamp is always set to the destination node of the edge, it can be used for comparison regardless of which nodes handled the information. 
+%This was implemented as an additional feature of TruMan, and was not used on every test.
+
+For example, when $u$ interacts with $v$ on and establishes that $v$ is benign, it creates the edge $u \rightarrow v$ with $t \geq 0.5$ and $s = s_0$, where $s_0$ is the timestamp of the moment in which the interaction occurred according to $v$.
+Then, when $w$ interacts with $u$ and establishes that $u$ is benign, it receives network information from $u$, including the edge $u\rightarrow v$.
+Since $w$ didn't have that edge in its graph before, it is added maintaining the original timestamp $s_0$.
+Later, when $w$ interacts with $u$ again or with another trustworthy node that recently interacted with $u$, it receives information about the edge $u\rightarrow v$ again.
+If this new information includes the timestamp $s_1$ which is more recent than $s_0$, $w$ updates its own graph so that the edge $u\rightarrow v$ stores the new timestamp and the new trust value.
+
+This is necessary because, in the event that a node converts from benign to malicious, old information might still indicate that it is benign, as shown in ------figure------. 
+
+Furthermore, after each iteration, nodes go through the edges they have stored and discard the ones that are too old.
+This is done by setting a maximum age for edges.
+Once a edge is older than that maximum value, it is discarded.
+A low value for this setting allows for faster detection of converted nodes, however  also increases the likelihood of good information being thrown away (therefore increacing the likelihood of false positive detections).
 
 \subsection{Complexity}
 The complexity of TruMan must calculated for each iteration executed and each node in the network.
