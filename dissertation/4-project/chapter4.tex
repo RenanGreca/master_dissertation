@@ -218,13 +218,13 @@ Algorithm \autoref{algorithm:coloring} shows the general structure of the graph 
 \Function{Coloring}{graph $G$}
 
 \State \textbf{color} all nodes of $G$ \textbf{with} 0
-\State $d \rightarrow 0$
+\State $d \gets 0$
 \For{$e=(u,v)$ \textbf{in} edges of $G$}
 	\If{$u$ and $v$ have the same color}
 		\If{$color[v] = d$}
-			\State $d \rightarrow d+1$
+			\State $d \gets d+1$
 		\EndIf
-		\State $color[v] \rightarrow d$
+		\State $color[v] \gets d$
 	\EndIf
 \EndFor
 
@@ -416,6 +416,59 @@ A prerequisite of this step is a test that correctly classifies a neighboring no
 There are several ways to perform such a test, but a study between these methods is beyond the scope of this paper.
 Every time a neighboring node $v$ is tested as benign, the value of $u \rightarrow v$ increases.
 Additionally, node $u$ performs an union between its trust graph and $v$'s trust graph, forming a new graph $T^u_i = T^u_{i-1} \bigcup T^v_{i-1}$, which is used for the remaining steps.
+Algorithm  \autoref{algorithm:interaction} shows the basic interaction between two nodes, while algorithm \autoref{algorithm:union} details the steps of the graph union.
+
+\begin{algorithm}
+\caption{Interaction between two nodes}\label{algorithm:interaction}
+\begin{algorithmic}[1]
+
+\Function{Interaction}{node $u$, node $v$}
+
+\If{$v\notin T^u$}
+	\State \textbf{add} $v$ \textbf{to} $T^u$
+	\State \textbf{add} $u\rightarrow v$ \textbf{to} $T^u$
+	\State $T^u(u\rightarrow v).trustvalue = 0.5$
+	\State $T^u(u\rightarrow v).timestamp = $ \textbf{now}
+\EndIf
+
+\State $u$ \textbf{tests} $v$
+
+\If{$v$ is benign}
+	\State $T^u(u\rightarrow v).trustvalue$ \textbf{increases}
+	\State \textbf{Union}($T^u$, $T^v$)
+\Else
+	\State $T^u(u\rightarrow v).trustvalue$ \textbf{decreases}
+\EndIf
+
+
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Graph union}\label{algorithm:union}
+\begin{algorithmic}[1]
+
+\Function{Union}{graph $T^u$, graph $T^v$}
+
+\For{$a\rightarrow b$ \textbf{in} edges of $T^v$ }
+
+	\If{$a\notin T^u$}
+		\State \textbf{add} $a$ \textbf{to} $T^u$
+	\EndIf
+	
+	\If{$b\notin T^u$}
+		\State \textbf{add} $b$ \textbf{to} $T^u$
+	\EndIf
+	
+	\If{$a\rightarrow b \notin T^u$}
+		\State \textbf{add} $a\rightarrow b$ \textbf{to} $T^u$
+	\EndIf
+\EndFor
+
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 After the collection of data, $T^u_i$ is separated into strongly connected components using Tarjan's algorithm \citep{tarjan1972depth}, although the implementation of the algorithm slightly differs from the one used in MaNI.
 Since MaNI uses binary trust, Tarjan's algorithm only checks whether edges have value 0 or 1; in TruMan, each edge stores a trust value $t \in [0, 1]$.%can have a range of values between 0 and 1.
@@ -460,7 +513,39 @@ When two nodes $u$ and $v$ interact with each other, the edge $u\rightarrow v$ i
 Then, when node $u$ interacts with another node $w$ in the future, $u$'s opinion of $v$ comes with the timestamp attached, so $w$ has the information to know how much time has passed since the interaction between $u$ and $v$ happened.
 Once $w$ performs the graph merge procedure with $T_u$ and $T_w$, but $T_w$ already has an edge $u\rightarrow v$ stored, it checks the two timestamps and only updates the edge if the incoming information is more recent than what is already stored.
 Since the timestamp is always set to the destination node of the edge, it can be used for comparison regardless of which nodes handled the information. 
-%This was implemented as an additional feature of TruMan, and was not used on every test.
+Algorithm \autoref{algorithm:union_timestamp} shows how the union function was changed to accommodate timestamps and information aging.
+
+\begin{algorithm}
+\caption{Graph union with timestamps}\label{algorithm:union_timestamp}
+\begin{algorithmic}[1]
+
+\Function{Union}{graph $T^u$, graph $T^v$}
+
+\For{$a\rightarrow b$ \textbf{in} edges of $T^v$ }
+
+	\If{$a\notin T^u$}
+		\State \textbf{add} $a$ \textbf{to} $T^u$
+	\EndIf
+	
+	\If{$b\notin T^u$}
+		\State \textbf{add} $b$ \textbf{to} $T^u$
+	\EndIf
+	
+	\If{$a\rightarrow b \notin T^u$}
+		\State \textbf{add} $a\rightarrow b$ \textbf{to} $T^u$
+	\Else
+		\State $s_0 \gets T^u(a\rightarrow b).timestamp$
+		\State $s_1 \gets T^v(a\rightarrow b).timestamp$
+		\If{$s_1$ \textbf{is more recent than} $s_0$}
+			\State $T^u(a\rightarrow b).trustvalue \gets T^v(a\rightarrow b).trustvalue$
+			\State $T^u(a\rightarrow b).timestamp \gets T^v(a\rightarrow b).timestamp$
+		\EndIf	
+	\EndIf
+\EndFor
+
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 For example, when $u$ interacts with $v$ on and establishes that $v$ is benign, it creates the edge $u \rightarrow v$ with $t \geq 0.5$ and $s = s_0$, where $s_0$ is the timestamp of the moment in which the interaction occurred according to $v$.
 Then, when $w$ interacts with $u$ and establishes that $u$ is benign, it receives network information from $u$, including the edge $u\rightarrow v$.
