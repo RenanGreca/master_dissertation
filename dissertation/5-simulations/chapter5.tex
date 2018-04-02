@@ -202,9 +202,9 @@ Simulations for TruMan have densities between 0.0017 ($\rho = 10$m) and 0.0428 (
 \end{tabular}
 \end{table}
 
-As a comparison, the city of São Paulo (Brazil), which has a fleet of over 8 million vehicles \citep{saopaulofleet} in an area of 1,521.11 km\textsuperscript{2} \citep{saopauloarea}, has a density of 0.8884 at $\rho = 10$m, a much higher value than what is necessary for a satisfactory performance of the algorithm.
+As a comparison, the city of São Paulo (Brazil) has a fleet of over 8 million vehicles \citep{saopaulofleet} in an area of 1,521.11 km\textsuperscript{2} \citep{saopauloarea}, and thus has a density of 0.8884 at $\rho = 10$m, a much higher value than what is necessary for a satisfactory performance of the algorithm.
 \autoref{table:citydensities} shows the densities of a few major cities around the world, using $\rho = 10$m for all of them.
-All data is taken from local government sources regarding the number of licensed vehicles in each city; these numbers do not include vehicles from the larger metropolitan aras that surround these cities.
+All data is taken from local government sources regarding the number of licensed vehicles in each city; these numbers do not include vehicles from the larger metropolitan areas that surround these cities.
 %Areas are shown in km\textsuperscript{2} (values were converted to m\textsuperscript{2} for calculation).
 
 \defcitealias{helsinkifleet}{Helsinki, 2011}
@@ -246,6 +246,9 @@ All data is taken from local government sources regarding the number of licensed
  \hline
 \end{tabular}
 \end{table}
+
+Simulations of TruMan were performed with densities as low as 0.0017, a value much lower than even the real world density of Helsinki, which is a city with relatively few vehicles for its size.
+It can be expected that the model will perform even better in real-world scenarios in cities with even higher densities, which is common, as exemplified by \autoref{table:citydensities}.
 
 %\subsection{Validation}
 %
@@ -461,3 +464,9 @@ Around iteration 20000, all nodes finish building their models and the false pos
 %\caption{Simulation with $\rho$ = 10m and (a) 1\%, (b) 5\%, (c) 10\%, (d) 30\%, (e) 40\% or (f) 50\% malicious.}
 %\label{fig:random0}
 %\end{figure*}
+
+\section{Satisfaction of desired properties}
+\label{section:satisfaction}
+
+Eight desired properties for VANET trust models were presented in \autoref{section:properties}.
+Here, TruMan's ability to satisfy each property is evaluated, ending with a final comparison between TruMan and previously proposed trust models for VANETs.

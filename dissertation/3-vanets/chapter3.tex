@@ -93,6 +93,7 @@ Rather, different mechanisms must be explored in order to avoid most problems.
 
 
 \section{Special properties of VANETs}
+\label{section:properties}
 %As was described above, VANETs are a special type of MANETs, which in turn are technological networks.
 %However, 
 VANETs feature several unique properties which distinguish them, and the behavior of its members, from other types of networks \citep{yousefi2006vehicular}.
@@ -298,11 +299,21 @@ Although it is true that data-oriented trust is efficient for events, which is w
 When a collision or other major incident occurs, it is useful to judge each message on its own, since not all members of the network will have existing trust relationships with each other.
 However, when sharing location and velocity data several times per second, it is not reasonable to expect that each message will be analyzed so carefully; rather, it makes sense to form an opinion about the sender of the message and use the resulting trust value to choose which messages are relevant or not.
 
-The ART model proposed in \citep{li2016art} works in two main steps: data gathering and malicious node detection.
-It uses the Dempster-Shafter theory of evidence to merge data coming from other nodes.
-Then, it uses a Cosine-based metric to compare two nodes' trust vectors (a series of opinions regarding other nodes).
-However, these steps require several intensive calculations, which greatly increase the complexity of the algorithm.
-The authors present no details on how it deals with sparsity, dynamics, scalability, security and privacy.
+The Attack-Resistant Trust Management Scheme (ART) from \citep{li2016art} proposes to resist three types of attacks: 
+simple attacks, in which malicious nodes do not cooperate with the network;
+bad-mouth attacks, in which malicious nodes perform simple attacks but also share false information about benign nodes;
+and zig-zag attacks, in which nodes vary their behaviour from benign to malicious in order to be harder to detect.
+It works in two main steps: data gathering and malicious node detection.
+For data gathering, it uses the Dempster-Shafter theory of evidence, which establishes \textit{belief} and \textit{plausibility} values, both real numbers ranging from 0 to 1.
+The former refers to the amount of evidence indicating the truthfulness of a hypothesis (for example, a node sending false data corroborates the hypothesis of it being malicious), while the latter is 1 minus the amount of evidence that supports the possibility of the hypothesis being false.
+These evidences are acquired through observations by a node and through data received from other nodes.
+The resulting probability is the basic trust value, which is stored in a trust vector (a series of trust values regarding other nodes).
+The malicious node detection step uses a Cosine-based metric to compare two nodes' trust vectors.
+When two nodes share similar opinions about other nodes, they will consider each other trustworthy.
+The downside of this model is that each step is mathematically costly, requiring several intensive calculations in order to achieve its goals.
+This likely increases the complexity of the algorithm, which is not detailed by the authors.
+Because of this, it is uncertain how the model would scale to large networks, while it might also underperform in small networks in which there is little evidence to collect.
+%The authors present no details on how it deals with sparsity, dynamics, scalability, security and privacy.
 %extend
 
 

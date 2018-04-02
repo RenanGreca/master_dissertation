@@ -431,6 +431,12 @@ The coloring heuristic is used to classify nodes, which uses the algorithm descr
 After running the graph coloring algorithm with graph $C^u_i$ as input, the color whose nodes in $C^u_i$ represent the most nodes in $T^u_i$ is classified as correct, and all others are classified as malicious.
 Once this information from $C^u_i$ is brought back to graph $T^u_i$, it is trivial to label the nodes in $T^u_i$ as either benign or malicious based on the classifications of their components.
 
+In a network in which malicious nodes are a minority (under 50\%), it is expected that the benign nodes will form components with large numbers of nodes, because these benign nodes will share their networks with each other and it is easy to form trust paths between pairs of benign nodes.
+Malicious nodes, on the other hand, do not send their own networks of false information to benign nodes, and might not always trust other malicious nodes, causing them to become isolated in small strongly connected components (in some cases, these contain a single malicious node).
+The result is that most benign nodes become members of a small number of large components; when the component graph is colored, these components are likely to receive the same color, because two benign components are never adjacent.
+Because of this, the coloring heuristic works as a classification method.
+%Classifying the color that represents the most nodes as correct works because 
+
 In summary, every node $u$ runs the following steps in each iteration to detect malicious nodes in the network:
 
 \begin{enumerate}
@@ -439,7 +445,7 @@ In summary, every node $u$ runs the following steps in each iteration to detect 
 		  Edges are created with weight 0.5.
 	\item Node $u$ tests all its neighbors to discover which ones can be directly trusted or not.
 		  New trust values are computed for the edges using the average between the previous value and either 1 (if the neighbor is trustworthy) or 0 (otherwise).
-	\item If a neighbor $v$ is trustworthy, $u$ merges $T^v_{i-1}$ into $T^u_i$.
+	\item If a neighbor $v$ is trustworthy, $u$ performs a union with $T^u_{i-1}$ and $T^v_{i-1}$, establishing $T^u_i$.
 	\item Tarjan's algorithm is executed to identify the strongly connected components of $T^u_i$, resulting in a component graph $C^u_i$.
 	\item The graph coloring algorithm is executed on $C^u_i$ and nodes are classified as benign or malicious.
 \end{enumerate}
