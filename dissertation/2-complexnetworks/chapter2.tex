@@ -196,29 +196,40 @@ There are few examples of MANETs implemented for consumer devices.
 Two examples are networks created to quickly share data between devices using Wi-Fi or Bluetooth \citep{krochmal2014discovery}, or ones that allow for multiplayer gaming sessions amongst multiple nearby devices \citep{sasaki2011wireless}.
 In both cases, there is no need for a complicated system-level trust model, since those activities involve active participation from the users wielding the device (that is, the user chooses whether or not to communicate with other devices); rather, the trust relationship occurs socially amongst the users themselves.
 
+\autoref{fig:manet} is an example highlighting the difference between the topology graph and the trust graph.
+The topology graph changes as one node moves across the network, with edges being added and removed as nodes move into and out of each other's ranges.
+The trust graph, however, is constantly being built, maintaining past relationships even if the nodes are no longer in communication range.
+
 Naturally, VANETs are an instance of MANETs and therefore share some of the same features.
 However, the topology of vehicular networks is very different from standard ad-hoc networks, and possible trust solutions are accordingly also distinct.
 
 \begin{figure}
 \centering
 
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.4\textwidth}
 \includegraphics[width=\linewidth]{images/manet_topology_1.png}
-\caption{Initial topology and trust graph} \label{fig:2_2a}
+\caption{Initial topology graph} \label{fig:2_2a}
 \end{subfigure}
 
-\vspace*{\fill} % separation between the subfigures
+\vspace*{0.5cm} % separation between the subfigures
 
-\begin{subfigure}{0.5\textwidth}
+\begin{subfigure}{0.08\textwidth}
+\includegraphics[width=\linewidth]{images/manet_trust_1.png}
+\caption{} \label{fig:2_3b}
+\end{subfigure}
+
+\vspace*{0.5cm} % separation between the subfigures
+
+\begin{subfigure}{0.4\textwidth}
 \includegraphics[width=\linewidth]{images/manet_topology_2.png}
-\caption{Final topology graph} \label{fig:2_2b}
+\caption{Final topology graph} \label{fig:2_2c}
 \end{subfigure}
 
-\vspace*{\fill} % separation between the subfigures
+\vspace*{0.5cm} % separation between the subfigures
 
-\begin{subfigure}{0.5\textwidth}
-\includegraphics[width=\linewidth]{images/manet_trust.png}
-\caption{Final trust graph} \label{fig:2_3b}
+\begin{subfigure}{0.4\textwidth}
+\includegraphics[width=\linewidth]{images/manet_trust_2.png}
+\caption{Final trust graph} \label{fig:2_3d}
 \end{subfigure}
 
 \caption{Example of the changes node mobility causes to the topology and trust graphs.} \label{fig:manet}
