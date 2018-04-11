@@ -105,7 +105,7 @@ Meanwhile, the contact duration is the time nodes spend connected when they do m
 In the case of the two vehicles owned by neighbors, the contact duration might also be about 12 hours, while their owners are at home and leave the vehicles close to each other.
 
 The choice of the Working Day Movement Model for evaluations is more strongly related to inter-contact times.
-For reasons explained in \autoref{chapter:truman}, relatively short inter-contact times is important for TruMan's functionality.
+For reasons explained in \autoref{chap:truman}, relatively short inter-contact times is important for TruMan's functionality.
 Contact duration time is an important metric to measure how much data can be exchanged during each encounter, although, for this evaluation, it was not considered.
 
 \section{Simulation parameters and methodology}
@@ -173,7 +173,7 @@ $$ \delta = \frac{\frac{\rho^2\pi}{2} \times \eta}{\alpha} $$
 
 For example, in a simulation with $\rho = 30$m, the calculation is as follows:
 
-$$ \delta = \frac{\frac{30^2\pi}{2} \times 160}{14.689.750} = 0.0154$$
+$$ \delta = \frac{\frac{30^2\pi}{2} \times 160}{14,689,750} = 0.0154$$
 
 In \autoref{table:simdensities}, a few densities for different values of $\rho$, $\eta$ and $\alpha$ are shown. 
 Simulations for TruMan have densities between 0.0017 ($\rho = 10$m) and 0.0428 ($\rho = 50$m).
@@ -308,6 +308,140 @@ Starting with $m=250$, results are reasonable, and the additional malicious node
 With higher values such as $m=1000$, detection takes longer, but not much else changes. 
 When the value is very high, like in the case of $m=5000$, the extra malicious node is not detected by the end of one simulated day.
 
+\begin{figure}
+\centering
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/10_10.png}
+\caption{$\rho$ = 10m.} \label{fig:tarjan0}
+\end{subfigure}
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/30_10.png}
+\caption{$\rho$ = 30m.} \label{fig:tarjan0}
+\end{subfigure}
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/50_10.png}
+\caption{$\rho$ = 50m.} \label{fig:tarjan0}
+\end{subfigure}
+
+\caption{Simulation with 10\% malicious nodes and varying values of $\rho$.}
+\label{fig:random103050}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_1.png}
+\caption{1\% malicious.}
+\end{subfigure}
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_5.png}
+\caption{5\% malicious.}
+\end{subfigure}
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_10.png}
+\caption{10\% malicious.}
+\end{subfigure}
+
+\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes (1\%, 5\% and 10\%).}
+\label{fig:randommalicious1}
+\end{figure}
+
+\begin{figure}
+\centering
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_30.png}
+\caption{30\% malicious.}
+\end{subfigure}
+
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_40.png}
+\caption{40\% malicious.}
+\end{subfigure}
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_50.png}
+\caption{50\% malicious.}
+\end{subfigure}
+
+\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes (30\%, 40\% and 50\%).}
+\label{fig:randommalicious2}
+\end{figure}
+
+
+\begin{figure}
+\centering
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/thresholds/03_30_10}
+\caption{$h = 0.3$.} \label{fig:threshold03}
+\end{subfigure}
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/thresholds/05_30_10}
+\caption{$h = 0.5$.} \label{fig:threshold05}
+\end{subfigure}
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/thresholds/07_30_10}
+\caption{$h = 0.7$.} \label{fig:threshold07}
+\end{subfigure}
+
+\caption{Simulation with 10\% malicious nodes, $\rho = 30$m and varying values of $h$.}
+\label{fig:randomthresholds}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{images/plots/Network_rA7/10_10}
+\caption{7 days scenario: 10m range and 10\% malicious nodes.} \label{fig:random7}
+\end{figure}
+
+
+\begin{figure}
+\centering
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_10}
+\caption{$m = 10$.} \label{fig:extra10}
+\end{subfigure}
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_250}
+\caption{$m = 250$.} \label{fig:extra250}
+\end{subfigure}
+
+\caption{Simulation with information aging, with different maximum age values ($m=10, 250$).}
+\label{fig:extramaliciousaging1}
+\end{figure}
+
+\begin{figure}
+\centering
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_1000}
+\caption{$m = 1000$.} \label{fig:extra1000}
+\end{subfigure}
+
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_5000}
+\caption{$m = 5000$.} \label{fig:extra5000}
+\end{subfigure}
+
+\caption{Simulation with information aging, with different maximum age values ($m=1000, 5000$).}
+\label{fig:extramaliciousaging2}
+\end{figure}
+
 \section{Satisfaction of desired properties}
 \label{section:satisfaction}
 
@@ -353,140 +487,6 @@ Experiments with information aging show that it is possible to detect nodes that
 
 Finally, it is worth noting that, considering the scale of the problem, TruMan's cost is very low without sacrificing completeness and correctness.
 The model satisfies or permits most of the desired properties of a trust model with low computational complexity, making it viable for real-world use.
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/10_10.png}
-\caption{$\rho$ = 10m.} \label{fig:tarjan0}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/30_10.png}
-\caption{$\rho$ = 30m.} \label{fig:tarjan0}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/50_10.png}
-\caption{$\rho$ = 50m.} \label{fig:tarjan0}
-\end{subfigure}
-
-\caption{Simulation with 10\% malicious nodes and varying values of $\rho$.}
-\label{fig:random103050}
-\end{figure}
-
-
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_1.png}
-\caption{1\% malicious.}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_5.png}
-\caption{5\% malicious.}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_10.png}
-\caption{10\% malicious.}
-\end{subfigure}
-
-\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes (1/2).}
-\label{fig:randommalicious1}
-\end{figure}
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_30.png}
-\caption{30\% malicious.}
-\end{subfigure}
-
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_40.png}
-\caption{40\% malicious.}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_50.png}
-\caption{50\% malicious.}
-\end{subfigure}
-
-\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes (2/2).}
-\label{fig:randommalicious2}
-\end{figure}
-
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/thresholds/03_30_10}
-\caption{$h = 0.3$.} \label{fig:threshold03}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/thresholds/05_30_10}
-\caption{$h = 0.5$.} \label{fig:threshold05}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/thresholds/07_30_10}
-\caption{$h = 0.7$.} \label{fig:threshold07}
-\end{subfigure}
-
-\caption{Simulation with 10\% malicious nodes, $\rho = 30$m and varying values of $h$.}
-\label{fig:randomthresholds}
-\end{figure}
-
-
-\begin{figure}
-\centering
-\includegraphics[width=\textwidth]{images/plots/Network_rA7/10_10}
-\caption{7 days scenario: 10m range and 10\% malicious nodes.} \label{fig:random7}
-\end{figure}
-
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_10}
-\caption{$m = 10$.} \label{fig:extra10}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_250}
-\caption{$m = 250$.} \label{fig:extra250}
-\end{subfigure}
-
-\caption{Simulation with information aging, with different maximum age values (1/2).}
-\label{fig:extramaliciousaging1}
-\end{figure}
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_1000}
-\caption{$m = 1000$.} \label{fig:extra1000}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_5000}
-\caption{$m = 5000$.} \label{fig:extra5000}
-\end{subfigure}
-
-\caption{Simulation with information aging, with different maximum age values (2/2).}
-\label{fig:extramaliciousaging2}
-\end{figure}
 
 
 %\begin{figure}

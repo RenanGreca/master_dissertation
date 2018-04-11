@@ -300,12 +300,24 @@
     \end{minipage}
     \cleardoublepage
   }
+  
+  % resumo extendido em português
+  \newenvironment{resumoextendido}
+  {
+    \chapter*{Resumo Extendido em Portugu\^es}  
+    \addcontentsline{toc}{chapter}{Resumo Extendido em Portugu\^es}
+  }{
+    \vfill
+    \cleardoublepage
+  }
+
 \else
   % Na versão de defesa, esses ambientes não geram nada
   \newenvironment{ficha}{\comment}{\endcomment}
   \newenvironment{agradece}{\comment}{\endcomment}
   \newenvironment{dedica}{\comment}{\endcomment}
   \newenvironment{aprovacao}{\comment}{\endcomment}
+  \newenvironment{resumoextendido}{\comment}{\endcomment}
 \fi
 
 % lista de acrônimos (siglas e abreviações)
@@ -323,7 +335,8 @@
 % lista de símbolos
 \newenvironment{listasimb}
 {
-  \chapter*{Lista de S\'{\i}mbolos}
+%  \chapter*{Lista de S\'{\i}mbolos}
+  \chapter*{List of Symbols}  
 %  \phantomsection
 %  \addcontentsline{toc}{chapter}{Lista de S\'{\i}mbolos}
 }{

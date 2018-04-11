@@ -8,13 +8,13 @@
 Ao integrar processadores e unidades de comunicação sem fio a veículos, é possível criar uma rede veicular ad-hoc (VANET), na qual carros compartilham dados entre si para cooperar e criar ruas mais seguras e eficientes.
 Uma solução descentralizada ad-hoc, que não depende de infraestrutura pré-existente, conexão com a internet ou disponibilidade de servidores, é preferida para que a latência de entrega de mensagens seja a mais curta possível em situações críticas.
 No entanto, assim como é o caso de muitas novas tecnologias, VANETs serão um alvo de ataques realizados por usuários maliciosos, que podem obter benefícios ao afetar condições de trânsito.
-Para evitar tais ataques, uma importante característica para redes veiculares é gerenciamento de confiança, permitindo que nós filtrem mensagens recebidas de acordo com valores de confiança previamente estabelecidos e designados a outros nós.
+Para evitar tais ataques, uma importante característica para redes veiculares é o gerenciamento de confiança, permitindo que nós filtrem mensagens recebidas de acordo com valores de confiança previamente estabelecidos e designados a outros nós.
 Para gerar esses valores de confiança, nós usam informações adquiridas de interações passadas; nós que frequentemente compartilham dados falsos ou irrelevantes terão valores de confiança mais baixos do que os que aparentam ser confiáveis.
 Este trabalho introduz TruMan, um modelo de gerenciamento de confiança para redes veiculares no contexto de trajetos diários, utilizando o \textit{Working Day Movement Model} como base para a mobilidade de nós.
 Este modelo de movimentação permite a comparação entre VANETs e redes sociais tradicionais, pois é possível observar que pares de veículos podem se encontrar mais de uma vez em diversos cenários: por exemplo, eles podem pertencer a vizinhos ou colegas de trabalho, ou apenas tomar rotas similares diariamente.
 Através de repetidos encontros, uma relação de confiança pode ser desenvolvida entre um par de nós.
 O valor de confiança resultante pode também ser usado para auxiliar outros nós que podem não ter uma relação desenvolvida entre si.
-O TruMan é baseado em um algoritmo já existente, que foi desenvolvido para redes centralizadas e focado em modelos ad-hoc estáticos; seus conceitos foram adaptados para servir uma rede descentralizada e dinâmica, que é o caso de VANETs.
+O TruMan é baseado em um algoritmo já existente, que é desenvolvido para redes centralizadas e focado em modelos ad-hoc estáticos; seus conceitos são adaptados para servir uma rede descentralizada e dinâmica, que é o caso de VANETs.
 Usando valores de confiança formados por interações entre nós, um grafo de confiança é modelado; suas arestas representam as relações de confiança entre pares de nós.
 Então, componentes fortemente conexos do grafo são formados, de forma que cada nó em um componente confie nos outros nós do mesmo componente direta ou indiretamente.
 Um algoritmo de coloração de grafo é usado no grafo de componentes resultantes e, usando os resultados de coloração, é possível inferir quais nós são considerados maliciosos pelo consenso da rede.
