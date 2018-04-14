@@ -312,7 +312,8 @@ When the value is very high, like in the case of $m=5000$, the extra malicious n
 \label{section:satisfaction}
 
 Eight desired properties for VANET trust models were presented in \autoref{section:properties}.
-Here, TruMan's ability to satisfy each property is evaluated, ending with a final comparison between TruMan and previously proposed trust models for VANETs.
+Here, TruMan's ability to satisfy each property is evaluated.
+\autoref{table:properties_truman} replicates the one from \autoref{section:properties} with the addition of TruMan, providing a full comparison between itself and the related work.
 
 \textit{1. Decentralized trust establishment}:
 TruMan is built from the ground up for decentralized systems.
@@ -323,8 +324,8 @@ The experiments using low density values demonstrate that TruMan works in reason
 Since nodes carry information from previous interactions, the model can also work on temporarily isolated parts of the network.
 
 \textit{3. Event/task and location/time dynamics}:
-Aside from the time-related information used for information aging, dynamics were not used in the simulations presented here.
-However, TruMan can be extended to consider event, task, location and time dynamics when managing trust.
+TruMan can be extended to consider event, task, location and time dynamics when managing trust.
+However, aside from the time-related information used for information aging, dynamics were not used in the simulations presented here.
 
 \textit{4. Scalability}: 
 Due to the low complexity of the algorithms used in the model, TruMan is highly scalable, as it does not incur substantial pressure on the vehicles' on-board units.
@@ -332,19 +333,18 @@ It has also been demonstrated that iterations of the algorithm do not need to ru
 
 \textit{5. Integrated confidence measure}:
 Since nodes using TruMan store trust values as a number between 0 and 1 that increase or decrease the more nodes interact (i.e. the more evidence they gather), this value can be used as a confidence measure of the opinion.
-Setting the threshold $h$ to a value closer to 1 makes it unlikely that untrustworthy nodes will be incorrectly labeled as correct.
+Setting the threshold $h$ to a value closer to 1 makes it unlikely that malicious nodes will be incorrectly labeled as benign.
 
 \textit{6. System level security}:
-A public-private key solution can be used to verify message integrity.
-This has not been considered in evaluations of TruMan.
-However, it can be included as a separate security model during the transmission of messages.
+A public-private key solution can be used to verify message integrity, although it is not a requirement for the functioning of TruMan.
+Any cryptographic solution can be integrated as a separate security model during the transmission of messages without affecting TruMan's efficiency and efficacy.
 
 \textit{7. Sensitivity to privacy concerns}:
 TruMan has not been designed with this in mind, as it requires that nodes maintain a constant identity the whole time.
 However, this does not inhibit other types of privacy protection, which can be implemented in addition to TruMan.
 
-\textit{8. Robustness}: the model's resistance to attacks.
-TruMan satisfies this property. Malicious nodes are quickly and accurately identified, making it difficult for them to perform attacks.
+\textit{8. Robustness}:
+TruMan satisfies this property, because malicious nodes are quickly and accurately identified, making it difficult for them to perform attacks.
 Experiments show that, when fewer than 50\% of nodes in the network are malicious, TruMan performs as expected.
 Collusion attacks must be performed by more than half of the entire network, in which case the network is considered compromised.
 Furthermore, since nodes take into consideration experiences from several trustworthy nodes, a malicious node that occasionally behaves correctly can still be identified.
@@ -353,6 +353,34 @@ Experiments with information aging show that it is possible to detect nodes that
 
 Finally, it is worth noting that, considering the scale of the problem, TruMan's cost is very low without sacrificing completeness and correctness.
 The model satisfies or permits most of the desired properties of a trust model with low computational complexity, making it viable for real-world use.
+
+\begin{table}[t!]
+\caption{Properties of the related work}
+\label{table:properties_truman}
+\centering
+\begin{tabular}{|p{4cm}||p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|}
+ \hline
+ \textbf{Property} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+ \hline
+ \hline
+ TruMan & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & - & - & \checkmark \\
+ \hline
+ \citep{dotzer2005vars} & \checkmark & - & \checkmark & - & - & - & \checkmark & -\\
+ \hline
+ \citep{minhas2010towards} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & -\\
+ \hline
+ \citep{chen2010trust} & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & - & -\\
+ \hline
+ \citep{park2011long} & - & - & - & - & - & \checkmark & \checkmark & \checkmark \\
+ \hline
+ \citep{huang2014social} & \checkmark & - & \checkmark & \checkmark & \checkmark & - & - & -\\
+ \hline
+ \citep{li2016art} & \checkmark & - & - & - & \checkmark & - & - & \checkmark\\
+ \hline
+ \citep{chen2017cloud} & - & \checkmark & - & \checkmark & - & \checkmark & \checkmark & -\\
+ \hline
+\end{tabular}
+\end{table}
 
 \begin{figure}
 \centering

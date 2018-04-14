@@ -488,6 +488,8 @@ In a network in which malicious nodes are a minority (under 50\%), it is expecte
 Malicious nodes, on the other hand, do not send their own networks of false information to benign nodes, and might not always trust other malicious nodes, causing them to become isolated in small strongly connected components (in some cases, these contain a single malicious node).
 The result is that most benign nodes become members of a small number of large components; when the component graph is colored, these components are likely to receive the same color, because two benign components are never adjacent.
 Because of this, the coloring heuristic works as a classification method.
+
+(Mention collusion)
 %Classifying the color that represents the most nodes as correct works because 
 
 In summary, every node $u$ runs the following steps in each iteration to detect malicious nodes in the network:
@@ -582,7 +584,7 @@ Later, when $w$ interacts with $u$ again or with another trustworthy node that r
 If this new information includes the timestamp $s_1$ which is more recent than $s_0$, $w$ updates its own graph so that the edge $u\rightarrow v$ stores the new timestamp and the new trust value.
 
 Furthermore, after each iteration, nodes go through the edges they have stored and discard the ones that are too old.
-This is done by setting a maximum age $m$ for edges; once a edge is older than $m$, it is discarded.
+This is done by setting a maximum age $m$ for edges; once an edge is older than $m$, it is discarded.
 A low value for this setting allows for faster detection of converted nodes, however  also increases the likelihood of good information being thrown away (therefore increacing the likelihood of false positive detections).
 
 Information aging is necessary because, when a node converts from benign to malicious, old information might still indicate that it is benign, as shown in \autoref{fig:rogue}.
