@@ -63,8 +63,9 @@ A decentralized ad-hoc solution, which does not rely on previously existing infr
 However, as it is the case with most new technologies, VANETs will be a prime target for attacks performed by malicious users, who may benefit from affecting traffic conditions.
 In order to avoid such attacks, one important feature for vehicular networks is trust management, which allows nodes to filter incoming messages according to previously established trust values assigned to other nodes.
 To generate these trust values, nodes use information acquired from past interactions. Nodes which frequently share false or irrelevant data must have lower trust values than the ones which appear to be reliable.
-This work proposes a trust management model in the context of daily commutes, utilizing the Working Day Movement Model as a basis for node mobility.
-The results prove to be accurate and efficient, thanks to the low complexity of the algorithm constituting the trust model.
+This work proposes TruMan, a trust management model in the context of daily commutes, utilizing the Working Day Movement Model as a basis for node mobility.
+The results prove to be accurate, detecting nearly all malicious nodes with very few false positives when they constitute up to 50\% of the network.
+The model is also very efficient thanks to the low complexity of the algorithm constituting the trust model.
 \end{abstract}
 
 %\begin{IEEEkeywords}
@@ -93,7 +94,7 @@ This study focuses only on V2V scenarios, and therefore, any references to Vehic
 As expected for new technologies, vehicular communications can become an appealing target for malicious users and attackers.
 Some issues that could be exploited in such network include: vehicles with faulty sensors \cite{isaac2010security}; vehicles broadcasting false data \cite{golle2004detecting}; a flood of false data to generate a distributed denial of service (DDoS) scenario or to divert traffic \cite{garip2015congestion}; eavesdropping on other vehicles' communications, signal jamming or stalking \cite{isaac2010security}. 
 
-Each of these problems require specific solutions, although there are ways of making the network safer in general.
+Each of these problems requires specific solutions, although there are ways of making the network safer in general.
 One way is taking advantage of the concept of trust between network members.
 By having nodes remembering previous interactions with one another, it is possible for them to build trust relationships and avoid those attacks that involve the spread of false data.
 Trust solutions for VANETs are generally classified into data-oriented, emphasizing the message contents, or entity-based, emphasizing message senders.
@@ -304,7 +305,10 @@ Since each node has its own network representation and it changes over time, the
 
 At first, the node collects and organizes information.
 A prerequisite of this step is a test that correctly classifies a neighboring node as benign or malicious.
-There are several ways to perform such a test, but a study between these methods is beyond the scope of this paper.
+Testing the correctness of neighboring nodes is a problem in and of itself, which is beyond the scope of this paper, but studies on this topic can be found on \cite{golle2004detecting}, \cite{li2016defective}, \cite{kerrache2016detection}.
+%There are several ways to perform such a test, but a study between these methods is beyond the scope of this paper.
+
+
 Every time a neighboring node $v$ is tested as benign, the value of $u \rightarrow v$ increases and the trust graph $T^v_{i-1}$ is merged into $u$'s trust graph.
 After this, a new $T^u_i$ is formed, which is used for the remaining steps.
 
@@ -413,6 +417,7 @@ In summary, every node $u$ runs the following steps in each iteration to detect 
 In order to test the TruMan trust model, simulations were made using an implementation of the algorithm in Python.
 To generate the input graphs with node mobility, the ONE simulator \cite{keranen2009one} was used in conjunction with the Working Day Movement Model \cite{ekman2008working}, which provides a strong similarity with vehicle movement in real life.
 Snapshots of the network were taken every 10 simulated seconds, and these snapshots were used as input for the algorithm.
+Malicious nodes misbehave by randomizing the values of their opinions of neighboring nodes.
 
 \begin{table}[h!]
 \caption{Simulation parameters}
@@ -852,7 +857,7 @@ The authors of \cite{chen2017cloud} propose a cloud-based solution for a trust m
 This has the advantage of simplifying properties such as handling sparsity and scalability, but also makes the system slower in general, especially in situations in which mobile communication is slow or unreliable.
 It also makes the system prone to attacks, since the whole system collapses if the global trust manager is attacked.
 
-Finally, it is worth noting that, aside from \cite{vernize2015malicious}, none of the mentioned related work presents complexity calculations for their algorithm.
+Finally, it is worth noting that, aside from \cite{vernize2015malicious}, none of the mentioned related work presents complexity calculations for its algorithm.
 Considering the scale of the problem, TruMan's cost of $O(|V|\times |E|)$ is very low without sacrificing completeness and correctness.
 The model still satisfies or permits most of the desired properties of a trust model, making it viable for real-world use.
 
@@ -900,6 +905,11 @@ The model still satisfies or permits most of the desired properties of a trust m
 
 The concept of trust as applied in VANETs is a powerful tool for those seeking to reduce the spread of false information as much as possible.
 In this paper, a new trust model for vehicular networks was presented, which combines the efficiency of previous algorithms in order to generate fast and accurate results.
+Nearly all malicious nodes are detected when they constitute up to 50\%, with very few false positives polluting the results, without incurring substantial cost to the vehicles' on-board units.
+%The results prove to be accurate, detecting nearly all malicious nodes with very few false positives when they constitute up to 50\% of the network.
+%The model is also very efficient thanks to the low complexity of the algorithm constituting the trust model.
+
+
 As nodes travel across the network and collect more data from neighbors, they are able to form an abstraction of the network which can be used to detect malicious nodes.
 By placing nodes into strongly connected components, a network containing a large amount of node can be simplified into a much smaller one.
 Using a simple graph coloring algorithm, most malicious nodes stand out by having different colors than the majority of nodes.
