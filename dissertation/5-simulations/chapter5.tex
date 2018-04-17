@@ -105,7 +105,7 @@ Meanwhile, the contact duration is the time nodes spend connected when they do m
 In the case of the two vehicles owned by neighbors, the contact duration might also be about 12 hours, while their owners are at home and leave the vehicles close to each other.
 
 The choice of the Working Day Movement Model for evaluations is more strongly related to inter-contact times.
-For reasons explained in \autoref{chapter:truman}, relatively short inter-contact times is important for TruMan's functionality.
+For reasons explained in \autoref{chap:truman}, relatively short inter-contact times is important for TruMan's functionality.
 Contact duration time is an important metric to measure how much data can be exchanged during each encounter, although, for this evaluation, it was not considered.
 
 \section{Simulation parameters and methodology}
@@ -116,6 +116,10 @@ To generate the input graphs with node mobility, the ONE simulator \citep{kerane
 
 Snapshots of the network were taken every 10 simulated seconds using the \texttt{AdjacencySnapshotReport} module for the ONE simulator.
 However, a few experiments showed that it was not necessary to run iterations of TruMan that frequently; therefore, iterations run at an interval of 100 simulated seconds and only use one tenth of the snapshots saved.
+
+Malicious nodes in the simulation misbehave by randomizing their opinions of neighbors.
+This means that an edge from a malicious node $a$ to another node $b$ is not reliable; its trust value can be anything regardless of the behavior of $b$.
+In collusion attacks, malicious nodes intentionally trust other malicious nodes, but such situations were not considered for the evaluation of TruMan.
 
 \begin{table}[h!]
 \caption{Simulation parameters}
@@ -173,7 +177,7 @@ $$ \delta = \frac{\frac{\rho^2\pi}{2} \times \eta}{\alpha} $$
 
 For example, in a simulation with $\rho = 30$m, the calculation is as follows:
 
-$$ \delta = \frac{\frac{30^2\pi}{2} \times 160}{14.689.750} = 0.0154$$
+$$ \delta = \frac{\frac{30^2\pi}{2} \times 160}{14,689,750} = 0.0154$$
 
 In \autoref{table:simdensities}, a few densities for different values of $\rho$, $\eta$ and $\alpha$ are shown. 
 Simulations for TruMan have densities between 0.0017 ($\rho = 10$m) and 0.0428 ($\rho = 50$m).
@@ -308,6 +312,8 @@ Starting with $m=250$, results are reasonable, and the additional malicious node
 With higher values such as $m=1000$, detection takes longer, but not much else changes. 
 When the value is very high, like in the case of $m=5000$, the extra malicious node is not detected by the end of one simulated day.
 
+
+
 \section{Satisfaction of desired properties}
 \label{section:satisfaction}
 
@@ -424,7 +430,7 @@ The model satisfies or permits most of the desired properties of a trust model w
 \caption{10\% malicious.}
 \end{subfigure}
 
-\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes (1/2).}
+\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes (1\%, 5\% and 10\%).}
 \label{fig:randommalicious1}
 \end{figure}
 
@@ -447,7 +453,7 @@ The model satisfies or permits most of the desired properties of a trust model w
 \caption{50\% malicious.}
 \end{subfigure}
 
-\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes (2/2).}
+\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes (30\%, 40\% and 50\%).}
 \label{fig:randommalicious2}
 \end{figure}
 
@@ -477,7 +483,7 @@ The model satisfies or permits most of the desired properties of a trust model w
 
 \begin{figure}
 \centering
-\includegraphics[width=\textwidth]{images/plots/Network_rA7/10_10}
+\includegraphics[width=0.6\textwidth]{images/plots/Network_rA7/10_10}
 \caption{7 days scenario: 10m range and 10\% malicious nodes.} \label{fig:random7}
 \end{figure}
 
@@ -495,7 +501,7 @@ The model satisfies or permits most of the desired properties of a trust model w
 \caption{$m = 250$.} \label{fig:extra250}
 \end{subfigure}
 
-\caption{Simulation with information aging, with different maximum age values (1/2).}
+\caption{Simulation with information aging, with different maximum age values ($m=10, 250$).}
 \label{fig:extramaliciousaging1}
 \end{figure}
 
@@ -512,10 +518,9 @@ The model satisfies or permits most of the desired properties of a trust model w
 \caption{$m = 5000$.} \label{fig:extra5000}
 \end{subfigure}
 
-\caption{Simulation with information aging, with different maximum age values (2/2).}
+\caption{Simulation with information aging, with different maximum age values ($m=1000, 5000$).}
 \label{fig:extramaliciousaging2}
 \end{figure}
-
 
 %\begin{figure}
 %\centering
