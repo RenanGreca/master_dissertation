@@ -488,8 +488,7 @@ In a network in which malicious nodes are a minority (under 50\%), it is expecte
 Malicious nodes, on the other hand, do not send their own networks of false information to benign nodes, and might not always trust other malicious nodes, causing them to become isolated in small strongly connected components (in some cases, these contain a single malicious node).
 The result is that most benign nodes become members of a small number of large components; when the component graph is colored, these components are likely to receive the same color, because two benign components are never adjacent.
 Because of this, the coloring heuristic works as a classification method.
-
-(Mention collusion)
+A high scale collusion attack could affect this heuristic, as malicious nodes would form large components and distinguishing these components from the benign ones would be a challenge.
 %Classifying the color that represents the most nodes as correct works because 
 
 In summary, every node $u$ runs the following steps in each iteration to detect malicious nodes in the network:
@@ -513,7 +512,7 @@ To do this, each edge stores a timestamp value $s$ in addition to the trust valu
 When two nodes $u$ and $v$ interact with each other, the edge $u\rightarrow v$ in $T_u$ stores the timestamp $s$, which is set according to node $v$'s internal clock.
 
 Then, when node $u$ interacts with another node $w$ in the future, $u$'s opinion of $v$ comes with the timestamp attached, so $w$ has the information to know how much time has passed since the interaction between $u$ and $v$ happened.
-Once $w$ performs the graph merge procedure with $T_u$ and $T_w$, but $T_w$ already has an edge $u\rightarrow v$ stored, it checks the two timestamps and only updates the edge if the incoming information is more recent than what is already stored.
+Once $w$ performs the graph merge procedure with $T_u$ and $T_w$, but $T_w$ already has an edge $u\rightarrow v$ stored, it checks the two timestamps and only updates the edge if the incoming information is more recent than the node already had stored.
 Since the timestamp is always set to the destination node of the edge, it can be used for comparison regardless of which nodes handled the information. 
 Algorithm \autoref{algorithm:union_timestamp} shows how the union function was changed to accommodate timestamps and information aging.
 
@@ -594,7 +593,7 @@ However, the outdated edge $3\rightarrow 0$ keeps $0$ in the component, since ot
 Once that edge is old enough, it is discarded and node $0$ is correctly identified as malicious by all other nodes.
 
 \subsection{Complexity}
-The complexity of TruMan must calculated for each iteration executed and each node in the network.
+The complexity of TruMan must be calculated for each iteration executed and each node in the network.
 It can be estimated by adding the complexity of most costly operations involved, which are: ($i$) Tarjan's algorithm, ($ii$) the graph coloring algorithm, and ($iii$) the graph union process.
 Tarjan's algorithm and the graph coloring algorithm are executed once per iteration on each node of the network.
 The graph union, however, is executed once every time a neighboring node shares information.
