@@ -117,6 +117,10 @@ To generate the input graphs with node mobility, the ONE simulator \citep{kerane
 Snapshots of the network were taken every 10 simulated seconds using the \texttt{AdjacencySnapshotReport} module for the ONE simulator.
 However, a few experiments showed that it was not necessary to run iterations of TruMan that frequently; therefore, iterations run at an interval of 100 simulated seconds and only use one tenth of the snapshots saved.
 
+Malicious nodes in the simulation misbehave by randomizing their opinions of neighbors.
+This means that an edge from a malicious node $a$ to another node $b$ is not reliable; its trust value can be anything regardless of the behavior of $b$.
+In collusion attacks, malicious nodes intentionally trust other malicious nodes, but such situations were not considered for the evaluation of TruMan.
+
 \begin{table}[h!]
 \caption{Simulation parameters}
 \label{table:parameters}

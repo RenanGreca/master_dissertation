@@ -413,7 +413,8 @@ Since each node has its own network representation and it changes over time, the
 
 At first, the node collects and organizes information.
 A prerequisite of this step is a test that correctly classifies a neighboring node as benign or malicious.
-There are several ways to perform such a test, but a study between these methods is beyond the scope of this paper.
+Testing the correctness of neighboring nodes is a problem in and of itself, which is beyond the scope of this project, but studies on this topic can be found on \citep{golle2004detecting}, \citep{kerrache2016detection}, \citep{li2016defective}.
+
 Every time a neighboring node $v$ is tested as benign, the value of $u \rightarrow v$ increases.
 Additionally, node $u$ performs an union between its trust graph and $v$'s trust graph, forming a new graph $T^u_i = T^u_{i-1} \bigcup T^v_{i-1}$, which is used for the remaining steps.
 Algorithm  \autoref{algorithm:interaction} shows the basic interaction between two nodes, while algorithm \autoref{algorithm:union} details the steps of the graph union.
