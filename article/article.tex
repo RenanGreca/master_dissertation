@@ -417,7 +417,8 @@ In summary, every node $u$ runs the following steps in each iteration to detect 
 In order to test the TruMan trust model, simulations were made using an implementation of the algorithm in Python.
 To generate the input graphs with node mobility, the ONE simulator \cite{keranen2009one} was used in conjunction with the Working Day Movement Model \cite{ekman2008working}, which provides a strong similarity with vehicle movement in real life.
 Snapshots of the network were taken every 10 simulated seconds, and these snapshots were used as input for the algorithm.
-Malicious nodes misbehave by randomizing the values of their opinions of neighboring nodes.
+Malicious nodes in the simulation misbehave by randomizing their opinions of neighbors (i.e. the trust value of outgoing edges to other nodes).
+%The behavior of malicious nodes is to randomize their opinions regarding their neighbors.
 
 \begin{table}[h!]
 \caption{Simulation parameters}
@@ -905,10 +906,9 @@ The model still satisfies or permits most of the desired properties of a trust m
 
 The concept of trust as applied in VANETs is a powerful tool for those seeking to reduce the spread of false information as much as possible.
 In this paper, a new trust model for vehicular networks was presented, which combines the efficiency of previous algorithms in order to generate fast and accurate results.
-Nearly all malicious nodes are detected when they constitute up to 50\%, with very few false positives polluting the results, without incurring substantial cost to the vehicles' on-board units.
+Nearly all malicious nodes are detected when they constitute up to 50\% of the network, with very few false positives polluting the results, without incurring substantial cost to the vehicles' on-board units.
 %The results prove to be accurate, detecting nearly all malicious nodes with very few false positives when they constitute up to 50\% of the network.
 %The model is also very efficient thanks to the low complexity of the algorithm constituting the trust model.
-
 
 As nodes travel across the network and collect more data from neighbors, they are able to form an abstraction of the network which can be used to detect malicious nodes.
 By placing nodes into strongly connected components, a network containing a large amount of node can be simplified into a much smaller one.
