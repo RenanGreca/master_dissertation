@@ -420,10 +420,9 @@ Additionally, node $u$ performs an union between its trust graph and $v$'s trust
 Algorithm  \autoref{algorithm:interaction} shows the basic interaction between two nodes, while algorithm \autoref{algorithm:union} details the steps of the graph union.
 
 \begin{algorithm}
-\caption{Interaction between two nodes}\label{algorithm:interaction}
+\caption{Interaction between two nodes $u$ and $v$}\label{algorithm:interaction}
 \begin{algorithmic}[1]
 
-\Function{Interaction}{node $u$, node $v$}
 
 \If{$v\notin T^u$}
 	\State \textbf{add} $v$ \textbf{to} $T^u$
@@ -436,13 +435,12 @@ Algorithm  \autoref{algorithm:interaction} shows the basic interaction between t
 
 \If{$v$ is benign}
 	\State $T^u(u\rightarrow v).trustvalue$ \textbf{increases}
-	\State \textbf{Union}($T^u$, $T^v$)
+	\State $T^u \gets $ \textbf{Union}($T^u$, $T^v$)
 \Else
 	\State $T^u(u\rightarrow v).trustvalue$ \textbf{decreases}
 \EndIf
 
 
-\EndFunction
 \end{algorithmic}
 \end{algorithm}
 
@@ -452,20 +450,25 @@ Algorithm  \autoref{algorithm:interaction} shows the basic interaction between t
 
 \Function{Union}{graph $T^u$, graph $T^v$}
 
+\State $T \gets T^u$
+
 \For{$a\rightarrow b$ \textbf{in} edges of $T^v$ }
 
-	\If{$a\notin T^u$}
-		\State \textbf{add} $a$ \textbf{to} $T^u$
+	\If{$a\notin T$}
+		\State \textbf{add} $a$ \textbf{to} $T$
 	\EndIf
 	
-	\If{$b\notin T^u$}
-		\State \textbf{add} $b$ \textbf{to} $T^u$
+	\If{$b\notin T$}
+		\State \textbf{add} $b$ \textbf{to} $T$
 	\EndIf
 	
-	\If{$a\rightarrow b \notin T^u$}
-		\State \textbf{add} $a\rightarrow b$ \textbf{to} $T^u$
+	\If{$a\rightarrow b \notin T$}
+		\State \textbf{add} $a\rightarrow b$ \textbf{to} $T$
 	\EndIf
+
 \EndFor
+
+\State \textbf{return} $T$
 
 \EndFunction
 \end{algorithmic}
@@ -523,27 +526,31 @@ Algorithm \autoref{algorithm:union_timestamp} shows how the union function was c
 
 \Function{Union}{graph $T^u$, graph $T^v$}
 
+\State $T \gets T^u$
+
 \For{$a\rightarrow b$ \textbf{in} edges of $T^v$ }
 
-	\If{$a\notin T^u$}
-		\State \textbf{add} $a$ \textbf{to} $T^u$
+	\If{$a\notin T$}
+		\State \textbf{add} $a$ \textbf{to} $T$
 	\EndIf
 	
-	\If{$b\notin T^u$}
-		\State \textbf{add} $b$ \textbf{to} $T^u$
+	\If{$b\notin T$}
+		\State \textbf{add} $b$ \textbf{to} $T$
 	\EndIf
 	
-	\If{$a\rightarrow b \notin T^u$}
-		\State \textbf{add} $a\rightarrow b$ \textbf{to} $T^u$
+	\If{$a\rightarrow b \notin T$}
+		\State \textbf{add} $a\rightarrow b$ \textbf{to} $T$
 	\Else
-		\State $s_0 \gets T^u(a\rightarrow b).timestamp$
-		\State $s_1 \gets T^v(a\rightarrow b).timestamp$
-		\If{$s_1$ \textbf{is more recent than} $s_0$}
-			\State $T^u(a\rightarrow b).trustvalue \gets T^v(a\rightarrow b).trustvalue$
-			\State $T^u(a\rightarrow b).timestamp \gets T^v(a\rightarrow b).timestamp$
+		\State $s_u \gets T(a\rightarrow b).timestamp$
+		\State $s_v \gets T^v(a\rightarrow b).timestamp$
+		\If{$s_u$ \textbf{is more recent than} $s_v$}
+			\State $T(a\rightarrow b).trustvalue \gets T^v(a\rightarrow b).trustvalue$
+			\State $T(a\rightarrow b).timestamp \gets T^v(a\rightarrow b).timestamp$
 		\EndIf	
 	\EndIf
 \EndFor
+
+\State \textbf{return} $T$
 
 \EndFunction
 \end{algorithmic}
