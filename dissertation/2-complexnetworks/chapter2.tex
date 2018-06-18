@@ -1,4 +1,4 @@
-\chapter{Complex Networks}
+\chapter{Trust in Complex Networks}
 \label{chap:complexnetworks}
 
 %Often, the term ``network'' is associated only with computer
@@ -52,7 +52,7 @@ In most networks, trust can be a useful tool to aid the security and safety of i
 Therefore, the study of the concept and applications of trust is an important part of the study of networks. 
 
 Trust is a concept studied in fields such as psychology and economics, with specific definitions.
-In complex networks, under the perspective of computer science, it is a measure of one entity's confidence that another will behave properly and provide valid and/or meaningful data \citep{sherchan2013survey}.
+In complex networks, under the perspective of computer science, trust is a measure of how much confidence one member of a network has that another member of the same network will behave properly and provide valid and/or meaningful data \citep{sherchan2013survey}.
 What follows is the basis of how a network can be modelled using a graph and how a trust model can be applied to it.
 
 Consider an undirected graph $G = (V, E_G)$, which models one complex network of any kind.
@@ -183,9 +183,9 @@ In networks in which nodes can meet more than once, it might be valuable to stor
 
 
 Another important aspect of trust in ad-hoc networks is that information is, generally, uncertain and incomplete \citep{baras2005cooperation}.
-That is, since nodes form their own model and opinions of the surrounding network, it is unlikely that this data will be certain and accurate with reality.
+That is, since nodes form their own model and opinions of the surrounding network, it is unlikely that this data will always be certain and accurate with reality.
 For this reason, it is also possible to use data gathered by neighboring nodes to complement the model.
-This data itself is subject to the trust evaluation of the neighbors, but it is crucial to better approximate the trust values of other nodes.
+Data received from neighbors is also subject to the trust evaluation of whoever requests it, but it is crucial to have better knowledge about other members of the network.
 Incompleteness is an inherit trace of MANETs, since it is entirely possible for nodes to be too distant to communicate, and only occasionally come into contact.
 
 Finally, MANETs must consider the processing and battery limitations of the devices that integrate it.
