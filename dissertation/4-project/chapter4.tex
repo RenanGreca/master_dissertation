@@ -4,7 +4,7 @@
 %This work shows that it is possible to adapt a trust management scheme originally designed for static networks to a dynamic environment, such as a VANET.
 This work introduces an efficient solution to trust management in dynamic networks such as VANETs.
 In order to make this possible, it is necessary to identify features in VANETs that show that nodes can share a long-term relationship, as is the case for social networks.
-%The arguments for such features are presented in \autoref{section:socialvanets}, while the movement model that enables the simulation of the features is explained in \autoref{section:workingday}.
+%The arguments for such features are presented in \Cref{section:socialvanets}, while the movement model that enables the simulation of the features is explained in \Cref{section:workingday}.
 Through these long-term relationships, it then becomes feasible for nodes to store trust data and share it with other nodes.
 By combining a node's own opinions about familiar nodes and trust information received from its neighbors, it is possible to create a model of the surrounding network.
 This model includes a trust graph, showing the trust relationships between pair of nodes, which can then be used in conjunction with other algorithms in order to classify nodes as correct or malicious.
@@ -27,7 +27,7 @@ Finally, TruMan itself is detailed, showing how it combines features from existi
 Building from the foundation set by MaNI \citep{vernize2013dissertation}, TruMan strives to enable efficient trust management in highly dynamic networks such as VANETs.
 In addition to efficiency, it is desirable that the trust model is both simple to understand and to implement, making it appealing for real-world usage.
 
-Furthermore, the desired properties of a VANET trust model described in \citep{zhang2011survey} (explained in detail in \autoref{section:properties}) were considered, so TruMan attempts to fulfill or enable as many of those properties as possible.
+Furthermore, the desired properties of a VANET trust model described in \citep{zhang2011survey} (explained in detail in \Cref{section:properties}) were considered, so TruMan attempts to fulfill or enable as many of those properties as possible.
 
 \section{Social Networks and VANETs}
 \label{section:socialvanets}
@@ -89,7 +89,7 @@ Each node popped, including $u$, is a member of a strongly connected component.
 
 The number of components is, at most, $|V|$: in a worst-case scenario, each node is placed into its own component.
 The complexity of the algorithm is $O(|V|+|E|)$ for a graph $T = (V,E)$.
-Algorithm \autoref{algorithm:tarjan} shows the general structure of Tarjan's algorithm  \citep{tarjan1972depth}.
+Algorithm \Cref{algorithm:tarjan} shows the general structure of Tarjan's algorithm  \citep{tarjan1972depth}.
 
 \begin{algorithm}
 \caption{Tarjan's strongly connected components algorithm}\label{algorithm:tarjan}
@@ -181,7 +181,7 @@ Algorithm \autoref{algorithm:tarjan} shows the general structure of Tarjan's alg
 \caption{Example of an execution of Tarjan's strongly connected components algorithm.}\label{fig:tarjan}
 \end{figure}
 
-\autoref{fig:tarjan} illustrates the execution of Tarjan's algorithm.
+\Cref{fig:tarjan} illustrates the execution of Tarjan's algorithm.
 The algorithm starts from node 0, with $index[0] = 0$ and $lowlink[0] = 0$.
 With a depth-first search, the algorithm traces the path $0 \rightarrow 1 \rightarrow 2 \rightarrow 3 
 \rightarrow 4 \rightarrow 2$.
@@ -209,7 +209,7 @@ For the purposes of trust management, it is not necessary to prove that the colo
 
 The complexity of the algorithm is $O(|E'|)$ for a graph $C = (V',E')$.
 As a comparison, the DSATUR algorithm for graph coloring has complexity $O(|V|^2)$ \citep{brelaz1979new}.
-Algorithm \autoref{algorithm:coloring} shows the general structure of the graph coloring algorithm  \citep{mittal2011graph}.
+Algorithm \Cref{algorithm:coloring} shows the general structure of the graph coloring algorithm  \citep{mittal2011graph}.
 
 \begin{algorithm}
 \caption{Graph coloring with minimum colors}\label{algorithm:coloring}
@@ -281,7 +281,7 @@ A limitation of this algorithm is that the edges must be sorted according to nod
 It doesn't matter which nodes get assigned which indexes, but once they are assigned those numbers, the algorithm must follow the edges in numerical order.
 This is demonstrated in \citep{vernize2013dissertation}.
 
-\autoref{fig:coloring} illustrates the execution of the graph coloring algorithm.
+\Cref{fig:coloring} illustrates the execution of the graph coloring algorithm.
 It is notable how the algorithm takes few iterations to fully color the graph.
 However, it is also possible to observe that the result does not use the minimum amount of colors.
 By coloring node 4 as cyan and node 3 as magenta, the sample graph could have been colored with only three colors instead of four.
@@ -300,7 +300,7 @@ The relationships are also directed, meaning that if the value of $A\rightarrow 
 
 The process for identifying malicious nodes within $T$ is as follows:
 
-First, $T$ is separated into strongly connected components using Tarjan's algorithm \citep{tarjan1972depth}, which is described in detail in \autoref{section:tarjan}.
+First, $T$ is separated into strongly connected components using Tarjan's algorithm \citep{tarjan1972depth}, which is described in detail in \Cref{section:tarjan}.
 In each of these components, all nodes are connected by edges of value $1$.
 In other words, within a single component, all nodes trust one another; nodes connected by edges of value $0$ are separated into different components.
 Each of these components becomes a node of a component graph $C = (V', E')$.
@@ -311,7 +311,7 @@ They can either be benign nodes which legitimately trust one another, or malicio
 After the formation of $C$, one or more heuristics can be used to classify the nodes as benign or malicious.
 
 In the experiments performed by the authors of MaNI, the coloring heuristic shows the most promising results, identifying a high ratio of the malicious nodes in the network.
-The coloring heuristic uses a graph coloring algorithm, such as DSATUR \citep{brelaz1979new} or the algorithm detailed in \autoref{section:coloring}.
+The coloring heuristic uses a graph coloring algorithm, such as DSATUR \citep{brelaz1979new} or the algorithm detailed in \Cref{section:coloring}.
 Other heuristics were experimented with, but were either less effective in detecting malicious nodes, provided too many false positives, or were not efficient enough.
 
 After running a graph coloring algorithm with graph $C$ as input, the color whose nodes in $C$ represent the most nodes in $T$ is classified as correct, and all others are classified as malicious.
@@ -377,12 +377,12 @@ By doing this a small number of times, nearly all malicious nodes are detected b
 \end{figure}
 
 
-\autoref{fig:mani} illustrates the execution of the MaNI algorithm.
+\Cref{fig:mani} illustrates the execution of the MaNI algorithm.
 With the starting graph $T$, whose edges represent the trust relationships between nodes, Tarjan's strongly connected component algorithm is executed.
-\autoref{fig:mani1} shows nodes colored according to their placement in a strongly connected component.
+\Cref{fig:mani1} shows nodes colored according to their placement in a strongly connected component.
 The strongly connected components form a graph $C$ according to edges present in $T$.
-In \autoref{fig:mani2}, component $0$ is the one containing node $5$; component $1$ contains nodes $6$, $7$ and $8$; component $2$ contains nodes $0$, $1$, $2$ and $3$; and component $3$ contains node $4$.
-The graph coloring with minimum colors algorithm is executed on $C$, producing the coloration shown in \autoref{fig:mani3}.
+In \Cref{fig:mani2}, component $0$ is the one containing node $5$; component $1$ contains nodes $6$, $7$ and $8$; component $2$ contains nodes $0$, $1$, $2$ and $3$; and component $3$ contains node $4$.
+The graph coloring with minimum colors algorithm is executed on $C$, producing the coloration shown in \Cref{fig:mani3}.
 Finally, each node in $T$ is colored according to which color its component received in $C$.
 The color with the most nodes is deemed benign, while the others are considered malicious. 
 
@@ -417,7 +417,7 @@ Testing the correctness of neighboring nodes is a problem in and of itself, whic
 
 Every time a neighboring node $v$ is tested as benign, the value of $u \rightarrow v$ increases.
 Additionally, node $u$ performs an union between its trust graph and $v$'s trust graph, forming a new graph $T^u_i = T^u_{i-1} \bigcup T^v_{i-1}$, which is used for the remaining steps.
-Algorithm  \autoref{algorithm:interaction} shows the basic interaction between two nodes, while algorithm \autoref{algorithm:union} details the steps of the graph union.
+Algorithm  \Cref{algorithm:interaction} shows the basic interaction between two nodes, while algorithm \Cref{algorithm:union} details the steps of the graph union.
 
 \begin{algorithm}
 \caption{Interaction between two nodes $u$ and $v$}\label{algorithm:interaction}
@@ -484,7 +484,7 @@ Since each vertex $v' \in V'^u_i$ is a component of $T^u_i$ in which all nodes t
 They can either be benign nodes which legitimately trust one another, or malicious nodes colluding with each other.
 After the formation of $C^u_i$, a heuristic is used to classify the nodes as benign or malicious.
 
-The coloring heuristic is used to classify nodes, which uses the algorithm described in \autoref{section:coloring} \citep{mittal2011graph}, although other heuristics may be considered.
+The coloring heuristic is used to classify nodes, which uses the algorithm described in \Cref{section:coloring} \citep{mittal2011graph}, although other heuristics may be considered.
 After running the graph coloring algorithm with graph $C^u_i$ as input, the color whose nodes in $C^u_i$ represent the most nodes in $T^u_i$ is classified as correct, and all others are classified as malicious.
 Once this information from $C^u_i$ is brought back to graph $T^u_i$, it is trivial to label the nodes in $T^u_i$ as either benign or malicious based on the classifications of their components.
 
@@ -518,7 +518,7 @@ When two nodes $u$ and $v$ interact with each other, the edge $u\rightarrow v$ i
 Then, when node $u$ interacts with another node $w$ in the future, $u$'s opinion of $v$ comes with the timestamp attached, so $w$ has the information to know how much time has passed since the interaction between $u$ and $v$ happened.
 Once $w$ performs the graph merge procedure with $T_u$ and $T_w$, but $T_w$ already has an edge $u\rightarrow v$ stored, it checks the two timestamps and only updates the edge if the incoming information is more recent than the node already had stored.
 Since the timestamp is always set to the destination node of the edge, it can be used for comparison regardless of which nodes handled the information. 
-Algorithm \autoref{algorithm:union_timestamp} shows how the union function was changed to accommodate timestamps and information aging.
+Algorithm \Cref{algorithm:union_timestamp} shows how the union function was changed to accommodate timestamps and information aging.
 
 \begin{algorithm}
 \caption{Graph union with timestamps}\label{algorithm:union_timestamp}
@@ -594,7 +594,7 @@ Furthermore, after each iteration, nodes go through the edges they have stored a
 This is done by setting a maximum age $m$ for edges; once an edge is older than $m$, it is discarded.
 A low value for this setting allows for faster detection of converted nodes, however  also increases the likelihood of good information being thrown away (therefore increacing the likelihood of false positive detections).
 
-Information aging is necessary because, when a node converts from benign to malicious, old information might still indicate that it is benign, as shown in \autoref{fig:rogue}.
+Information aging is necessary because, when a node converts from benign to malicious, old information might still indicate that it is benign, as shown in \Cref{fig:rogue}.
 Immediately after node $0$ becomes malicious, it is still part of a benign strongly connected component, because there are paths from every other node to $0$, and from $0$ to every other node.
 Some time later, node $2$ interacts with $0$ again and identifies it as malicious; other nodes that interact with $2$ will receive that updated information.
 However, the outdated edge $3\rightarrow 0$ keeps $0$ in the component, since other nodes trust $3$ and $3$ still hasn't updated its own opinion of $0$.

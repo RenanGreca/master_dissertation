@@ -450,7 +450,7 @@
   \end{center}
 
   % that's all, folks!
-  \cleardoublepage
+%  \cleardoublepage
 }
 
 %------------------------------------------------------------------------------

@@ -12,13 +12,17 @@ While many of these applications focus on conveniences, such as home automation 
 One way of achieving this is by adding computers and wireless transmitters to vehicles — such as cars, buses, and trains — so they can share data which may increase traffic efficiency or reduce the chance of accidents \citep{saini2015close}.
 
 In 2013, an estimated 1.25 million people lost their lives due to traffic accidents globally \citep{whotraffic}.
-While this number has greatly reduced over the past decades \citep{johnson2010traffic} thanks to better safety features (seat belts, air bags, ABS, etc.) and stronger laws (drunk driving, motorcycle helmets, speed limits, etc.), it may still rise as a major cause of death in the years to come \citep{whofactsheet}, so further actions are necessary.
-Furthermore, as the car population increases, congestions consume ever more time of the daily commuter, peaking at over 100 hours per year for the residents of Los Angeles, CA \citep{inrixtraffic}.
+While this number has greatly reduced over the past decades \citep{johnson2010traffic} \citep{iihsfatality} thanks to better safety features (seat belts, air bags, ABS, etc.) and stronger laws (drunk driving, motorcycle helmets, speed limits, etc.), it may still rise as a major cause of death in the years to come \citep{whofactsheet}, so further actions are necessary.
+Furthermore, as the car population increases, congestions consume even more time of the daily commuter, peaking at over 100 hours per year for the residents of Los Angeles, CA \citep{inrixtraffic}.
+Moscow, New York, Bogotá, São Paulo, London and Paris are also among the ten most congested cities in the world \citep{inrixtraffic}.
 
 Smart vehicles and vehicular networks are ways that technology can aid both of the aforementioned problems.
 Through the use of sensors and wireless communications, these vehicles are able to avoid accidents by alerting distracted drivers \citep{lee2004collision}, or by knowing in advance another vehicle's position and speed \citep{hafner2011automated}.
 By communicating, they can also collaborate to offer driving and route suggestions, therefore reducing the possibility of traffic jams \citep{knorr2012reducing}.
 %These features are possible with the development of a vehicular ad-hoc network (VANET), in which vehicles can quickly share data amongst themselves without the need of a server or an Internet connection.
+
+Today, certain vehicle manufacturers already include the on-board technology required to enable vehicular communications in the real world \citep{toyota2015}.
+However, this technology only becomes truly useful when there are other vehicles or infrastructure with whom to communicate, so, at the moment, the benefits are notable but limited \citep{cadillac2017}.
 
 When dealing with safety or traffic-efficiency applications, it is crucial that network communications occur with low latency (approximately 100 milliseconds \citep{camp2005vehicle}).
 Current cellular technology, such as LTE, could be used to connect vehicles to the Internet, but the delay added by the transmission would make safety applications unfeasible or unreliable \citep{mangel2010comparison}.
@@ -32,7 +36,7 @@ Routing techniques can use either the network's topology or geographical coordin
 
 These issues — the additional safety and efficiency as well as the low-latency communications — can be tackled through the use of a vehicular ad-hoc network (VANET), in which vehicles share data amongst themselves without relying on external devices, an Internet connection or server availability.
 Neighboring vehicles can share their position and velocity data at high frequencies, allowing, for example, for autonomous vehicles to plan a platooning approach to traffic \citep{amoozadeh2015platoon}.
-In the case of a collision or other event, nearby nodes can broadcast alerts, which other nodes pick up and forward \citep{li2007routing}.
+In the case of a collision or other event, nearby nodes can broadcast alerts, which other nodes pick up and forward \citep{li2007routing}, as illustrated by \Cref{fig:collision}.
 That way, an alert can travel long distances in little time, allowing approaching vehicles to safely slow down or pick alternative routes.
 
 \begin{figure}[h]
@@ -128,9 +132,9 @@ By considering such features, TruMan allows the formation of strong trust relati
 
 %\section{Document organization}
 The remainder of this document is organized as follows. \Cref{chap:complexnetworks} explains the broad study of complex networks and the importance of trust in technological and social networks.
-Then, \autoref{chap:vanets} goes into details regarding VANETs and the importance of trust solutions in the field, presenting previous studies made on the subject.
+Then, \Cref{chap:vanets} goes into details regarding VANETs and the importance of trust solutions in the field, presenting previous studies made on the subject.
 \Cref{chap:truman} describes the goals of TruMan, its underlying hypothesis and the work done to achieve those goals, as well as the previously existing algorithms which form parts of TruMan.
-Next, \autoref{chap:simulations} explains the tools used to validate TruMan's functionality and presents the results of the experiments that were performed.
-Finally \autoref{chap:conclusion} presents the final thoughts on the project and concludes this document.
+Next, \Cref{chap:simulations} explains the tools used to validate TruMan's functionality and presents the results of the experiments that were performed.
+Finally \Cref{chap:conclusion} presents the final thoughts on the project and concludes this document.
 
-%Finally, \autoref{chap:proposal} shows the fundamentals of this proposed work, including the similarities found between VANETs and social networks, a realistic movement model that may be used for simulations, the previously existing study on malicious node identification for complex networks, and the important aspects that must be adapted to the dynamic vehicular environment.
+%Finally, \Cref{chap:proposal} shows the fundamentals of this proposed work, including the similarities found between VANETs and social networks, a realistic movement model that may be used for simulations, the previously existing study on malicious node identification for complex networks, and the important aspects that must be adapted to the dynamic vehicular environment.

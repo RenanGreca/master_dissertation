@@ -11,7 +11,7 @@ The Stanford Network Analysis Platform (SNAP) library \citep{snap} was chosen pr
 The simulations require multiple graphs that share the same set of nodes (because each node in the network has its own knowledge of the surrounding network), and the SNAP library uses pointers to nodes and edges, saving memory by not having to duplicate the entire data structure.
 It is written in C++, but, for these simulations, the Snap.py Python library was used.
 
-%The datasets available from SNAP's website were used for the simulations in \citep{vernize2015malicious} and the static network simulations shown in \autoref{chap:simulations}.
+%The datasets available from SNAP's website were used for the simulations in \citep{vernize2015malicious} and the static network simulations shown in \Cref{chap:simulations}.
 
 \section{The ONE Simulator}
 \label{section:theone}
@@ -32,7 +32,7 @@ The \texttt{AdjacencySnapshotReport} module has been submitted to the ONE reposi
 Most VANET trust models use the Random Waypoint mobility model for simulations, i.e. each node has an origin point, chooses a random location, gets to that location, then chooses another random location and goes there, and so forth.
 While this model is efficient for testing trust protocols, it doesn't truly represent vehicle mobility in the real world.
 
-To make use of the properties described in \autoref{section:socialvanets}, it is important to choose a mobility pattern that properly represents the way vehicles move on a daily basis in the real world.
+To make use of the properties described in \Cref{section:socialvanets}, it is important to choose a mobility pattern that properly represents the way vehicles move on a daily basis in the real world.
 Therefore, the Working Day Movement Model \citep{ekman2008working} (WDMM) is useful.
 The model, developed for use in Delay-Tolerant Network (DTN) simulations, includes many of the features that are necessary to simulate the daily movement of a vehicular network.
 
@@ -105,7 +105,7 @@ Meanwhile, the contact duration is the time nodes spend connected when they do m
 In the case of the two vehicles owned by neighbors, the contact duration might also be about 12 hours, while their owners are at home and leave the vehicles close to each other.
 
 The choice of the Working Day Movement Model for evaluations is more strongly related to inter-contact times.
-For reasons explained in \autoref{chap:truman}, relatively short inter-contact times is important for TruMan's functionality.
+For reasons explained in \Cref{chap:truman}, relatively short inter-contact times is important for TruMan's functionality.
 Contact duration time is an important metric to measure how much data can be exchanged during each encounter, although, for this evaluation, it was not considered.
 
 \section{Simulation parameters and methodology}
@@ -149,7 +149,7 @@ In collusion attacks, malicious nodes intentionally trust other malicious nodes,
 \end{tabular}
 \end{table}
 
-Most of the parameters for the ONE simulator were taken from the article detailing the Working Day Movement Model \citep{ekman2008working}; the most important parameters are shown in \autoref{table:parameters}.
+Most of the parameters for the ONE simulator were taken from the article detailing the Working Day Movement Model \citep{ekman2008working}; the most important parameters are shown in \Cref{table:parameters}.
 The simulation ran for 86400 seconds (24 hours), with a work day length of 28800 seconds (8 hours) and a standard deviation of departure time of 7200 seconds (2 hours).
 Nodes move between 7 and 10 m/s in an area of approximately 14.7 km\textsuperscript{2} based on a section of the map of Helsinki.
 %The number of nodes and their communication range vary for different simulations.
@@ -157,7 +157,7 @@ There is a total of 160 nodes, 150 of which follow the Working Day Movement Mode
 Since this simulation is for vehicles instead of pedestrians, there are no buses in the model and every node is guaranteed to own a vehicle and travel by car.
 Aside from the office size parameter, the parameters regarding offices, meeting spots and shopping were kept intact.
 A small part of nodes move randomly to simulate vehicles that do not follow daily patterns.
-The transmission range of nodes varies from simulation to simulation, for reasons explained in \autoref{section:density}.
+The transmission range of nodes varies from simulation to simulation, for reasons explained in \Cref{section:density}.
 
 \subsection{Network Density}
 \label{section:density}
@@ -166,7 +166,7 @@ The transmission range of nodes varies from simulation to simulation, for reason
 
 The communication range of nodes varies from 10m to 50m, to illustrate the impact of different network densities.
 The network density ($\delta$) is a value which abstracts the volume and frequency of connections in a vehicular network by estimating how much of the environment is covered by the network.
-For TruMan, higher densities yield better results, since nodes can construct and update their models of the network faster (this is demonstrated in \autoref{chap:simulations}).
+For TruMan, higher densities yield better results, since nodes can construct and update their models of the network faster (this is demonstrated in \Cref{chap:simulations}).
 It is calculated using the transmission range of the nodes ($\rho$), the amount of nodes ($\eta$), and the total area of the simulation ($\alpha$, in m\textsuperscript{2}).
 
 The coverage of a single node is the circumference around it formed by the transmission radius. This is divided by two to compensate for overlapping circumferences, then multiplied by the number of nodes in the network to estimate the maximum coverage area.
@@ -179,7 +179,7 @@ For example, in a simulation with $\rho = 30$m, the calculation is as follows:
 
 $$ \delta = \frac{\frac{30^2\pi}{2} \times 160}{14,689,750} = 0.0154$$
 
-In \autoref{table:simdensities}, a few densities for different values of $\rho$, $\eta$ and $\alpha$ are shown. 
+In \Cref{table:simdensities}, a few densities for different values of $\rho$, $\eta$ and $\alpha$ are shown. 
 Simulations for TruMan have densities between 0.0017 ($\rho = 10$m) and 0.0428 ($\rho = 50$m).
 
 \begin{table}[h!]
@@ -207,7 +207,7 @@ Simulations for TruMan have densities between 0.0017 ($\rho = 10$m) and 0.0428 (
 \end{table}
 
 As a comparison, the city of São Paulo (Brazil) has a fleet of over 8 million vehicles \citep{saopaulofleet} in an area of 1,521.11 km\textsuperscript{2} \citep{saopauloarea}, and thus has a density of 0.8884 at $\rho = 10$m, a much higher value than what is necessary for a satisfactory performance of the algorithm.
-\autoref{table:citydensities} shows the densities of a few major cities around the world, using $\rho = 10$m for all of them.
+\Cref{table:citydensities} shows the densities of a few major cities around the world, using $\rho = 10$m for all of them.
 All data is taken from local government sources regarding the number of licensed vehicles in each city; these numbers do not include vehicles from the larger metropolitan areas that surround these cities.
 %Areas are shown in km\textsuperscript{2} (values were converted to m\textsuperscript{2} for calculation).
 
@@ -252,7 +252,7 @@ All data is taken from local government sources regarding the number of licensed
 \end{table}
 
 Simulations of TruMan were performed with densities as low as 0.0017, a value much lower than even the real world density of Helsinki, which is a city with relatively few vehicles for its size.
-It can be expected that the model will perform even better in real-world scenarios in cities with even higher densities, which is common, as exemplified by \autoref{table:citydensities}.
+It can be expected that the model will perform even better in real-world scenarios in cities with even higher densities, which is common, as exemplified by \Cref{table:citydensities}.
 
 %\subsection{Validation}
 %
@@ -277,7 +277,7 @@ To improve readability, all figures in this section follow the same format:
 
 It is expected that the results are very inconsistent at the beginning of the simulations, since nodes are still building their models of the network and have relatively little information to use.
 
-\autoref{fig:random103050} shows the results of simulations running with 10\% of nodes acting maliciously, with communications range varying from 10m to 50m.
+\Cref{fig:random103050} shows the results of simulations running with 10\% of nodes acting maliciously, with communications range varying from 10m to 50m.
 It is possible to see how the increase in the range allows the algorithm to produce better results.
 At $\rho = 10$m and $\delta = 0.0017$, a large amount of time is spent with only about half of malicious nodes being accurately identified.
 Results with $\rho = 30$m and $\delta = 0.0153$ are better, but still less than ideal; during this simulation, there were more false positive detections happening, although it was still a small amount.
@@ -286,24 +286,24 @@ The amount of false positive detections is extremely low, and, by the end of the
 
 % taking over 8000 iterations with 10m range and achieving solid results at just over 1000 iterations with 50m range.
 
-\autoref{fig:randommalicious1} and \autoref{fig:randommalicious2} show the variation of results for different amounts of malicious nodes in the network.
+\Cref{fig:randommalicious1} and \Cref{fig:randommalicious2} show the variation of results for different amounts of malicious nodes in the network.
 By the end of one day, the algorithm is able to detect all malicious nodes when they are up to 30\% of the network, although there is still a small amount of false positive detections.
 At 40\%, a small part of malicious nodes are yet to be detected and the standard deviation is larger overall.
 At 50\%, as expected, the results are inconsistent as the network is completely split between benign and malicious nodes; at this point, the network is considered completely compromised.
 True positive and false positive detections are often inverted, because whenever there are more malicious nodes than benign one in a certain node's network model, the algorithm will classify the malicious ones as correct.
 The amount of malicious nodes also affects how quickly nodes are able to acquire information about the network, since nodes do not trust information from malicious neighbors.
 
-All simulations were performed with trust threshold $h=0.5$, except for the ones in \autoref{fig:randomthresholds}, performed to demonstrate the impact of different threshold values.
+All simulations were performed with trust threshold $h=0.5$, except for the ones in \Cref{fig:randomthresholds}, performed to demonstrate the impact of different threshold values.
 The plots illustrate that there is not a significance change in results depending on the different thresholds.
 The results are slightly better at $h=0.7$, however not in a significant way.
 It still takes over 8000 iterations to detect all malicious nodes and there are still some false positive detections.
 
-\autoref{fig:random7} shows the execution of the algorithm over the course of 7 days.
+\Cref{fig:random7} shows the execution of the algorithm over the course of 7 days.
 Most malicious nodes are identified by the end of the first day, before iteration 9000.
 However, not all nodes have finished building their model of the network and therefore there are still a number of false positive detections occurring.
 Around iteration 20000, all nodes finish building their models and the false positive detection rate drops to an insignificant amount.
 
-\autoref{fig:extramaliciousaging1} and \autoref{fig:extramaliciousaging2} show how TruMan reacts to one node converting from benign to malicious.
+\Cref{fig:extramaliciousaging1} and \Cref{fig:extramaliciousaging2} show how TruMan reacts to one node converting from benign to malicious.
 These were the only simulations to consider information aging.
 Here, several different values for the maximum age, $m$, were tested.
 For the simulation, information timestamps are set as the iteration in which they were added to the graph ($s \gets i$), and the age is calculated as the difference between the current iteration and the timestamp ($age \gets i - s$).
@@ -317,9 +317,9 @@ When the value is very high, like in the case of $m=5000$, the extra malicious n
 \section{Satisfaction of desired properties}
 \label{section:satisfaction}
 
-Eight desired properties for VANET trust models were presented in \autoref{section:properties}.
+Eight desired properties for VANET trust models were presented in \Cref{section:properties}.
 Here, TruMan's ability to satisfy each property is evaluated.
-\autoref{table:properties_truman} replicates the one from \autoref{section:properties} with the addition of TruMan, providing a full comparison between itself and the related work.
+\Cref{table:properties_truman} replicates the one from \Cref{section:properties} with the addition of TruMan, providing a full comparison between itself and the related work.
 
 \textit{1. Decentralized trust establishment}:
 TruMan is built from the ground up for decentralized systems.

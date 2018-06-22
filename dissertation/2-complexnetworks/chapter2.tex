@@ -1,4 +1,4 @@
-\chapter{Trust in Complex Networks}
+\chapter{Complex Networks and Trust}
 \label{chap:complexnetworks}
 
 %Often, the term ``network'' is associated only with computer
@@ -23,12 +23,12 @@ Complex networks are generally divided into four categories \citep{newmannetwork
 	 	The primary examples of these networks are the Internet, the telephone network, power grids, transportation and delivery networks.
 	 	A commonly studied type of technological network are Mobile Ad-hoc Networks (MANETs).
 		Although not of widespread use, MANETs can provide a way to create a network without pre-existing infrastructure, as long as each device is equipped with the proper hardware and software.
-		Trust issues in technological networks and MANETs are detailed in \autoref{section:trusttechnological}.
-		VANETs, which are special types of MANETs, are introduced in \autoref{chap:vanets}, along with several details regarding trust in those types of networks.
+		Trust issues in technological networks and MANETs are detailed in \Cref{section:trusttechnological}.
+		VANETs, which are special types of MANETs, are introduced in \Cref{chap:vanets}, along with several details regarding trust in those types of networks.
 	\item \textbf{Social Networks} are formed of relationships between people, or groups of people.
 		These relationships can be familiar, friendships, acquaintance, etc.
 		For the purposes of this work, the most relevant type of relationship is that of trust.
-		The details surrounding trust relationships in social networks are shown in \autoref{section:trustsocial}.
+		The details surrounding trust relationships in social networks are shown in \Cref{section:trustsocial}.
 	\item \textbf{Information Networks} are the ones in which nodes are pieces of data or information and the edges are the connections between those pieces.
 		Often, information networks are directly associated with technological or social networks.
 		For instance, while the World Wide Web is an information network (in which the nodes are webpages and the edges are the links that users click on to navigate), it relies on the Internet, as it contains the physical infrastructure that makes the web possible.
@@ -70,7 +70,7 @@ For instance, two people can have contact with each other (therefore sharing an 
 
 In the following two sections of this chapter, trust is further explained in the contexts of social and technological networks.
 Both types of network can be fitted into the model above, but contain distinct features that demand closer examination.
-Furthermore, features of both are relevant when analyzing network structure and trust graphs for vehicular networks, which are expanded upon in \autoref{chap:vanets}.
+Furthermore, features of both are relevant when analyzing network structure and trust graphs for vehicular networks, which are expanded upon in \Cref{chap:vanets}.
 
 %As this work relates to trust issues in complex networks, it is interesting to further examine social networks and the importance of trust within them.
 %While the end result of the study will be applied to technological networks, certain aspects of social networks provide useful analogies to trust management in other kinds of networks.
@@ -106,9 +106,9 @@ In general, social networks' topology and trust graphs are mostly static.
 Although friendships are formed and ended frequently (i.e. the topology is dynamic), those connections do not disrupt the general shape of the network, because members of the network will usually have other friends whose relationships remain stable.
 Even if a certain person's trust integrity is compromised due to a specific incident, that person's friends are not necessarily deemed untrustworthy, preserving part of the trust graph.
 While positive trust is often tied to the social topology, it is not always the case: one example is two work colleagues who may have a professional relationship, but wouldn't trust each other on other matters; another is the trust people place in authority figures without necessarily having met. 
-\autoref{fig:social_network} shows an example of a small social network containing a family and an office. 
+\Cref{fig:social_network} shows an example of a small social network containing a family and an office. 
 
-In \autoref{section:socialvanets}, the argument is made that VANETs can be considered social networks in several occasions and how this can be used to develop trust in vehicular networks. 
+In \Cref{section:socialvanets}, the argument is made that VANETs can be considered social networks in several occasions and how this can be used to develop trust in vehicular networks. 
 
 %\begin{figure}[h]
 %    \centering
@@ -146,7 +146,7 @@ Examples of this can be an IP filtering scheme to avoid distributed denial of se
 This means that, in the context of the Internet, trust is often derived from a secondary source: end users and their computers can't be expected to maintain their own blacklists, so they rely on external parties which may provide these lists along with other security services.
 Similarly, when a user visits an e-commerce website, they must have some degree of trust on the website or the vendor; in this case as well, third-party services are used to certify the legitimacy of the transaction, based on feedback from other customers.
 
-% In ad-hoc networks, such as vehicular networks, which are detailed in \autoref{chap:vanets}, trust can be handled in very different ways.
+% In ad-hoc networks, such as vehicular networks, which are detailed in \Cref{chap:vanets}, trust can be handled in very different ways.
 While the centralized trust solutions above serve their purpose on the security and privacy of Internet users, they would be too slow to be viable in a dynamic ad-hoc network, which cannot rely on a back-end infrastructure to distribute those lists.
 The most common instance of mobile ad-hoc networks, or MANETs, is using mobile devices, such as smartphones, being carried by humans.
 Although these networks are dynamic, their mobility is relatively low in relation to the wireless range of the devices — if two people are walking in opposite directions, their phones may communicate for several seconds before they leave each other's range.
@@ -195,7 +195,7 @@ There are few examples of MANETs implemented for consumer devices.
 Two examples are networks created to quickly share data between devices using Wi-Fi or Bluetooth \citep{krochmal2014discovery}, or ones that allow for multiplayer gaming sessions amongst multiple nearby devices \citep{sasaki2011wireless}.
 In both cases, there is no need for a complicated system-level trust model, since those activities involve active participation from the users wielding the device (that is, the user chooses whether or not to communicate with other devices); rather, the trust relationship occurs socially amongst the users themselves.
 
-\autoref{fig:manet} is an example highlighting the difference between the topology graph and the trust graph.
+\Cref{fig:manet} is an example highlighting the difference between the topology graph and the trust graph.
 The topology graph changes as one node moves across the network, with edges being added and removed as nodes move into and out of each other's ranges.
 The trust graph, however, is constantly being built, maintaining past relationships even if the nodes are no longer in communication range.
 
