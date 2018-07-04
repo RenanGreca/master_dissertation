@@ -1,4 +1,4 @@
-\chapter{TruMan}
+\chapter{Design and Implementation of TruMan}
 \label{chap:truman}
 
 %This work shows that it is possible to adapt a trust management scheme originally designed for static networks to a dynamic environment, such as a VANET.
@@ -622,6 +622,15 @@ However, $|E'| \leq |E|$ is always true, because the graph $C$ is a reduction of
 Furthermore, $|V|+|E| \leq |V|\times |E|$ is also true, except for the irrelevant scenarios of $|V| \leq 1$ or $|E| \leq 1$.
 
 Therefore, the complexity can be simplified to: $O(|V| \times |E|)$.
+
+\section{Discussion}
+\label{section:truman_discussion}
+
+This chapter shows the concepts and algorithms that went into the development of TruMan.
+Using efficient algorithms as a foundation, TruMan is able to efficiently detect and identify malicious nodes operating within a dynamic network.
+
+Although TruMan could be a viable solution for multiple kinds of networks, this work is focused primarily on vehicular networks and, therefore, TruMan was developed with such networks in mind.
+The following chapter explains how TruMan was evaluated in the context of vehicular networks, including results of the performed experiments.
 
 
 %The MaNI algorithm works well and is efficient for static graphs.

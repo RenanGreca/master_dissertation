@@ -1,4 +1,4 @@
-\chapter{Trust in Vehicular Ad-hoc Networks}
+\section{Trust in Vehicular Ad-hoc Networks}
 \label{chap:vanets}
 
 Today, most premium vehicles come equipped with hardware that allow for connectivity features; it is expected that, by 2022, many standard vehicles will also come with such features built-in, accounting for a substantial share of the automotive industry's revenue \citep{connectedcar2016}.
@@ -49,7 +49,7 @@ Although this nomenclature is important to understand other studies on the subje
 In traditional networks (ad-hoc or not), routing protocols usually use the topology to choose where to forward packets; in other words, the primary metric used is the number of hops required to reach the destination.
 This metric is not as useful in vehicular networks, since the high mobility causes the topology to change frequently.
 Instead, most VANET routing protocols use geographical coordinates to forward packets \citep{saini2015close}, that is, the physical distance between two nodes is used as the primary metric.
-The implication is that, even if a packet requires more hops to reach its destination, it will always be traveling the generally correct direction.
+The implication is that, even if a packet requires more hops to reach its destination, it always travelling in the generally correct geographical direction.
 
 %[Explain basic security features]
 
@@ -91,47 +91,7 @@ Rather, different mechanisms must be explored in order to avoid most problems.
 %One study proposes that such identities must be refreshed with a certain frequency to maintain the privacy of each node \citep{golle2004detecting}.
 %Although it is important that nodes are not able to lie about identity and are able to maintain their privacy, nodes having valid identities that are persistent over time, so that nodes can identify each other over a long period, is a prerequisite for the model proposed here.
 
-
-\section{Special properties of VANETs}
-\label{section:properties}
-%As was described above, VANETs are a special type of MANETs, which in turn are technological networks.
-%However, 
-VANETs feature several unique properties which distinguish them, and the behavior of its members, from other types of networks \citep{yousefi2006vehicular}.
-Some of these properties include:
-
-\begin{enumerate}
-
-	\item 	Rapidly changing topology.
-			Since the nodes are vehicles, they move frequently and at relatively high speeds.
-			Each node's wireless communications also have a certain range, so the other nodes within that range (and, therefore, network neighbors) can change very quickly.
-%			To build a topology model of its surrounding network, a node must often ping its neighbor to gather information.
-%			Using velocity and location information, however, it is possible to create reasonable assumptions about future states of the topology.
-			
-	\item	Node mobility is constrained to a pre-existing grid of roads.
-			Within those roads, nodes usually travel in predictable directions according to local laws and historical data.
-			The spaces in the grid, like city blocks, provide a challenge to communication both because of distance and because buildings can cause obstructions to radio transmissions.
-			
-	\item	VANETs are prone to fragmentation, since a gap in the network topology can make two parts of it unable to communicate with each other.
-			Combined with the property above, this fragmentation can appear and disappear frequently, depending on the node density.
-			
-	\item	Due to the changing topology and possible disconnection, connection with distant nodes is not reliable.
-			Therefore, the effective diameter of the network is relatively small for important applications.
-			
-	\item 	Compared to devices like smartphones, vehicles have no notable power constraints.
-
-	\item 	In certain locations and/or moments, large vehicle density results in a large-scale network, since there are many nodes concentrated in a relatively small space.
-	
-	\item 	The topology is susceptible to driver behavior.
-			First, this means the topology can occasionally change in unpredictable ways.
-			Second, contents of a message sent through the network can alter the driver's behavior and therefore change the topology.
-			
-\end{enumerate}
-
-Some of these properties provide advantages or disadvantages when developing trust models for vehicular networks, although all of them must be considered.
-
-\section{Trust in VANETs}
-\label{section:trustvanet}
-Like in other types of networks, the proper functioning of a VANET depends on the reliability of the vehicles (nodes) which participate in it.
+Like in other types of networks, the proper functioning of a VANET depends on the reliability of its participants.
 If a node is malicious or faulty, it can spread incorrect data that may compromise the network's utility.
 Once the concept of VANETs was established, researchers have been attempting to predict ways in which malicious users might use the network to their advantage.
 Examples include triggering false alarms about inexistent accidents, lying about the average speed in a road to make it less desirable for others, and falsifying geolocation data to exploit location-based routing algorithms.
@@ -170,8 +130,49 @@ The model proposed in this work utilizes entity-based and experience-based trust
 %[malicious and faulty nodes]
 
 %[details of security and safety issues in VANETs that can be diminished by trust]
-\section{Desired properties for VANET trust models}
+
+\subsection{Special properties of VANETs}
 \label{section:properties}
+%As was described above, VANETs are a special type of MANETs, which in turn are technological networks.
+%However, 
+VANETs feature several unique properties which distinguish them, and the behavior of its members, from other types of networks \citep{yousefi2006vehicular}.
+Some of these properties include:
+
+\begin{enumerate}
+
+	\item 	Rapidly changing topology.
+			Since the nodes are vehicles, they move frequently and at relatively high speeds.
+			Each node's wireless communications also have a certain range, so the other nodes within that range (and, therefore, network neighbors) can change very quickly.
+%			To build a topology model of its surrounding network, a node must often ping its neighbor to gather information.
+%			Using velocity and location information, however, it is possible to create reasonable assumptions about future states of the topology.
+			
+	\item	Node mobility is constrained to a pre-existing grid of roads.
+			Within those roads, nodes usually travel in predictable directions according to local laws and historical data.
+			The spaces in the grid, like city blocks, provide a challenge to communication both because of distance and because buildings can cause obstructions to radio transmissions.
+			
+	\item	VANETs are prone to fragmentation, since a gap in the network topology can make two parts of it unable to communicate with each other.
+			Combined with the property above, this fragmentation can appear and disappear frequently, depending on the node density.
+			
+	\item	Due to the changing topology and possible disconnection, connection with distant nodes is not reliable.
+			Therefore, the effective diameter of the network is relatively small for important applications.
+			
+	\item 	Compared to devices like smartphones, vehicles have no notable power constraints.
+
+	\item 	In certain locations and/or moments, large vehicle density results in a large-scale network, since there are many nodes concentrated in a relatively small space.
+	
+	\item 	The topology is susceptible to driver behavior.
+			First, this means the topology can occasionally change in unpredictable ways.
+			Second, contents of a message sent through the network can alter the driver's behavior and therefore change the topology.
+			
+\end{enumerate}
+
+Some of these properties provide advantages or disadvantages when developing trust models for vehicular networks, although all of them must be considered.
+
+%\subsection{Trust in VANETs}
+%\label{section:trustvanet}
+
+\subsection{Desired properties for VANET trust models}
+\label{section:desired}
 
 The analysis of related work is based on \citep{zhang2011survey}, which proposes eight desired properties for a trust management model for VANETs.
 In this section, these properties are briefly described.
@@ -239,7 +240,7 @@ Models must show that they function in the event of such attacks.
 %Finally, it is worth noting that, considering the scale of the problem, TruMan's cost is very low without sacrificing completeness and correctness.
 %The model still satisfies or permits most of the desired properties of a trust model, making it viable for real-world use.
 
-\section{Existing trust models for VANETs}
+\subsection{Existing trust models for VANETs}
  
 Several models have been proposed to solve the problem of trust in vehicular networks. 
 In this section, the most relevant ones are described, considering the time in which they were proposed, the advantages they bring and their contributions to later study. 
@@ -248,7 +249,7 @@ Many trust management solutions for VANETs have been proposed over the years, su
 There are also some review and/or survey articles on the subject of VANET trust models, such as \citep{zhang2011survey}, \citep{ma2011survey}, \citep{zhang2012trust}, \citep{mejri2014survey}, \citep{soleymani2015trust} \citep{sengar2016survey}, and \citep{dwivedi2016review}. 
 
 \citep{dotzer2005vars} is one of the earliest examples of VANET trust models, establishing a system called VARS, based on the reputation of nodes and messages throughout the network.
-The authors use what they call \textit{opinion piggybacking}, which means that, for each hop between the origin and the destination of an event-related message, the forwarding node appends its opinion of the message's contents and the message's sender.
+The authors use what they call \textit{opinion piggybacking}, which means that, for each hop between the origin and the destination of an event-related message, the forwarding node includes its opinion of the message's contents and the message's sender.
 In other words, when a node $a$ receives a message about a certain event from $b$, it calculates a new opinion considering  it rebroadcasts the message to other nearby nodes, but with its own opinions about the event and about node $b$ attached.
 %That opinion is formed using a combination of the forwarding node's own observations of the event, its opinion of the origin node and previous opinions appended to the message.
 This process adds credibility to a message through validation by nodes in a decentralized fashion.
@@ -263,8 +264,10 @@ The model proposed in \citep{minhas2010towards} uses several criteria to judge w
 First, nodes are classified by their roles and previous experience with them.
 Roles are used for vehicles which should be more trustworthy than the average: government official cars, traffic report vans, buses, cabs, etc.
 Nodes also store their experience each time an event message is received (if one neighboring node reported an event which did not turn out to be true, its trust value is reduced).
-Additionally, messages have higher reliability when their senders are closer in time and space to the reported event.
-When several messages about the same event are received, a node can either choose the $n$ most trustworthy senders, according to the priority (fewer chosen nodes means a faster, but less precise, decision), or compute the majority opinion of the messages according to each sender's trust value.
+Additionally, messages are considered more reliable when their senders were direct witnesses to an event (i.e. were close to the event when it happened).
+When several messages about the same event are received, a node can either choose the $n$ most trustworthy senders, according to the priority of the event.
+For example, events that require a fast response might cause a decision to be made using fewer messages about it, which diminishes precision.
+% chosen nodes means a faster, but less precise, decision), or compute the majority opinion of the messages according to each sender's trust value.
 The model considers both role-based trust and experience-based trust; although the work proposed here does not use role-based trust, the authors provide a useful method of calculating and updating an experience-based trust value, which might be used or adapted.
 However, their model relies only on direct interaction between pairs of nodes, so no form of indirect trust (that is, trust values received from other nodes) is considered.
 
@@ -274,8 +277,8 @@ In \citep{chen2010trust}, the authors propose to evaluate messages utilizing a c
 By separating nodes into clusters with their geographical neighbors, it is possible to efficiently distribute the evaluation of messages using previously formed opinions.
 When a node sends a message, one node in the cluster (the leader) must aggregate the other nodes' opinions on that message.
 Afterward, the message is only forwarded to another cluster if that aggregate opinion is above a certain threshold; furthermore, nodes that receive the message only act upon it if the overall trust on it is above another threshold, which can be different according to the nature of the message.
-However, it is unclear how the model behaves when the network is too sparse to form relevant clusters, neither do the authors inform how the aforementioned thresholds are decided.
-Furthermore, maintaining clusters in a highly dynamic network is a costly job and, if the cluster leader itself is malicious, all the information from that cluster becomes untrustworthy.
+However, it is unclear how the model behaves when the network is too sparse -- nodes are few and/or far apart -- to form relevant clusters, neither do the authors inform how the aforementioned thresholds are decided.
+Furthermore, maintaining clusters in a highly dynamic network is a costly job and, if the node chosen to be the leader of a cluster happens to be malicious, all the information from that cluster could be compromised.
 %The whole premise of organizing a VANET in clusters is  
 %The model considers role-based trust (i.e. static trust of pre-authenticated vehicles such as police units) and experience-based trust, which is calculated using knowledge of the outcomes related to previous messages.
 %This model considers both role-based and experience-based trust.
@@ -286,14 +289,14 @@ To make trust viable in such a scenario, the authors rely on RSUs to store reput
 Each vehicle must have an ``Agent RSU'', which is in charge of storing and sharing that vehicle's trust data to other passing vehicles and connected RSUs.
 It must also keep the data updated when the vehicle approaches it again.
 To make this viable, the properties of daily commutes are used: it is assumed that the vehicle is near its Agent RSU with reasonable frequency because it is located within the driver's home-to-work route.
-The main problem with this model is that it relies on the presence of frequent RSUs, which might not always be viable.
+The main problem with this model is that it relies on the existence of a reasonably large number of RSUs, which might not always be viable due to infrastructure costs.
 It also does not make it clear what should happen when a vehicle stops using a route or does not have a daily predictable path (it does, however, handle occasions in which a vehicle chooses an alternate route or is absent for some days such as weekends and holidays).
 
 The authors of \citep{huang2014social} take special note of two characteristics from social networks that can also be found in many VANET trust models: \textit{information cascading} and \textit{oversampling}.
 That is, information reported by a number of original nodes (i.e. the ones that witnessed an event) may be diluted as nodes that forward it append their own opinions on the matter.
-An algorithm is proposed to diminish that effect by assigning higher weights to the opinions of origin nodes and lower weights  to others.
+Following the VARS \citep{dotzer2005vars} approach, an algorithm is proposed to diminish that effect by assigning higher weights to the opinions of nodes that were witnesses to an event and lower weights to forwarding nodes.
 However, the authors conclude that the optimal scenario is to assign no weight at all to forwarding nodes, therefore allowing each node to form an opinion based only on the original nodes' reports.
-Furthermore, the authors are quick to dismiss the validity of entity-based trust, instead opting for a pure data-oriented approach.
+Furthermore, the authors are quick to dismiss the validity of entity-based trust, instead opting for a pure data-oriented approach, considering only the contents of a message and disregarding who sent it.
 %Since their model is based only on events, it also does not consider the usefulness of trust in more mundane cases such as the frequent sharing of location and speed among vehicles.
 Although it is true that data-oriented trust is efficient for events, which is what their model is based on, it is not ideal for sharing data quickly and frequently.
 When a collision or other major incident occurs, it is useful to judge each message on its own, since not all members of the network will have existing trust relationships with each other.
@@ -314,20 +317,21 @@ The downside of this model is that each step is mathematically costly, requiring
 This likely increases the complexity of the algorithm, which is not detailed by the authors.
 Because of this, it is uncertain how the model would scale to large networks, while it might also underperform in small networks in which there is little evidence to collect.
 %The authors present no details on how it deals with sparsity, dynamics, scalability, security and privacy.
-%extend
 
 The authors of \citep{chen2017cloud} propose a cloud-based solution for a trust model, which requires an Internet-based global trust manager.
 This has the advantage of simplifying properties such as handling sparsity and scalability, but also makes the system slower in general, especially in situations in which mobile communication is slow or unreliable.
 In general, it goes against several established concepts for vehicular networks, such as being completely decentralized and ad-hoc.
-It also makes the system somewhat, since the whole system collapses if the global trust manager is attacked, or could leave the network members unaided in the event of a server or connection failure.
-%extend
+It also makes the system somewhat unreliable, since the whole system collapses if the global trust manager is attacked, or could leave the network members unaided in the event of a server or connection failure.
 
-%conclude
-\Cref{table:properties} shows how well each studied trust model satisfies the eight properties described in \Cref{section:properties}.
-The numbers used in the table are the same ones from \Cref{section:properties}.
-This analysis shows that, although several previously proposed trust models provide reasonable solutions to the trust management problem, all of them have issues in terms of correctness, completeness or efficiency, indicating that the problem is not yet truly solved.
+\section{Discussion}
+\label{section:background_discussion}
 
-\begin{table}[t!]
+Analyzing the previous work in the subject of trust management for vehicular networks, it is possible to observe that many interesting solutions to the problem have been attempted, but all of them show at least one major deficiency when thinking about real-world implementation.
+\Cref{table:properties} shows how well each studied trust model satisfies the eight properties described in \Cref{section:desired}, which are based on \citep{zhang2011survey}.
+The numbers used in the table are the same ones from \Cref{section:desired}.
+
+
+\begin{table}[hpbt!]
 \caption{Properties of the related work}
 \label{table:properties}
 \centering
@@ -356,6 +360,14 @@ This analysis shows that, although several previously proposed trust models prov
  \hline
 \end{tabular}
 \end{table}
+
+Furthermore, vehicular ad-hoc networks are a special kind of network, but, despite the unique properties explained in \Cref{section:properties}, they still share many features with mobile ad-hoc networks and even with social networks.
+
+With this information in mind, a new trust model is introduced, taking advantage of social features in order to establish long-term trust relationships between participants of a vehicular ad-hoc network.
+This new trust model emphasizes efficiency while maintaining correctness and most of the desired properties for such a model.
+In the following chapter, the model is explained in detail.
+%This analysis shows that, although several previously proposed trust models provide reasonable solutions to the trust management problem, all of them have issues in terms of correctness, completeness or efficiency, indicating that the problem is not yet truly solved.
+
 
 %\begin{table}[t!]
 %\caption{Properties of Truman and related work}
@@ -406,3 +418,6 @@ This analysis shows that, although several previously proposed trust models prov
 
 
 %=====================================================
+
+
+

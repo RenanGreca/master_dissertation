@@ -4,17 +4,20 @@
 In order to validate TruMan's functionality and efficiency, several simulations were executed, attempting to replicate real-world scenarios.
 This chapter includes all information relevant to these simulations, including the tools used, the chosen movement model, the parameters and methodology, and the results.
 
-\section{SNAP library}
-\label{section:snap}
+\section{Tools}
+\label{section:tools}
+
+\textbf{SNAP library}
+
 The simulations necessary to validate the project require a robust library to handle graph data structures.
 The Stanford Network Analysis Platform (SNAP) library \citep{snap} was chosen primarily because it is memory efficient.
 The simulations require multiple graphs that share the same set of nodes (because each node in the network has its own knowledge of the surrounding network), and the SNAP library uses pointers to nodes and edges, saving memory by not having to duplicate the entire data structure.
 It is written in C++, but, for these simulations, the Snap.py Python library was used.
 
 %The datasets available from SNAP's website were used for the simulations in \citep{vernize2015malicious} and the static network simulations shown in \Cref{chap:simulations}.
+%\\
+\textbf{The ONE Simulator}
 
-\section{The ONE Simulator}
-\label{section:theone}
 The Opportunistic Network Environment simulator \citep{keranen2009one} \citep{onerepo} is a Delay-Tolerant Network simulator, used in this study to generate mobility patterns used as input for simulations.
 It was chosen for the simulations of TruMan primarily because it already includes integration with the Working Day Movement Model.
 
