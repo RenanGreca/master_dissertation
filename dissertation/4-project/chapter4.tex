@@ -199,7 +199,8 @@ Once the function calls return to node 0, a strongly connected component is form
 Graph coloring is one of the possible heuristics suggested by MaNI to detect malicious nodes after the generation of the component graph using Tarjan's algorithm.
 Out of the tested heuristics, it presents the best results, so it has been chosen as the heuristic for TruMan.
 
-The process of graph coloring consists of giving each node a label (represented by a color) so that no two neighboring nodes share the same color.
+The process of graph coloring consists of giving each node a label so that no two neighboring nodes share the same label.
+When visualizing a graph, labels are represented by colors, although they can be any type of data.
 This problem has been studied in Computer Science since, at least, 1972 \citep{karp1972reducibility} and has been studied as a classic mathematics problem for even longer \citep{kempe1879geographical}.
 It has been proven mathematically that any planar graph can be colored with at most four colors \citep{appel1976every}, but discovering the smallest number of colors necessary to color an arbitrary graph (called the graph's chromatic number) is an NP-hard problem \citep{sanchez1989determining}.
 
@@ -301,12 +302,13 @@ The relationships are also directed, meaning that if the value of $A\rightarrow 
 The process for identifying malicious nodes within $T$ is as follows:
 
 First, $T$ is separated into strongly connected components using Tarjan's algorithm \citep{tarjan1972depth}, which is described in detail in \Cref{section:tarjan}.
-In each of these components, all nodes are connected by edges of value $1$.
-In other words, within a single component, all nodes trust one another; nodes connected by edges of value $0$ are separated into different components.
+In each of these components, there are paths formed by edges of value $1$ connecting each pair of nodes. 
+% there is a path of trust ball nodes are connected by edges of value $1$.
+In other words, within a single component, all nodes trust one another directly or indirectly; nodes which do not do not meet this criteria are separated into different components.
 Each of these components becomes a node of a component graph $C = (V', E')$.
 
 The creation of the graph $C$ simplifies the remaining computation.
-Since each node of $C$ is a vertex $v' \in V'$ and each vertex $v'$ is a component of $T$ in which all nodes trust each other, for the purposes of identifying malicious nodes, all nodes within each of those components can be treated as one.
+Since each node of $C$ is a vertex $v' \in V'$ and each vertex $v'$ is a component of $T$ in which all nodes trust each other directly or indirectly, for the purposes of identifying malicious nodes, all nodes within each of those components can be treated as one.
 They can either be benign nodes which legitimately trust one another, or malicious nodes colluding with each other.
 After the formation of $C$, one or more heuristics can be used to classify the nodes as benign or malicious.
 
@@ -381,7 +383,7 @@ By doing this a small number of times, nearly all malicious nodes are detected b
 With the starting graph $T$, whose edges represent the trust relationships between nodes, Tarjan's strongly connected component algorithm is executed.
 \Cref{fig:mani1} shows nodes colored according to their placement in a strongly connected component.
 The strongly connected components form a graph $C$ according to edges present in $T$.
-In \Cref{fig:mani2}, component $0$ is the one containing node $5$; component $1$ contains nodes $6$, $7$ and $8$; component $2$ contains nodes $0$, $1$, $2$ and $3$; and component $3$ contains node $4$.
+In \Cref{fig:mani2}, component $0$ is the one containing nodes 6, 7 and 7; component $1$ contains node 5; component $2$ contains nodes $0$, $1$, $2$ and $3$; and component $3$ contains node $4$.
 The graph coloring with minimum colors algorithm is executed on $C$, producing the coloration shown in \Cref{fig:mani3}.
 Finally, each node in $T$ is colored according to which color its component received in $C$.
 The color with the most nodes is deemed benign, while the others are considered malicious. 
@@ -490,9 +492,15 @@ Once this information from $C^u_i$ is brought back to graph $T^u_i$, it is trivi
 
 In a network in which malicious nodes are a minority (under 50\%), it is expected that the benign nodes will form components with large numbers of nodes, because these benign nodes will share their networks with each other and it is easy to form trust paths between pairs of benign nodes.
 Malicious nodes, on the other hand, do not send their own networks of false information to benign nodes, and might not always trust other malicious nodes, causing them to become isolated in small strongly connected components (in some cases, these contain a single malicious node).
-The result is that most benign nodes become members of a small number of large components; when the component graph is colored, these components are likely to receive the same color, because two benign components are never adjacent.
+The result is that most benign nodes become members of a small number of large components; when the component graph is colored, these components are likely to receive the same color, because two benign components are almost never adjacent
+\footnote{
+	When a node is building its local representation of a network, new nodes are almost certainly identified as malicious. 
+	This happens because there is a trust edge going from an already established node to the new one, but the returning edge is not there yet. 
+	Therefore, two adjacent benign nodes are separated into different components. 
+	This causes inaccurate results in the very beginning of execution, and becomes a minor detail afterwards.
+}.
 Because of this, the coloring heuristic works as a classification method.
-A high scale collusion attack could affect this heuristic, as malicious nodes would form large components and distinguishing these components from the benign ones would be a challenge.
+A large scale collusion attack (in which malicious nodes form nearly half the network or more) could affect this heuristic, as malicious nodes would form large components and distinguishing these components from the benign ones would be a challenge.
 %Classifying the color that represents the most nodes as correct works because 
 
 In summary, every node $u$ runs the following steps in each iteration to detect malicious nodes in the network:
@@ -592,7 +600,7 @@ If this new information includes the timestamp $s_1$ which is more recent than $
 
 Furthermore, after each iteration, nodes go through the edges they have stored and discard the ones that are too old.
 This is done by setting a maximum age $m$ for edges; once an edge is older than $m$, it is discarded.
-A low value for this setting allows for faster detection of converted nodes, however  also increases the likelihood of good information being thrown away (therefore increacing the likelihood of false positive detections).
+A low value for this setting allows for faster detection of converted nodes, however  also increases the likelihood of good information being thrown away (therefore increasing the likelihood of false positive detections).
 
 Information aging is necessary because, when a node converts from benign to malicious, old information might still indicate that it is benign, as shown in \Cref{fig:rogue}.
 Immediately after node $0$ becomes malicious, it is still part of a benign strongly connected component, because there are paths from every other node to $0$, and from $0$ to every other node.
