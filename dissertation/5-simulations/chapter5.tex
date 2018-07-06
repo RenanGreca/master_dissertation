@@ -1,4 +1,4 @@
-\chapter{Evaluation}
+\chapter{Evaluation of TruMan}
 \label{chap:simulations}
 
 In order to validate TruMan's functionality and efficiency, several simulations were executed, attempting to replicate real-world scenarios.
@@ -16,6 +16,7 @@ It is written in C++, but, for these simulations, the Snap.py Python library was
 
 %The datasets available from SNAP's website were used for the simulations in \citep{vernize2015malicious} and the static network simulations shown in \Cref{chap:simulations}.
 %\\
+\vspace{5mm}
 \textbf{The ONE Simulator}
 
 The Opportunistic Network Environment simulator \citep{keranen2009one} \citep{onerepo} is a Delay-Tolerant Network simulator, used in this study to generate mobility patterns used as input for simulations.
@@ -209,11 +210,6 @@ Simulations for TruMan have densities between 0.0017 ($\rho = 10$m) and 0.0428 (
 \end{tabular}
 \end{table}
 
-As a comparison, the city of São Paulo (Brazil) has a fleet of over 8 million vehicles \citep{saopaulofleet} in an area of 1,521.11 km\textsuperscript{2} \citep{saopauloarea}, and thus has a density of 0.8884 at $\rho = 10$m, a much higher value than what is necessary for a satisfactory performance of the algorithm.
-\Cref{table:citydensities} shows the densities of a few major cities around the world, using $\rho = 10$m for all of them.
-All data is taken from local government sources regarding the number of licensed vehicles in each city; these numbers do not include vehicles from the larger metropolitan areas that surround these cities.
-%Areas are shown in km\textsuperscript{2} (values were converted to m\textsuperscript{2} for calculation).
-
 \defcitealias{helsinkifleet}{Helsinki, 2011}
 \defcitealias{helsinkiarea}{NLSF, 2018}
 \defcitealias{saopauloarea}{IBGE, 2016}
@@ -254,6 +250,11 @@ All data is taken from local government sources regarding the number of licensed
 \end{tabular}
 \end{table}
 
+As a comparison, the city of São Paulo (Brazil) has a fleet of over 8 million vehicles \citep{saopaulofleet} in an area of 1,521.11 km\textsuperscript{2} \citep{saopauloarea}, and thus has a density of 0.8884 at $\rho = 10$m, a much higher value than what is necessary for a satisfactory performance of the algorithm.
+\Cref{table:citydensities} shows the densities of a few major cities around the world, using $\rho = 10$m for all of them.
+All data is taken from local government sources regarding the number of licensed vehicles in each city; these numbers do not include vehicles from the larger metropolitan areas that surround these cities.
+%Areas are shown in km\textsuperscript{2} (values were converted to m\textsuperscript{2} for calculation).
+
 Simulations of TruMan were performed with densities as low as 0.0017, a value much lower than even the real world density of Helsinki, which is a city with relatively few vehicles for its size.
 It can be expected that the model will perform even better in real-world scenarios in cities with even higher densities, which is common, as exemplified by \Cref{table:citydensities}.
 
@@ -277,9 +278,77 @@ To improve readability, all figures in this section follow the same format:
 	\item The lines represent average values between all benign nodes on the network, while the colored regions represent the standard deviation present in the data.
 \end{itemize}
 
-
 It is expected that the results are very inconsistent at the beginning of the simulations, since nodes are still building their models of the network and have relatively little information to use.
 
+
+%\begin{figure}
+%\centering
+%
+%\begin{subfigure}{0.4\textwidth}
+%\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/10_10.png}
+%\caption{$\rho$ = 10m.}
+%\label{fig:random10}
+%\end{subfigure}
+%
+%\hspace*{\fill} % separation between the subfigures
+%
+%\begin{subfigure}{0.4\textwidth}
+%\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/30_10.png}
+%\caption{$\rho$ = 30m.} 
+%\label{fig:random30}
+%\end{subfigure}
+
+%\begin{subfigure}{0.6\textwidth}
+%\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/50_10.png}
+%\caption{$\rho$ = 50m.} 
+%\label{fig:random50}
+%\end{subfigure}
+%
+%\caption{Simulation of TruMan with 10\% malicious nodes and varying values of $\rho$.}
+%\label{fig:random103050}
+%\end{figure}
+
+%\begin{figure}
+%\centering
+%
+%	\includegraphics[width=0.6\linewidth]{images/plots/Network_rA_10.0/new_plots/10_10.png}
+%	\caption{$\rho$ = 10m.} 
+%	
+%%\caption{Simulation with 10\% malicious nodes and varying values of $\rho$.}
+%\label{fig:random10}
+%\end{figure}
+%
+%\begin{figure}
+%\centering
+%
+%	\includegraphics[width=0.6\linewidth]{images/plots/Network_rA_10.0/new_plots/30_10.png}
+%	\caption{$\rho$ = 30m.} 
+%	
+%%\caption{Simulation with 10\% malicious nodes and varying values of $\rho$.}
+%\label{fig:random30}
+%\end{figure}
+
+%\end{subfigure}%
+
+%\hspace*{\fill}
+
+%\begin{subfigure}{0.4\textwidth}
+%	\centering
+%	\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/30_10.png}
+%	\caption{$\rho$ = 30m.} 
+%	\label{fig:tarjan0}
+%\end{subfigure}
+%
+%\begin{subfigure}{0.6\textwidth}
+%\includegraphics[width=0.5\linewidth]{images/plots/Network_rA_10.0/new_plots/50_10.png}
+%\caption{$\rho$ = 50m.} \label{fig:tarjan0}
+%\end{subfigure}
+
+%\caption{Simulation with 10\% malicious nodes and varying values of $\rho$.}
+%\label{fig:random103050}
+%\end{figure}
+
+\pagebreak
 \Cref{fig:random103050} shows the results of simulations running with 10\% of nodes acting maliciously, with communications range varying from 10m to 50m.
 It is possible to see how the increase in the range allows the algorithm to produce better results.
 At $\rho = 10$m and $\delta = 0.0017$, a large amount of time is spent with only about half of malicious nodes being accurately identified.
@@ -287,8 +356,64 @@ Results with $\rho = 30$m and $\delta = 0.0153$ are better, but still less than 
 At $\rho = 50$m and $\delta = 0.0427$, results are solid before the 2000th iteration of the algorithm, since at that point over 90\% of the network has been acknowledged by most nodes.
 The amount of false positive detections is extremely low, and, by the end of the simulation, all benign nodes have identified 100\% of malicious nodes.
 
+\begin{figure}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/10_10.png}
+\caption{$\rho$ = 10m.} 
+\label{fig:random10}
+\end{subfigure}
+\hspace*{\fill} % separation between the subfigures
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/30_10.png}
+\caption{$\rho$ = 30m.} 
+\label{fig:random30}
+\end{subfigure}
+
+\centering
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/50_10.png}
+\caption{$\rho$ = 50m.} 
+\label{fig:random50}
+\end{subfigure}
+
+
+\caption{Simulation of TruMan with 10\% malicious nodes and varying values of $\rho$.}
+\label{fig:random103050}
+\end{figure}
+
+%\begin{figure}
+%\centering
+%
+%	\includegraphics[width=0.6\linewidth]{images/plots/Network_rA_10.0/new_plots/50_10.png}
+%	\caption{$\rho$ = 50m.} 
+%	
+%%\caption{Simulation with 10\% malicious nodes and varying values of $\rho$.}
+%\label{fig:random50}
+%\end{figure}
+
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\linewidth]{images/plots/Network_rA_10.0/new_plots/10_10.png}
+%\caption{$\rho$ = 10m.} \label{fig:tarjan0}
+%\end{figure}
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\linewidth]{images/plots/Network_rA_10.0/new_plots/30_10.png}
+%\caption{$\rho$ = 30m.} \label{fig:tarjan1}
+%\end{figure}
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.5\linewidth]{images/plots/Network_rA_10.0/new_plots/50_10.png}
+%\caption{$\rho$ = 50m.} \label{fig:tarjan2}
+%\end{figure}
+
 % taking over 8000 iterations with 10m range and achieving solid results at just over 1000 iterations with 50m range.
 
+\pagebreak
 \Cref{fig:randommalicious1} and \Cref{fig:randommalicious2} show the variation of results for different amounts of malicious nodes in the network.
 By the end of one day, the algorithm is able to detect all malicious nodes when they are up to 30\% of the network, although there is still a small amount of false positive detections.
 At 40\%, a small part of malicious nodes are yet to be detected and the standard deviation is larger overall.
@@ -296,16 +421,124 @@ At 50\%, as expected, the results are inconsistent as the network is completely 
 True positive and false positive detections are often inverted, because whenever there are more malicious nodes than benign one in a certain node's network model, the algorithm will classify the malicious ones as correct.
 The amount of malicious nodes also affects how quickly nodes are able to acquire information about the network, since nodes do not trust information from malicious neighbors.
 
+\begin{figure}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_1.png}
+\caption{1\% malicious.}
+\end{subfigure}
+\hspace*{\fill} % separation between the subfigures
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_5.png}
+\caption{5\% malicious.}
+\end{subfigure}
+
+\centering
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_10.png}
+\caption{10\% malicious.}
+\end{subfigure}
+
+\caption{Simulation of TruMan with $\rho$ = 10m and varying percentages of malicious nodes (1\%, 5\% and 10\%).}
+\label{fig:randommalicious1}
+\end{figure}
+
+\begin{figure}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_30.png}
+\caption{30\% malicious.}
+\end{subfigure}
+\hspace*{\fill} % separation between the subfigures
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_40.png}
+\caption{40\% malicious.}
+\end{subfigure}
+
+\centering
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/Network_rA/10_50.png}
+\caption{50\% malicious.}
+\end{subfigure}
+
+\caption{Simulation of TruMan with $\rho$ = 10m and varying percentages of malicious nodes (30\%, 40\% and 50\%).}
+\label{fig:randommalicious2}
+\end{figure}
+
+\pagebreak
 All simulations were performed with trust threshold $h=0.5$, except for the ones in \Cref{fig:randomthresholds}, performed to demonstrate the impact of different threshold values.
 The plots illustrate that there is not a significance change in results depending on the different thresholds.
 The results are slightly better at $h=0.7$, however not in a significant way.
 It still takes over 8000 iterations to detect all malicious nodes and there are still some false positive detections.
+
+\begin{figure}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/thresholds/03_30_10}
+\caption{$h = 0.3$.} \label{fig:threshold03}
+\end{subfigure}
+\hspace*{\fill} % separation between the subfigures
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/thresholds/05_30_10}
+\caption{$h = 0.5$.} \label{fig:threshold05}
+\end{subfigure}
+
+\centering
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/thresholds/07_30_10}
+\caption{$h = 0.7$.} \label{fig:threshold07}
+\end{subfigure}
+
+\caption{Simulation of TruMan with 10\% malicious nodes, $\rho = 30$m and varying values of $h$.}
+\label{fig:randomthresholds}
+\end{figure}
 
 \Cref{fig:random7} shows the execution of the algorithm over the course of 7 days.
 Most malicious nodes are identified by the end of the first day, before iteration 9000.
 However, not all nodes have finished building their model of the network and therefore there are still a number of false positive detections occurring.
 Around iteration 20000, all nodes finish building their models and the false positive detection rate drops to an insignificant amount.
 
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{images/plots/Network_rA7/10_10}
+\caption{7 days scenario: 10m range and 10\% malicious nodes.} \label{fig:random7}
+\end{figure}
+
+\begin{figure}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_10}
+\caption{$m = 10$.} \label{fig:extra10}
+\end{subfigure}
+\hspace*{\fill} % separation between the subfigures
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_250}
+\caption{$m = 250$.} \label{fig:extra250}
+\end{subfigure}
+
+\centering
+\caption{Simulation of TruMan with information aging, with different maximum age values ($m=10, 250$).}
+\label{fig:extramaliciousaging1}
+\end{figure}
+
+\begin{figure}
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_1000}
+\caption{$m = 1000$.} \label{fig:extra1000}
+\end{subfigure}
+\hspace*{\fill} % separation between the subfigures
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_5000}
+\caption{$m = 5000$.} \label{fig:extra5000}
+\end{subfigure}
+
+\centering
+\caption{Simulation with information aging, with different maximum age values ($m=1000, 5000$).}
+\label{fig:extramaliciousaging2}
+\end{figure}
+
+\pagebreak
 \Cref{fig:extramaliciousaging1} and \Cref{fig:extramaliciousaging2} show how TruMan reacts to one node converting from benign to malicious.
 These were the only simulations to consider information aging.
 Here, several different values for the maximum age, $m$, were tested.
@@ -363,7 +596,7 @@ Experiments with information aging show that it is possible to detect nodes that
 Finally, it is worth noting that, considering the scale of the problem, TruMan's cost is very low without sacrificing completeness and correctness.
 The model satisfies or permits most of the desired properties of a trust model with low computational complexity, making it viable for real-world use.
 
-\begin{table}[t!]
+\begin{table}[hpbt!]
 \caption{Properties of the related work}
 \label{table:properties_truman}
 \centering
@@ -391,139 +624,6 @@ The model satisfies or permits most of the desired properties of a trust model w
 \end{tabular}
 \end{table}
 
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/10_10.png}
-\caption{$\rho$ = 10m.} \label{fig:tarjan0}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/30_10.png}
-\caption{$\rho$ = 30m.} \label{fig:tarjan0}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA_10.0/new_plots/50_10.png}
-\caption{$\rho$ = 50m.} \label{fig:tarjan0}
-\end{subfigure}
-
-\caption{Simulation with 10\% malicious nodes and varying values of $\rho$.}
-\label{fig:random103050}
-\end{figure}
-
-
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_1.png}
-\caption{1\% malicious.}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_5.png}
-\caption{5\% malicious.}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_10.png}
-\caption{10\% malicious.}
-\end{subfigure}
-
-\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes (1\%, 5\% and 10\%).}
-\label{fig:randommalicious1}
-\end{figure}
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_30.png}
-\caption{30\% malicious.}
-\end{subfigure}
-
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_40.png}
-\caption{40\% malicious.}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/Network_rA/10_50.png}
-\caption{50\% malicious.}
-\end{subfigure}
-
-\caption{Simulation with $\rho$ = 10m and varying percentages of malicious nodes (30\%, 40\% and 50\%).}
-\label{fig:randommalicious2}
-\end{figure}
-
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/thresholds/03_30_10}
-\caption{$h = 0.3$.} \label{fig:threshold03}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/thresholds/05_30_10}
-\caption{$h = 0.5$.} \label{fig:threshold05}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/thresholds/07_30_10}
-\caption{$h = 0.7$.} \label{fig:threshold07}
-\end{subfigure}
-
-\caption{Simulation with 10\% malicious nodes, $\rho = 30$m and varying values of $h$.}
-\label{fig:randomthresholds}
-\end{figure}
-
-
-\begin{figure}
-\centering
-\includegraphics[width=0.6\textwidth]{images/plots/Network_rA7/10_10}
-\caption{7 days scenario: 10m range and 10\% malicious nodes.} \label{fig:random7}
-\end{figure}
-
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_10}
-\caption{$m = 10$.} \label{fig:extra10}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_250}
-\caption{$m = 250$.} \label{fig:extra250}
-\end{subfigure}
-
-\caption{Simulation with information aging, with different maximum age values ($m=10, 250$).}
-\label{fig:extramaliciousaging1}
-\end{figure}
-
-\begin{figure}
-\centering
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_1000}
-\caption{$m = 1000$.} \label{fig:extra1000}
-\end{subfigure}
-
-\begin{subfigure}{0.6\textwidth}
-\includegraphics[width=\linewidth]{images/plots/extra_malicious/1_5000}
-\caption{$m = 5000$.} \label{fig:extra5000}
-\end{subfigure}
-
-\caption{Simulation with information aging, with different maximum age values ($m=1000, 5000$).}
-\label{fig:extramaliciousaging2}
-\end{figure}
 
 %\begin{figure}
 %\centering
