@@ -1,7 +1,7 @@
 \chapter{Conclusion}
 \label{chap:conclusion}
 
-In the coming years, vehicular networks or VANETs will an important part of safety and security in transportation, optimizing traffic and reducing the number of accidents.
+In the coming years, vehicular networks or VANETs will be an important part of safety and security in transportation, optimizing traffic and reducing the number of accidents.
 However, they are an appealing target for entities with malicious intents, creating the need of robust solutions to maintain the integrity of such networks.
 
 The concept of trust as applied in VANETs is a powerful tool for those seeking to reduce the spread of false information among members of a network as much as possible.
@@ -18,6 +18,11 @@ Several simulations were performed, changing certain parameters to understand ho
 The experiments show that vehicles within a network can form a sufficient abstraction of the network in around one day, and with that information they are able to detect nearly every malicious node in the network, with a very small amount of false positives.
 As the network changes in shape, nodes acquire more information and are able to make even more accurate classifications of malicious nodes around them.
 With the implementation of information aging, TruMan is also able to detect nodes that start benign and become malicious during the simulation.
+
+In comparison with the related work, TruMan was able to satisfy most of the desired properties for vehicular network trust models, while not inhibiting the properties that were not desired.
+Most importantly, TruMan put emphasis on efficiency and is the first model that clearly displays the complexity of its algorithm.
+
+The work done on TruMan was published as a conference paper on the 2018 IEEE Symposium on Computers and Communications \citep{greca2018truman}.
 
 A next step for future work would be performing experiments simulating more types of known attacks against vehicular networks, then adapting the model to resist such attacks.
 Furthermore, TruMan could be extended to consider more types of information in its algorithm, using, for example, V2I communications with road-side units, vehicular roles, or location and time parameters.
