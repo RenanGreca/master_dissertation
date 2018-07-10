@@ -157,9 +157,12 @@ Most of the parameters for the ONE simulator were taken from the article detaili
 The simulation ran for 86400 seconds (24 hours), with a work day length of 28800 seconds (8 hours) and a standard deviation of departure time of 7200 seconds (2 hours).
 Nodes move between 7 and 10 m/s in an area of approximately 14.7 km\textsuperscript{2} based on a section of the map of Helsinki.
 %The number of nodes and their communication range vary for different simulations.
+
 There is a total of 160 nodes, 150 of which follow the Working Day Movement Model, and 10 that follow the random waypoint mobility model to simulate vehicles that do not follow daily patterns.
 Since this simulation is for vehicles instead of pedestrians, there are no buses in the model and every node is guaranteed to own a vehicle and travel by car.
-Aside from the office size parameter, the parameters regarding offices, meeting spots and shopping were kept intact.
+This configuration was chosen in order to make the network homogenous, but buses and pedestrians could be considered as an addition to the scope.
+
+Aside from the office size parameter, which is 1 in order to inhibit in-office mobility, the parameters regarding offices, meeting spots and shopping were kept intact.
 A small part of nodes move randomly to simulate vehicles that do not follow daily patterns.
 The transmission range of nodes varies from simulation to simulation, for reasons explained in \Cref{section:density}.
 
@@ -418,7 +421,7 @@ The amount of false positive detections is extremely low, and, by the end of the
 By the end of one day, the algorithm is able to detect all malicious nodes when they are up to 30\% of the network, although there is still a small amount of false positive detections.
 At 40\%, a small part of malicious nodes are yet to be detected and the standard deviation is larger overall.
 At 50\%, as expected, the results are inconsistent as the network is completely split between benign and malicious nodes; at this point, the network is considered completely compromised.
-True positive and false positive detections are often inverted, because whenever there are more malicious nodes than benign one in a certain node's network model, the algorithm will classify the malicious ones as correct.
+True positive and false positive detections are often inverted, because whenever there are more malicious nodes than benign ones in a certain node's network model, the algorithm will classify the malicious ones as correct.
 The amount of malicious nodes also affects how quickly nodes are able to acquire information about the network, since nodes do not trust information from malicious neighbors.
 
 \begin{figure}

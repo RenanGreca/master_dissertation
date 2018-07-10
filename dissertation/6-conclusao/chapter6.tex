@@ -8,10 +8,10 @@ The concept of trust as applied in VANETs is a powerful tool for those seeking t
 In this paper, a new trust model for vehicular networks called TruMan was introduced, which combines the efficiency of previously proposed algorithms in order to generate fast and accurate results.
 The solution works in a decentralized fashion and is built for the dynamic environment of vehicular networks, although it could also be adapted to other types of networks.
 
-%As nodes travel across the network and collect more data from neighbors, they are able to form an abstraction of the network which can be used to detect malicious nodes.
-%By placing nodes into strongly connected components, a network containing a large amount of nodes can be simplified into a much smaller one.
-%Using a simple graph coloring algorithm, most malicious nodes stand out by having different colors than the majority of nodes.
-%This allows for a low complexity approach to malicious node identification in a dynamic network.
+As nodes travel across the network and collect more data from neighbors, they are able to form an abstraction of the network which can be used to detect malicious nodes.
+By placing nodes into strongly connected components, a network containing a large amount of nodes can be simplified into a much smaller one.
+Using a simple graph coloring algorithm, most malicious nodes stand out by having different colors than the majority of nodes.
+This allows for a low complexity approach to malicious node identification in a dynamic network.
 
 TruMan was evaluated using mobility data gathered from the ONE simulator using the Working Day Movement Model, which approximates node mobility to that of real-world vehicles.
 Several simulations were performed, changing certain parameters to understand how the model performs in different scenarios.
@@ -21,10 +21,40 @@ With the implementation of information aging, TruMan is also able to detect node
 
 In comparison with the related work, TruMan was able to satisfy most of the desired properties for vehicular network trust models, while not inhibiting the properties that were not desired.
 Most importantly, TruMan put emphasis on efficiency and is the first model that clearly displays the complexity of its algorithm.
+Furthermore, TruMan begins taking advantage of social network features found in vehicular networks, although more can be done with this idea.
 
 The work done on TruMan was published as a conference paper on the 2018 IEEE Symposium on Computers and Communications \citep{greca2018truman}.
 
-A next step for future work would be performing experiments simulating more types of known attacks against vehicular networks, then adapting the model to resist such attacks.
-Furthermore, TruMan could be extended to consider more types of information in its algorithm, using, for example, V2I communications with road-side units, vehicular roles, or location and time parameters.
-Finally, the concepts of the algorithm could be applied to different types of networks.
+\pagebreak
+Several paths could be considered for future work on TruMan, such as:
+\begin{itemize}
+\item TruMan could be tested in more varied scenarios, using different maps and various different amounts of nodes in the simulations. It would be even better to use real-world mobility data.
+\item TruMan takes advantage of social features found in vehicular networks, but even more could be done with this. For example, vehicles that belong to the same family could have strong ties and share a lot of data with each other. Certain vehicles, such as police cars and ambulances, could have privileged roles within the model.
+\item The model could be adapted to include public transportation vehicles (trains, buses) with predictable routes, as well as vehicle-to-infrastructure communication.
+\item Well-known vehicular network attacks, such as the ones in \citep{isaac2010security}, could be used against TruMan, attempting to break it. Such experiments would fully validate TruMan's robustness.
+\item TruMan should be tested in real-world networks. Although it was designed for vehicular networks, other types of networks with mobility, such as mobile ad-hoc networks, could be used for experiments.
+\item Finally, it is possible that TruMan might be a valuable tool for more than just vehicular network. A decentralized and dynamic trust management scheme could be useful for social networks, mobile ad-hoc networks, Internet-based peer-to-peer networks, and others. These scenarios should be tested.
+\end{itemize}
+
+
+
+%Rede complexas: métricas (dinâmica)? Grafo de Componentes para reduzir a complexidade da rede
+%
+%Limitações do One? Dtn
+%Preservação da rede (slide) mesmo sem alcance da comunicação?
+%
+%Trust: trusted vehicles (minhas 2010)
+%
+%Fog computing: cluster em bus stops ou rsup
+%
+%Contribuição: correção & eficiência, redes sociais wdmm, rotina,
+%
+%Janela de tempo para descoberta e atualização dinâmica da topologia- execução dos 3 passos seguintes (limitação do tempo - iteração?) alguma frequência ? F(v, d)
+%M ? 
+%
+%
+%Diagnóstico (ok - fora do escopo) - sem análise do teste do nó.
+%
+%Noticias boas mais rápido que más: retirada da aresta?
+%Modelo de ataques?
 
