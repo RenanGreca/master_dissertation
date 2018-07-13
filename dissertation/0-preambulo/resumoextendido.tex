@@ -1,15 +1,95 @@
 \begin{resumoextendido}
 		
 	\section*{Introdução}
-	Este é o resumo extendido em português.
+%	Computadores estão cada vez menores e mais poderosos, permitindo que diversos aspectos da vida possam ser melhorados ao adicionar unidades de processamento a dispositivos comuns.
+%	Muitas dessas aplicações são focadas em conveniências, a integração de objetos com computadores pode ser usado para economizar tempo e salvar vidas \citep{rti2014}.
+%	Uma forma de fazer isto é adicionando computadores e dispositivos de comunicação a veículos -- como carros, ônibus e trens -- para aumentar a eficiência e a segurança do trânsito.
+%	
+%	Em 2013, cerca de 1,25 milhão de pessoas perderam suas vidas devido a acidentes de trânsito \citep{whofactsheet}.
+%	Nos EUA, este número tem diminuído ao longo das últimas décadas, mas ainda é uma grande causa de morte ao redor do mundo \citep{whotraffic}.
+%	Além disso, com o aumento da população de veículos, congestionamento tomam muito tempo das pessoas em suas rotinas.
+%	Em cidades como Los Angeles, Moscou, Nova Iorque, Bogotá e São Paulo, pessoas passam dezenas de horas por ano no trânsito \citep{inrixtraffic}.
+%	
+%	Veículos inteligentes e redes veiculares são ferramentas tecnológicas para remediar os problemas acima.
+%	Através do uso de sensores e de comunicação sem fio, os veículos podem evitar acidentes ao alertar motoristas distraídos \citep{lee2004collision} ou ao acompanhar a velocidade e posição de outros veículos \citep{hafner2011automated}.
+%	Além disso, podem sugerir rotas para distribuir o tráfego e evitar congestionamentos.
+%	
+%	Se tratando de aplicações de segurança e eficiência no trânsito, é crucial que comunicações ocorram com baixa latência (cerca de 100 milissegundos \citep{camp2005vehicle}).
+%	Tecnologia celular contemporânea, como LTE, poderia ser usada para conectar veículos à internet, mas a latência adicionada pela transmissão tornaria aplicações de segurança lentas e pouco confiáveis \citep{mangel2010comparison}.
+%	Outros potenciais problemas da tecnologia celular para o uso veicular incluem a necessidade de infraestrutura, o custo do serviço, e o compartilhamento da rede com outros tipos de dispositivos.
+%	
+%	Portanto, uma solução \textit{ad-hoc} é preferível, sem depender de infraestrutura e permitindo a comunicação direta entre participantes da rede.
+%	
+%	
+%	Porém, como é o caso em muitas tecnologias novas, VANETs podem ser um alvo de ataques de usuários maliciosos.
+%	Um usuário malicioso local pode alterar dados para manipular o trânsito, enquanto atacantes remotos podem invadir veículos para controlar a rede \citep{garip2015congestion}.
+%	Ataques podem ser apenas inconveniências até ameaças à vida, portanto é importante que redes veiculares estejam preparadas para mitigá-los.
+%	
+%	Em redes \textit{ad-hoc}, uma forma de mitigar certos ataques é usando dados coletados previamente para filtrar mensagens que aparentam ser maliciosas, incorretas ou irrelevantes.
+%	Para tal, emprega-se o conceito de \textit{confiança}.
+%	Ao receber mensagens de outros nós, um membro da rede pode construir uma relação de confiança com os outros.
+%	Caso o valor de confiança da origem de uma mensagem seja muito baixo, essa mensagem pode ser considerada não confiável.
+%	Além disso, essas relações de confiança podem ser propagadas pela rede, permitindo que nós que ainda não formaram suas próprias opiniões possam se beneficiar da informação que já circula pela rede.
+%	
 	
-	\section*{Redes Complexas}
+	Dentro dos próximos anos, uma grande parte de novos veículos virão equipados com funcionalidades de comunicação.
+	Essas funcionalidades permitirão o compartilhamento de dados com outros dispositivos e podem ser ferramentas importantes para reduzir o trânsito e o risco de acidentes.
+	Acidentes de trânsito são uma das maiores causas de morte no mundo \citep{whofactsheet}, tornando necessárias soluções para melhorar a segurança nas ruas.
 	
-	\section*{Redes Veiculares}
+	O compartilhamento rápido de dados entre veículos permite, por exemplo, que veículos inteligentes alertem seus motoristas sobre condições de trânsito \citep{lee2004collision} e que veículos autônomos formem pelotões \citep{amoozadeh2015platoon}.
 	
-	\section*{TruMan}
+	Assim, surge a necessidade de redes veiculares \textit{ad-hoc} (\textit{vehicular ad-hoc networks}, ou VANETs), nas quais veículos são os nós ou membros da rede e compartilham informações entre si, sem depender da internet ou de infraestrutura.
+	O padrão de comunicação mais usado para redes veiculares é o IEEE 802.11p, que descreve dois tipos de membros (ou nós) para redes veiculares: unidades a bordo (\textit{on-board units} ou OBUs) e unidades de beira de estrada \textit(\textit{roadside units} ou RSUs).
+	Comunicação entre pares de OBUs é denominada \textit{vehicle-to-vehicle} (V2V), enquanto comunicação entre OBUs e RSUs é chamada de \textit{vehicle-to-infrastructure} (V2I).
+	Este estudo aborda apenas casos V2V e, portanto, refere-se apenas a veículos como membros de uma rede veicular.
 	
-	\section*{Simulações}
+	Porém, como é o caso em muitas tecnologias novas, VANETs podem ser um alvo de ataques de usuários maliciosos.
+	Um usuário malicioso local pode alterar dados para manipular o trânsito, enquanto atacantes remotos podem invadir veículos para controlar a rede \citep{garip2015congestion}.
+	Ataques podem ser apenas inconveniências até ameaças à vida, portanto é importante que redes veiculares estejam preparadas para mitigá-los.
+
+	Em redes \textit{ad-hoc}, uma forma de mitigar certos ataques é usando dados coletados previamente para filtrar mensagens que aparentam ser maliciosas, incorretas ou irrelevantes.
+	Para tal, emprega-se o conceito de \textit{confiança}.
+	Ao receber mensagens de outros nós, um membro da rede pode construir uma relação de confiança com os outros.	
+	Caso o valor de confiança da origem de uma mensagem seja muito baixo, essa mensagem pode ser considerada não confiável.
+	Além disso, essas relações de confiança podem ser propagadas pela rede, permitindo que nós que ainda não formaram suas próprias opiniões possam se beneficiar da informação que já circula pela rede.
+
+	Este trabalho propõe um novo modelo de confiança, TruMan, para gerenciar relações de confiança em uma rede veicular.
+	Usando o modelo proposto, nós de uma rede veicular podem rapidamente identificar quais outros nós são dignos de confiança ou não.
+	Como redes veiculares são altamente dinâmicas, nós adquirem mais informações à medida do tempo e podem se beneficiar de propriedades sociais de VANETs para construir relações fortes com outros nós encontrados frequentemente.
+	
+	O modelo TruMan é baseado em outro já existente, chamado MaNI \citep{vernize2015malicious}, que era restrito para redes estáticas.
+	Utilizando algoritmos de grafos, TruMan demonstra-se uma solução eficiente para o problema de gerenciamento de confiança em redes veiculares.
+	
+	As próximas seções são as seguintes.
+	A \textbf{Revisão Bibliográfica} aborda os conceitos de redes complexas, redes sociais, redes tecnológicas e redes veiculares, além de estudos relevantes na área de confiança para redes veiculares.
+	Em \textbf{Projeto e Implementação do TruMan}, os objetivos e hipóteses do TruMan são apresentados, além das explicações dos algoritmos que compõe o modelo.
+	A seguir, \textbf{Avaliação do TruMan} mostra as ferramentas usadas para validar o TruMan e os resultados dos experimentos realizados.
+	Por fim, a \textbf{Conclusão} contém os pensamentos finais sobre o projeto.
+		
+	\section*{Revisão Bibliográfica}
+	
+	Uma revisão do estudo de redes como um todo foi feito para o desenvolvimento de um novo modelo de confiança para redes veiculares.
+	Esta seção introduz conceitos relacionados a redes complexas, redes sociais, redes tecnológicas e redes veiculares, incluindo o significado e importância de confiança em cada tipo de rede.
+	Por fim, trabalhos relevantes relacionados à área de confiança em redes veiculares são apresentados.
+	
+	\subsection*{Redes Complexas}
+	Redes complexas podem descrever diversos sistemas observados na natureza e na sociedade com \textit{vértices} (ou \textit{nós}) e \textit{arestas} \citep{newmannetworks}.
+	Geralmente são dividas em quatro categorias:
+	\begin{enumerate}
+		\item \textbf{Redes Tecnológicas} são construídas para prover serviços. Exemplos incluem a Internet, a rede telefônica e redes de transporte.
+		\item \textbf{Redes Sociais} são compostas de pessoas ou grupos de pessoas e a relação entre elas. Podem ser relações de parentesco, amizades, relações profissionais, etc.
+		\item \textbf{Redes de Informação} são redes nas quais os nós são informações e as arestas são relações entre conjuntos de informações. Por exemplo, a World Wide Web é uma rede de informação que existe na Internet (que, por sua vez, é uma rede tecnológica).
+		\item \textbf{Redes Biológicas} são as redes encontradas na natureza. Podem ser compostas de animais, células, conjuntos de seres vivos, etc.
+	\end{enumerate}
+	
+	\subsection*{Redes Sociais}
+	\subsection*{Redes Tecnológicas}
+	\subsection*{Redes Veiculares}
+	\subsection*{Trabalhos Relacionados}
+	
+	\section*{Projeto e Implementação do TruMan}
+	
+	\section*{Avaliação do TruMan}
 	
 	\section*{Conclusão}
 \end{resumoextendido}
