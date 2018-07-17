@@ -38,11 +38,7 @@
 	
 	O compartilhamento rápido de dados entre veículos permite, por exemplo, que veículos inteligentes alertem seus motoristas sobre condições de trânsito \citep{lee2004collision} e que veículos autônomos formem pelotões \citep{amoozadeh2015platoon}.
 	
-	Assim, surge a necessidade de redes veiculares \textit{ad-hoc} (\textit{vehicular ad-hoc networks}, ou VANETs), nas quais veículos são os nós ou membros da rede e compartilham informações entre si, sem depender da internet ou de infraestrutura.
-	O padrão de comunicação mais usado para redes veiculares é o IEEE 802.11p, que descreve dois tipos de membros (ou nós) para redes veiculares: unidades a bordo (\textit{on-board units} ou OBUs) e unidades de beira de estrada \textit(\textit{roadside units} ou RSUs).
-	Comunicação entre pares de OBUs é denominada \textit{vehicle-to-vehicle} (V2V), enquanto comunicação entre OBUs e RSUs é chamada de \textit{vehicle-to-infrastructure} (V2I).
-	Este estudo aborda apenas casos V2V e, portanto, refere-se apenas a veículos como membros de uma rede veicular.
-	
+	Assim, surge a necessidade de redes veiculares \textit{ad-hoc} (\textit{vehicular ad-hoc networks}, ou VANETs), nas quais veículos são os nós ou membros da rede e compartilham informações entre si, sem depender da internet ou de infraestrutura.	
 	Porém, como é o caso em muitas tecnologias novas, VANETs podem ser um alvo de ataques de usuários maliciosos.
 	Um usuário malicioso local pode alterar dados para manipular o trânsito, enquanto atacantes remotos podem invadir veículos para controlar a rede \citep{garip2015congestion}.
 	Ataques podem ser apenas inconveniências até ameaças à vida, portanto é importante que redes veiculares estejam preparadas para mitigá-los.
@@ -110,8 +106,62 @@
 	
 	Redes veiculares \textit{ad-hoc} são um caso especial de rede tecnológica, mas, devido a diversas peculiaridades em topologia e mobilidade, também apresentam peculiaridades quando se trata de confiança.
 	
-	\subsection*{Redes Veiculares}
+	\subsection*{Confiança em Redes Veiculares}
+	Hoje, muitos veículos já vêm equipados com o hardware necessário para processamento e comunicação veicular.
+	É esperado que, até 2022, a maioria dos veículos comuns também venham com tais funcionalidades \citep{connectedcar2016}.
+	Redes veiculares \textit{ad-hoc} (VANETs) são uma aplicação muito estudada quando se trata de veículos inteligentes ou autônomos.
+	Nelas, todos os nós são relacionados ao trânsito, como veículos ou unidades posicionadas em infraestrutura ao lado das ruas.
+	
+	O padrão de comunicação mais usado para redes veiculares é o IEEE 802.11p, que descreve dois tipos de membros (ou nós) para redes veiculares: unidades a bordo (\textit{on-board units} ou OBUs) e unidades de beira de estrada \textit(\textit{roadside units} ou RSUs).
+	Comunicação entre pares de OBUs é denominada \textit{vehicle-to-vehicle} (V2V), enquanto comunicação entre OBUs e RSUs é chamada de \textit{vehicle-to-infrastructure} (V2I).
+	Este estudo aborda apenas casos V2V e, portanto, refere-se apenas a veículos como membros de uma rede veicular.
+
+	Como é esperado para novas tecnologias, redes veiculares podem se tornar um alvo relevante para usuários maliciosos e atacantes.
+	Alguns exemplos de potenciais problemas são: 
+	módulos e sensores, como GPS e velocímetro, defeituosos, inibindo aplicações de segurança ou eficiência \citep{isaac2010security}; 
+	veículos intencionalmente transmitindo dados falsos \citep{golle2004detecting}; 
+	atacantes remotos controlando múltiplos veículos para congestionar a rede \citep{garip2015congestion}; 
+	invasão de privacidade ao tentar decifrar e ler mensagens alheias \citep{isaac2010security};
+	disrupção de sinal para impedir a comunicação de outros veículos \citep{isaac2010security}.
+	
+	Como em outros tipos de rede, VANETs dependem de membros que se comportam de maneira correta e previsível e informações incorretas comprometem a utilidade da rede.
+	Há uma distinção importante a ser feita entre nós maliciosos e defeituosos, porém, em termos de confiabilidade, é possível tratá-los da mesma forma, pois, afinal, a principal característica de ambos é a transmissão de informação incorreta.
+	
+	Em geral, soluções de gerenciamento de confiança são divididos em dois tipos: os que usam \textit{confiança orientada a entidade}, nos quais confiança é relacionada a membros da rede e leva-se em consideração quem transmitiu certa mensagem, ou \textit{confiança orientada a dados}, nos quais o conteúdo da mensagem é mais importante do que quem a transmitiu.
+	Existem também algumas soluções que combinam ambos métodos.
+	
+	Algumas das propriedades únicas de redes veiculares, que afetam soluções de confiança para elas, são:
+	topologia que muda constantemente e rapidamente;
+	mobilidade de nós restringidas às ruas disponíveis;
+	fragmentação, quando duas ou mais partes da rede estão distantes demais para se comunicar;
+	comunicação pouco confiável com nós distantes;
+	nenhuma restrição notável de energia, quando comparadas a redes de dispositivos móveis;
+	densidade potencialmente muito alta;
+	topologia suscetível a comportamentos erráticos de motoristas.
+	
+	Em \citep{zhang2011survey}, oito propriedades desejáveis para modelos de confiança para redes veiculares são apresentadas:
+	construção de confiança descentralizada;
+	lidar bem com baixas densidades;
+	dinâmicas relacionadas a local, tempo, eventos e tarefas;
+	escalabilidade;
+	medida de certeza integrada;
+	segurança a nível de sistema;
+	sensibilidade a privacidade;
+	robustez.
+	
 	\subsection*{Trabalhos Relacionados}
+	
+	Muitas soluções para confiança em redes veiculares foram propostas ao longo dos anos, como \citep{patwardhan2006data}, \citep{gerlach2007trust}, \citep{raya2008data}, \citep{huang2010situation}, \citep{ding2013novel}, \citep{haddadou2013trust}, \citep{liu2016lsot}, \citep{kerrache2016detection}.
+	Além disso, alguns trabalhos oferecem revisões sobre propostas já apresentadas, como \citep{zhang2011survey}, \citep{ma2011survey}, \citep{zhang2012trust}, \cite{mejri2014survey}, \citep{soleymani2015trust}, \citep{sengar2016survey}, \citep{dwivedi2016review}.
+	Nesta seção, alguns dos trabalhos mais relevantes são apresentados.
+	
+	\citep{minhas2010towards}
+	
+	\citep{chen2010trust}
+	
+	\citep{li2016art}
+	
+	\citep{chen2017cloud}
 	
 	\section*{Projeto e Implementação do TruMan}
 	
