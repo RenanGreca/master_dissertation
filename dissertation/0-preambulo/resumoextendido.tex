@@ -155,15 +155,86 @@
 	Além disso, alguns trabalhos oferecem revisões sobre propostas já apresentadas, como \citep{zhang2011survey}, \citep{ma2011survey}, \citep{zhang2012trust}, \cite{mejri2014survey}, \citep{soleymani2015trust}, \citep{sengar2016survey}, \citep{dwivedi2016review}.
 	Nesta seção, alguns dos trabalhos mais relevantes são apresentados.
 	
-	\citep{minhas2010towards}
+	No modelo proposto em \citep{minhas2010towards} usa diversos critérios para julgar se uma mensagem é confiável ou não.
+	Ele utiliza uma combinação de confiança baseada em função (por exemplo, viaturas policiais são automaticamente mais confiáveis) e confiança baseada em experiência (baseada em interações anteriores).
+	Além disso, uma mensagem é considerada mais confiáveis quando sua origem estava próximo do evento sendo relatado por ela.
+	Quando múltiplas mensagens sobre o mesmo evento são recebidas, um nó pode optar por considerar as que foram enviadas por nós mais confiáveis, ou ponderar um consenso baseado em diversas opiniões alheias.
+	Porém, este modelo depende apenas de interações diretas, e confiança não é propagada pela rede.
 	
-	\citep{chen2010trust}
+	Em \citep{chen2010trust}, os autores propõem avaliar mensagens com um método que utiliza grupos.
+	Nós são separados em grupos e, cada vez que um deseja enviar uma mensagem, os outros membros do grupo oferecem suas opiniões sobre o emissor.
+	Finalmente, um dos nós, designado como líder do grupo, coleta as opiniões e decide se a mensagem é válida de acordo com o consenso.
+	Porém, é incerto como o modelo funcionaria em redes esparsas, manter grupos em uma rede altamente dinâmica pode ser uma tarefa de alto custo e um grupo todo pode ser comprometido se o líder não for confiável.
+		
+	O modelo ART \citep{li2016art} busca um modelo robusto e resistente a ataques.
+	Ele tem dois passos principais: coleta de dados e detecção de nós maliciosos.
+	Utiliza a teoria de evidências Dempster-Shafter para agregar dados vindos de outros nós.
+	Então, usa uma métrica baseada em cosseno para comparar vetores de confiança de dois nós (cada vetor é uma sequência de opiniões que um nó tem sobre outros).
+	Nós com vetores de confiança próximos confiam uns nos outros.
+	O problema dessa solução é a dependência em cálculos custosos que podem atrapalhar o desempenho em situações que exigem baixa latência.
 	
-	\citep{li2016art}
+	Os autores de \citep{chen2017cloud} propõem uma solução de confiança baseada em nuvem, que exige um gerenciamento de confiança via internet.
+	A vantagem disso é simplificar diversas dificuldades de redes veiculares, como redes esparsas e altamente dinâmicas.
+	Contudo, o modelo é problemático em regiões com pouco ou nenhum sinal de comunicação celular e o sistema todo é suscetível a instabilidades no serviço.
 	
-	\citep{chen2017cloud}
+	Por fim, é importante notar que nenhum dos trabalhos acima oferece análises de custo e complexidade de seus algoritmos.
+	Portanto, manter uma baixa complexidade é um objetivo chave do modelo TruMan.
 	
 	\section*{Projeto e Implementação do TruMan}
+	
+	TruMan é um modelo de gerenciamento de confiança para redes veiculares, possibilitando a detecção de nós maliciosos em uma rede e a disseminação dados de confiança para outros nós.
+	TruMan busca gerenciamento de confiança eficiente em redes altamente dinâmicas, mantendo baixo custo computacional e um modelo simples de entender e implementar.
+	Esta seção apresenta os fundamentos e algoritmos por trás de TruMan, assim como detalhes de sua implementação.
+
+	\textbf{Redes Sociais e VANETs}
+	
+	\subsection*{Algoritmo de Tarjan}
+	
+	O algoritmo de Tarjan para componentes fortemente conexos \citep{tarjan1972depth} é uma parte importante da eficiência atingida pelo TruMan.
+	Este algoritmo permite abstrair um grafo grande em outro menor, reduzindo o custo de passos subsequentes.
+	Dado um grafo direcionado $T = (V,E)$, um componente fortemente conexo é um grupo de nós nos quais, para cada par $u, v \in V$, há um caminho de $u$ para $v$ e de $v$ para $u$.
+	Pensando em gerenciamento de confiança, podemos extender essa definição para considerar apenas caminhos formados por arestas que representam relações de confiança (ou um valor de confiança alto).
+
+	O número de componentes é, no máximo, $|V|$: no pior caso, cada nó forma seu próprio componente.
+	A complexidade do algoritmo é de $O(|V|+|E|)$.
+	
+	Utilizando os resultados do algoritmo de Tarjan, um grafo não direcionado $C = (V', E')$ é formado.
+	Cada $v' \in V'$ representa um componente de $T$, enquanto as arestas $e' \in E'$ representam arestas entre nós de $T$ que não pertencem ao mesmo componente.
+	
+	\subsection*{Algoritmo de coloração de grafos}
+	Coloração de grafos é um problema clássico da teoria dos grafos, no qual deve-se atribuir a cada nó uma cor de forma que não existam dois nós vizinhos com a mesma cor.
+	Coloração de grafos é a heurística usada para a detecção de nós maliciosos no TruMan.
+	Descobrir o menor número de cores possível para colorir um grafo arbitrário é um problema NP-difícil \citep{sanchez1989determining}.
+	
+	Os autores de \citep{mittal2011graph} apresentam uma solução eficiente de colorir grafos, apesar de não provar que o algoritmo sempre usa o menor número possível de cores.
+	Porém, o algoritmo é eficiente e seus resultados são corretos, tornando-se extremamente útil para o TruMan.
+	O custo do algoritmo é de apenas $O(|E|)$ -- em comparação, o algoritmo DSATUR tem complexidade de $O(|V|^2)$.
+	
+	\subsection*{O algoritmo TruMan}
+	
+	TruMan é baseado no algoritmo MaNI \citep{vernize2013dissertation}, que sugeriu o uso de componentes fortemente conexos e de coloração de grafos para a detecção de nós maliciosos em uma rede.
+	Porém, o MaNI foi desenvolvido para redes estáticas e é executado por um agente externo à rede, tornando-se inapropriado para redes veiculares.
+	Para funcionar em redes dinâmicas, TruMan roda iterativamente em intervalos pré-determinados.
+	Além disso, o algoritmo roda de forma descentralizada, com uma instância rodando em cada membro da rede.
+	
+	Cada nó $u$ armazena um grafo direcionado de confiança $T = (V,E)$ que é uma abstração da rede real e começa apenas com $V = {u}$.
+	Cada nó em $V$ representa um membro da rede e cada aresta em $E$ representa uma relação de confiança entre dois nós.
+	Como cada nó armazena sua própria representação da rede e essa representação evolui com o tempo, há um $T_i^u = (V_i^u, E_i^u)$ para cada nó $u$ e iteração $i$.
+	
+	No começo de cada iteração, nós coletam informações sobre seus vizinhos.
+	Um pré-requisito deste passo é a existência de um teste que classifica um nó adjacente como benigno ou malicioso.
+	Tal teste é um problema grande por si próprio, e sai do escopo deste trabalho.
+	Estudos sobre isso podem ser encontrados em \citep{golle2004detecting}, \citep{li2016defective}, \citep{kerrache2016detection}.
+	
+	Cada vez que um nó vizinho $v$ é identificado como benigno, o valor de confiança armazenado em $u \rightarrow v$ aumenta, e o grafo $T_i-1^v$ é unido com o grafo armazenado por $u$.
+	Após coletar informações de todos os seus vizinhos naquele instante, um novo grafo $T_i^u$ é formado, que é utilizado para os próximos passos.
+	
+	Em seguida, $T_i^u$ é separado em componentes fortemente conexos usando o algoritmo de Tarjan.
+	Cada par de nós em um componente é conectado por um caminho de confiança.
+	Ou seja, todos os nós de um mesmo componente confiam uns nos outros direta ou indiretamente.
+	Portanto, em termos de confiança, nós dentro de um mesmo componente podem ser considerados como um só: se um deles é confiável, pode-se assumir que todos são.
+	Os componentes tornam-se nós de um grafo $C_i^u = (V'_i^u, E'_i^u)$
+	
 	
 	\section*{Avaliação do TruMan}
 	
