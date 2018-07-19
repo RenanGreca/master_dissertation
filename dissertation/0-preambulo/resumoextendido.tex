@@ -229,14 +229,75 @@
 	Cada vez que um nó vizinho $v$ é identificado como benigno, o valor de confiança armazenado em $u \rightarrow v$ aumenta, e o grafo $T_i-1^v$ é unido com o grafo armazenado por $u$.
 	Após coletar informações de todos os seus vizinhos naquele instante, um novo grafo $T_i^u$ é formado, que é utilizado para os próximos passos.
 	
-	Em seguida, $T_i^u$ é separado em componentes fortemente conexos usando o algoritmo de Tarjan.
-	Cada par de nós em um componente é conectado por um caminho de confiança.
+	Em seguida, $T_i^u$ é separado em componentes fortemente conexos usando o algoritmo de Tarjan \citep{tarjan1972depth}, de forma que cada par de nós em um componente é conectado por um caminho de confiança.
 	Ou seja, todos os nós de um mesmo componente confiam uns nos outros direta ou indiretamente.
 	Portanto, em termos de confiança, nós dentro de um mesmo componente podem ser considerados como um só: se um deles é confiável, pode-se assumir que todos são.
-	Os componentes tornam-se nós de um grafo $C_i^u = (V'_i^u, E'_i^u)$
+	Os componentes tornam-se nós do grafo $C^u_i = (V'^u_i, E'^u_i)$.
 	
+	O algoritmo de coloração de grafos \citep{mittal2011graph} é usado como heurística para classificar nós como benignos ou não.
+	Após a execução do algoritmo, a cor cujos nós em $C_i^u$ representam a maior quantidade de nós em $T_i^u$ é classificada como correta, e as outras cores são classificadas como incorretas.
+	Isto funciona porque, em uma rede na qual a maior parte dos nós são benignos, estes tendem a formar poucos componentes grandes, enquanto os nós maliciosos pertencem a componentes pequenos.
+	Assume-se que a maior parte dos nós seja sempre benigna -- caso contrário, a rede como um todo está comprometida e perde completamente sua função.
+	
+	A complexidade do algoritmo pode ser calculada ao somar as operações mais custosas.
+	Para cada iteração $i$ e nó $u$, e sendo $n$ o número de vizinhos de $u$, o cálculo é o seguinte:
+	
+	$$ TruMan = Tarjan + Colora\text{\textit{\c{c}}}\tilde ao + (Uni\tilde ao\times(n^u_i)) $$
+	
+	Como discutido acima, o algoritmo de Tarjan tem complexidade de $O(|V|+|E|)$ para o grafo de confiança $T$.
+	Já o algoritmo de coloração tem complexidade de $O(|E'|)$ para o grafo de componentes $C$.
+	A parte mais custosa do algoritmo é a união de grafos que acontece após a comunicação entre nós confiáveis.
+	A complexidade desse processo é de $O(|E|)$ para vizinho que um nó tem em uma determinada iteração; o número de vizinhos é, no máximo, $|V|$.
+	A complexidade total do Truman é, portanto:
+	
+	$$ O(|V|+|E|) + O(|E'|) + O(|V|\times |E|)$$
+	
+	Porém, $|E'| \leq |E|$ é sempre verdade, porque o grafo $C$ é uma redução do grafo $T$.
+	Além disso, $|V|+|E| \leq |V|\times |E|$ também é verdade, com a exceção do cenário irrelevante no qual $|V| \leq 1$ ou $|E| \leq 1$.
+	Portanto, a complexidade do algoritmo TruMan pode ser simplificada como:
+	
+	$$O(|V| \times |E|)$$
 	
 	\section*{Avaliação do TruMan}
+	
+	Para testar o TruMan, uma implementação do algoritmo foi feita usando Python.
+	Grafos com mobilidade de nós foram gerados no simulador ONE \citep{keranen2009one}, usando o \textit{Working Day Movement Model} \citep{ekman2008working} para providenciar mobilidade próxima ao do mundo real, e um mapa de parte da cidade de Helsinki, Finlândia.
+	Imagens da topologia da rede foram salvas a cada 10 segundos simulados, e essas imagens foram usadas como entrada para o algoritmo TruMan.
+	O comportamento de nós maliciosos é aleatorizar suas opiniões sobre seus vizinhos.
+	
+	A maioria dos parâmetros da simulação no ONE foram tiradas do artigo do Working Day Movement Model \citep{ekman2008working}.
+	Alguns parâmetros diferentes foram usados, mostrados na Tabela \ref{table:parameters}.
+	Todos os nós da simulação são carros; para o propósito deste trabalho, nenhum outro tipo de veículo foi considerado.
+	Uma parte pequena dos nós movimenta-se aleatoriamente, para simular veículos que não seguem padrões de movimento diários.
+	
+	O raio de transmissão dos nós varia de 10m a 50m, ilustrando as diferenças entre diferentes densidades de rede.
+	A densidade de rede ($\delta$) é um valor que abstrai o volume e a frequência de conexões em redes veiculares, estimando a cobertura da rede pelo ambiente.
+	Para o TruMan, densidades mais altas trazem melhores resultados, pois nós podem adquirir informações mais rapidamente.
+	A densidade é calculada usando o raio de transmissão ($\rho$), o número de nós ($\eta$) e a área da simulação ($\alpha$).
+	
+	A cobertura de um único nó é o círculo ao redor dele formado pelo raio de transmissão.
+	Esse valor é dividido por dois para compensar círculos sobrepostos, e então multiplicado pelo número de nós na rede.
+	Por fim, esse valor é dividido pela área total do ambiente.
+	A fórmula de densidade da rede é a seguinte:
+	
+	$$ \delta = \frac{\frac{\rho^2\pi}{2} \times \eta}{\alpha} $$
+	
+	As densidades de algumas simulações realizadas são exibidas na Tabela \ref{table:simdensities}.
+	Já a tabela \ref{table:citydensities} mostra as densidades de rede hipotéticas de algumas cidades do mundo, usando dados geográficos reais e supondo um raio de transmissão de apenas 10m.
+	É possível ver que, mesmo com um raio de transmissão pequeno, as cidades oferecem densidades de rede maiores do que as das simulações, assumindo que uma parcela substancial de seus automóveis seja equipada com dispositivos de conexão.
+	
+	\subsection*{Simulações}
+	
+	Para validar o desempenho e a corretude de TruMan, diversas simulações foram executadas.
+	
+	A figura \ref{fig:random103050} mostra simulações com 10\% dos nós agindo maliciosamente, com raio de comunicação entre 10m e 50m.
+	É possível ver como o aumento do raio de comunicação melhora bastante os resultados:
+	com 10m, quase 8000 iterações são necessárias para atingir um bom resultado, enquanto com 50 são apenas cerca de 1000.
+	
+	As figuras \ref{fig:randommalicious1} e \ref{fig:randommalicious2} mostram simulações com quantidades diferentes de nós maliciosos e raio de comunicação de apenas 10m.
+	Com até 30\% de nós maliciosos, os resultados são bons.
+	Com 40\%, uma parte pequena de nós maliciosos não são detectados.
+	Já com 50\%, os resultados são erráticos, pois o controle da rede é dividido entre os nós benignos e maliciosos.
 	
 	\section*{Conclusão}
 \end{resumoextendido}
