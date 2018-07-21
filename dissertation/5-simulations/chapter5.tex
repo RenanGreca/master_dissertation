@@ -269,7 +269,7 @@ It can be expected that the model will perform even better in real-world scenari
 \section{Results}
 \label{section:results}
 
-To improve readability, all figures in this section follow the same format:
+To improve readability, all figures in this section follow the same format, as illustrated by Figure \ref{fig:legend}:
 \begin{itemize}
 	\item The $X$ axis shows the results of sequential iterations, ranging from 0 to 8639 in most cases;
 	\item The $Y$ axis shows a percentage of all nodes in the network, ranging from 0 to 100;
@@ -280,6 +280,13 @@ To improve readability, all figures in this section follow the same format:
 	\item The red line represents the benign nodes incorrectly identified as malicious (false positives);
 	\item The lines represent average values between all benign nodes on the network, while the colored regions represent the standard deviation present in the data.
 \end{itemize}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.3\linewidth]{images/legend2.png}
+\caption{legend} 
+\label{fig:legend}
+\end{figure}
 
 It is expected that the results are very inconsistent at the beginning of the simulations, since nodes are still building their models of the network and have relatively little information to use.
 
@@ -379,6 +386,13 @@ The amount of false positive detections is extremely low, and, by the end of the
 \caption{$\rho$ = 50m.} 
 \label{fig:random50}
 \end{subfigure}
+%\hspace*{\fill} % separation between the subfigures
+%\begin{subfigure}{0.3\textwidth}
+%%\centering
+%\includegraphics[width=\linewidth]{images/legend2.png}
+%\caption{legend} 
+%\label{fig:legend}
+%\end{subfigure}
 
 
 \caption{Simulation of TruMan with 10\% malicious nodes and varying values of $\rho$.}
