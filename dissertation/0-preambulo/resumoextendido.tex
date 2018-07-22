@@ -283,21 +283,34 @@
 	$$ \delta = \frac{\frac{\rho^2\pi}{2} \times \eta}{\alpha} $$
 	
 	As densidades de algumas simulações realizadas são exibidas na Tabela \ref{table:simdensities}.
-	Já a tabela \ref{table:citydensities} mostra as densidades de rede hipotéticas de algumas cidades do mundo, usando dados geográficos reais e supondo um raio de transmissão de apenas 10m.
+	Já a Tabela \ref{table:citydensities} mostra as densidades de rede hipotéticas de algumas cidades do mundo, usando dados geográficos reais e supondo um raio de transmissão de apenas 10m.
 	É possível ver que, mesmo com um raio de transmissão pequeno, as cidades oferecem densidades de rede maiores do que as das simulações, assumindo que uma parcela substancial de seus automóveis seja equipada com dispositivos de conexão.
 	
 	\subsection*{Simulações}
 	
 	Para validar o desempenho e a corretude de TruMan, diversas simulações foram executadas.
 	
-	A figura \ref{fig:random103050} mostra simulações com 10\% dos nós agindo maliciosamente, com raio de comunicação entre 10m e 50m.
+	A Figura \ref{fig:random103050} mostra simulações com 10\% dos nós agindo maliciosamente, com raio de comunicação entre 10m e 50m.
 	É possível ver como o aumento do raio de comunicação melhora bastante os resultados:
 	com 10m, quase 8000 iterações são necessárias para atingir um bom resultado, enquanto com 50 são apenas cerca de 1000.
 	
-	As figuras \ref{fig:randommalicious1} e \ref{fig:randommalicious2} mostram simulações com quantidades diferentes de nós maliciosos e raio de comunicação de apenas 10m.
+	As Figuras \ref{fig:randommalicious1} e \ref{fig:randommalicious2} mostram simulações com quantidades diferentes de nós maliciosos e raio de comunicação de apenas 10m.
 	Com até 30\% de nós maliciosos, os resultados são bons.
 	Com 40\%, uma parte pequena de nós maliciosos não são detectados.
 	Já com 50\%, os resultados são erráticos, pois o controle da rede é dividido entre os nós benignos e maliciosos.
+	
+	A maioria das simulações foram feitas com o limiar de confiança $h=0.5$, que significa que, para um nó confiar em outro, o valor de confiança deve ser acima de $0.5$.
+	A Figura {fig:randomthresholds} demonstra o impacto de mudar esse limiar.
+	Pode-se ver que o impacto não é muito significativo, porém, com $h=0.7$, os resultados são um pouco melhores.
+	
+	A Figura \ref{fig:random7} mostra os resultados da execução do algoritmo durante 7 dias simulados.
+	A maioria dos nós maliciosos é detectada ao fim do primeiro dia, e a rede é completamente descoberta pouco tempo depois.
+	Com o tempo, o número de falsos positivos cai, até tornar-se um número insignificante.
+	
+	Por fim, as Figuras \ref{fig:extramaliciousaging1} e \ref{fig:extramaliciousaging2} mostram como TruMan reage a um potencial ataque.
+	Nessas simulações, um nó passa a ser malicioso na metade do tempo.
+	O parâmetro $m$ determina quantas iterações o algoritmo leva para descartar arestas antigas, e, portanto, afeta a agilidade do modelo ao detectar um nó convertido.
+	Com $m$ muito baixo, informações são descartadas muito rapidamente e o número de falsos positivos aumenta drasticamente.
 	
 	\section*{Conclusão}
 \end{resumoextendido}
