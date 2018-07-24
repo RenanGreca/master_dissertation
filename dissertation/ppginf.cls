@@ -281,7 +281,7 @@
   \newenvironment{agradece}
   {
     \begin{center}
-    {\huge\textbf{Agradecimentos}}
+    {\huge\textbf{Acknowledgments}}
     \end{center}
     \vspace{0.5ex}
   }{
