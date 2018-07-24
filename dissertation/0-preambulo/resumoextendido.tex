@@ -300,7 +300,7 @@
 	Já com 50\%, os resultados são erráticos, pois o controle da rede é dividido entre os nós benignos e maliciosos.
 	
 	A maioria das simulações foram feitas com o limiar de confiança $h=0.5$, que significa que, para um nó confiar em outro, o valor de confiança deve ser acima de $0.5$.
-	A Figura {fig:randomthresholds} demonstra o impacto de mudar esse limiar.
+	A Figura \ref{fig:randomthresholds} demonstra o impacto de mudar esse limiar.
 	Pode-se ver que o impacto não é muito significativo, porém, com $h=0.7$, os resultados são um pouco melhores.
 	
 	A Figura \ref{fig:random7} mostra os resultados da execução do algoritmo durante 7 dias simulados.
@@ -313,4 +313,31 @@
 	Com $m$ muito baixo, informações são descartadas muito rapidamente e o número de falsos positivos aumenta drasticamente.
 	
 	\section*{Conclusão}
+	
+	Nos próximos anos, comunicação veicular será uma importante ferramenta para segurança e eficiência em transportes.
+	Porém, elas também serão um alvo de atacantes e usuários maliciosos.
+	Confiança é um conceito poderoso para evitar a disseminação de dados falsos entre membros de uma rede.
+	Neste projeto, um novo modelo de confiança para redes veiculares, chamado TruMan, foi apresentado.
+	TruMan combina algoritmos eficientes para providenciar gerenciamento de confiança rápido para redes altamente dinâmicas.
+	
+	Enquanto nós (veículos) viajam pela rede, eles adquirem mais informações sobre outros membros da rede, e podem usar essas informações para detectar nós maliciosos.
+	A utilização de componentes fortemente conexos permite que o grafo da rede seja simplificado em um menor, no qual cada nó é uma abstração de diversos membros da rede.
+	Então, com um algoritmo de coloração de grafo, membros maliciosos se destacam ao ter cores diferentes da maioria dos outros nós.
+	
+	TruMan foi testado usando dados gerados com o simulador ONE e o Working Day Movement Model.
+	Os experimentos mostram que veículos podem formar uma abstração suficiente da rede para detectar nós maliciosos ao redor deles.
+	Em geral, quanto mais tempo durar a simulação e quanto maior for a densidade de nós na rede, melhores são os resultados.
+	
+	Em comparação aos trabalhos relacionados, TruMan satisfaz a maior parte das propriedades desejáveis para modelos de mobilidade em redes veiculares, e, ao mesmo tempo, permite que as outras propriedades sejam implementadas de outras formas.
+	O foco do TruMan é eficiência e é o primeiro modelo de confiança para redes veiculares a apresentar claramente a complexidade de seu algoritmo.
+	
+	Há diversas opções para trabalhos futuros relacionados ao TruMan, como, por exemplo:
+	testes em uma variedade maior de cenários, usando dados reais de mobilidade;
+	aproveitar mais as propriedades sociais de redes veiculares;
+	a integração com veículos de transporte público e infraestrutura;
+	testes de resistência contra ataques conhecidos;
+	testes em redes móveis reais;
+	experimentação em outros tipos de rede.
+	
+	
 \end{resumoextendido}
