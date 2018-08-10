@@ -269,7 +269,7 @@ It can be expected that the model will perform even better in real-world scenari
 \section{Results}
 \label{section:results}
 
-To improve readability, all figures in this section follow the same format, as illustrated by Figure \ref{fig:legend}:
+To improve readability, all figures in this section follow the same format:
 \begin{itemize}
 	\item The $X$ axis shows the results of sequential iterations, ranging from 0 to 8639 in most cases;
 	\item The $Y$ axis shows a percentage of all nodes in the network, ranging from 0 to 100;
@@ -281,12 +281,12 @@ To improve readability, all figures in this section follow the same format, as i
 	\item The lines represent average values between all benign nodes on the network, while the colored regions represent the standard deviation present in the data.
 \end{itemize}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.3\linewidth]{images/legend2.png}
-\caption{legend} 
-\label{fig:legend}
-\end{figure}
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.3\linewidth]{images/legend2.png}
+%\caption{Legend showing the meaning of each color in the following graphs.} 
+%\label{fig:legend}
+%\end{figure}
 
 It is expected that the results are very inconsistent at the beginning of the simulations, since nodes are still building their models of the network and have relatively little information to use.
 
@@ -386,13 +386,13 @@ The amount of false positive detections is extremely low, and, by the end of the
 \caption{$\rho$ = 50m.} 
 \label{fig:random50}
 \end{subfigure}
-%\hspace*{\fill} % separation between the subfigures
-%\begin{subfigure}{0.3\textwidth}
-%%\centering
-%\includegraphics[width=\linewidth]{images/legend2.png}
-%\caption{legend} 
+\hspace*{\fill} % separation between the subfigures
+\begin{subfigure}{0.3\textwidth}
+%\centering
+\includegraphics[width=\linewidth]{images/legend2.png}
+%\caption{Legend} 
 %\label{fig:legend}
-%\end{subfigure}
+\end{subfigure}
 
 
 \caption{Simulation of TruMan with 10\% malicious nodes and varying values of $\rho$.}
@@ -450,10 +450,17 @@ The amount of malicious nodes also affects how quickly nodes are able to acquire
 \caption{5\% malicious.}
 \end{subfigure}
 
-\centering
+%\centering
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=\linewidth]{images/plots/Network_rA/10_10.png}
 \caption{10\% malicious.}
+\end{subfigure}
+\hspace*{\fill} % separation between the subfigures
+\begin{subfigure}{0.3\textwidth}
+%\centering
+\includegraphics[width=\linewidth]{images/legend2.png}
+%\caption{Legend} 
+%\label{fig:legend}
 \end{subfigure}
 
 \caption{Simulation of TruMan with $\rho$ = 10m and varying percentages of malicious nodes (1\%, 5\% and 10\%).}
@@ -472,10 +479,17 @@ The amount of malicious nodes also affects how quickly nodes are able to acquire
 \caption{40\% malicious.}
 \end{subfigure}
 
-\centering
+%\centering
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=\linewidth]{images/plots/Network_rA/10_50.png}
 \caption{50\% malicious.}
+\end{subfigure}
+\hspace*{\fill} % separation between the subfigures
+\begin{subfigure}{0.3\textwidth}
+%\centering
+\includegraphics[width=\linewidth]{images/legend2.png}
+%\caption{Legend} 
+%\label{fig:legend}
 \end{subfigure}
 
 \caption{Simulation of TruMan with $\rho$ = 10m and varying percentages of malicious nodes (30\%, 40\% and 50\%).}
@@ -500,10 +514,17 @@ It still takes over 8000 iterations to detect all malicious nodes and there are 
 \caption{$h = 0.5$.} \label{fig:threshold05}
 \end{subfigure}
 
-\centering
+%\centering
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=\linewidth]{images/plots/thresholds/07_30_10}
 \caption{$h = 0.7$.} \label{fig:threshold07}
+\end{subfigure}
+\hspace*{\fill} % separation between the subfigures
+\begin{subfigure}{0.3\textwidth}
+%\centering
+\includegraphics[width=\linewidth]{images/legend2.png}
+%\caption{Legend} 
+%\label{fig:legend}
 \end{subfigure}
 
 \caption{Simulation of TruMan with 10\% malicious nodes, $\rho = 30$m and varying values of $h$.}
@@ -516,10 +537,23 @@ However, not all nodes have finished building their model of the network and the
 Around iteration 20000, all nodes finish building their models and the false positive detection rate drops to an insignificant amount.
 
 \begin{figure}
-\centering
-\includegraphics[width=0.6\textwidth]{images/plots/Network_rA7/10_10}
-\caption{7 days scenario: 10m range and 10\% malicious nodes.} \label{fig:random7}
+%\centering
+
+\begin{subfigure}{0.5\textwidth}
+\includegraphics[width=\textwidth]{images/plots/Network_rA7/10_10}
+\end{subfigure}
+\hspace*{\fill} % separation between the subfigures
+\begin{subfigure}{0.3\textwidth}
+%\centering
+\includegraphics[width=\linewidth]{images/legend2.png}
+%\caption{Legend} 
+%\label{fig:legend}
+\end{subfigure}
+
+\caption{7 days scenario: 10m range and 10\% malicious nodes.}
+\label{fig:random7}
 \end{figure}
+
 
 \begin{figure}
 
@@ -533,12 +567,14 @@ Around iteration 20000, all nodes finish building their models and the false pos
 \caption{$m = 250$.} \label{fig:extra250}
 \end{subfigure}
 
-\centering
-\caption{Simulation of TruMan with information aging, with different maximum age values ($m=10, 250$).}
-\label{fig:extramaliciousaging1}
-\end{figure}
+\vspace{1cm}
 
-\begin{figure}
+%\centering
+%\caption{Simulation of TruMan with information aging, with different maximum age values ($m=10, 250$).}
+%\label{fig:extramaliciousaging1}
+%\end{figure}
+%
+%\begin{figure}
 
 \begin{subfigure}{0.5\textwidth}
 \includegraphics[width=\linewidth]{images/plots/extra_malicious/1_1000}
@@ -556,7 +592,7 @@ Around iteration 20000, all nodes finish building their models and the false pos
 \end{figure}
 
 \pagebreak
-\Cref{fig:extramaliciousaging1} and \Cref{fig:extramaliciousaging2} show how TruMan reacts to one node converting from benign to malicious.
+\Cref{fig:extramaliciousaging2} shows how TruMan reacts to one node converting from benign to malicious.
 These were the only simulations to consider information aging.
 Here, several different values for the maximum age, $m$, were tested.
 For the simulation, information timestamps are set as the iteration in which they were added to the graph ($s \gets i$), and the age is calculated as the difference between the current iteration and the timestamp ($age \gets i - s$).
@@ -614,7 +650,7 @@ Finally, it is worth noting that, considering the scale of the problem, TruMan's
 The model satisfies or permits most of the desired properties of a trust model with low computational complexity, making it viable for real-world use.
 
 \begin{table}[hpbt!]
-\caption{Properties of the related work}
+\caption{Satisfaction of desired properties compared to related work}
 \label{table:properties_truman}
 \centering
 \begin{tabular}{|p{4cm}||p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|}
@@ -639,6 +675,20 @@ The model satisfies or permits most of the desired properties of a trust model w
  \citep{chen2017cloud} & - & \checkmark & - & \checkmark & - & \checkmark & \checkmark & -\\
  \hline
 \end{tabular}
+
+\begin{flushleft}
+	\begin{center} 
+		\textbf{Desired properties} 
+	\end{center}
+	\hspace{10.5em} 1. Decentralized trust establishment\\
+	\hspace{10.5em} 2. Coping with sparsity\\
+	\hspace{10.5em} 3. Event/task and location/time dynamics\\
+	\hspace{10.5em} 4. Scalability\\
+	\hspace{10.5em} 5. Integrated confidence measure\\
+	\hspace{10.5em} 6. System level security\\
+	\hspace{10.5em} 7. Sensitivity to privacy concerns\\
+	\hspace{10.5em} 8. Robustness
+\end{flushleft}
 \end{table}
 
 

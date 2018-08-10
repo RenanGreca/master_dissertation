@@ -48,65 +48,7 @@
 	Ao receber mensagens de outros nós, um membro da rede pode construir uma relação de confiança com os outros.	
 	Caso o valor de confiança da origem de uma mensagem seja muito baixo, essa mensagem pode ser considerada não confiável.
 	Além disso, essas relações de confiança podem ser propagadas pela rede, permitindo que nós que ainda não formaram suas próprias opiniões possam se beneficiar da informação que já circula pela rede.
-
-	Este trabalho propõe um novo modelo de confiança, TruMan, para gerenciar relações de confiança em uma rede veicular.
-	Usando o modelo proposto, nós de uma rede veicular podem rapidamente identificar quais outros nós são dignos de confiança ou não.
-	Como redes veiculares são altamente dinâmicas, nós adquirem mais informações à medida do tempo e podem se beneficiar de propriedades sociais de VANETs para construir relações fortes com outros nós encontrados frequentemente.
 	
-	O modelo TruMan é baseado em outro já existente, chamado MaNI \citep{vernize2015malicious}, que era restrito para redes estáticas.
-	Utilizando algoritmos de grafos, TruMan demonstra-se uma solução eficiente para o problema de gerenciamento de confiança em redes veiculares.
-	
-	As próximas seções são as seguintes.
-	A \textbf{Revisão Bibliográfica} aborda os conceitos de redes complexas, redes sociais, redes tecnológicas e redes veiculares, além de estudos relevantes na área de confiança para redes veiculares.
-	Em \textbf{Projeto e Implementação do TruMan}, os objetivos e hipóteses do TruMan são apresentados, além das explicações dos algoritmos que compõe o modelo.
-	A seguir, \textbf{Avaliação do TruMan} mostra as ferramentas usadas para validar o TruMan e os resultados dos experimentos realizados.
-	Por fim, a \textbf{Conclusão} contém os pensamentos finais sobre o projeto.
-		
-	\section*{Revisão Bibliográfica}
-	
-	Uma revisão do estudo de redes como um todo foi feito para o desenvolvimento de um novo modelo de confiança para redes veiculares.
-	Esta seção introduz conceitos relacionados a redes complexas, redes sociais, redes tecnológicas e redes veiculares, incluindo o significado e importância de confiança em cada tipo de rede.
-	Por fim, trabalhos relevantes relacionados à área de confiança em redes veiculares são apresentados.
-	
-	\subsection*{Redes Complexas}
-	Redes complexas podem descrever diversos sistemas observados na natureza e na sociedade com \textit{vértices} (ou \textit{nós}) e \textit{arestas} \citep{newmannetworks}.
-	Geralmente são dividas em quatro categorias:
-	\begin{enumerate}
-		\item \textbf{Redes Tecnológicas} são construídas para prover serviços. Exemplos incluem a Internet, a rede telefônica e redes de transporte.
-		\item \textbf{Redes Sociais} são compostas de pessoas ou grupos de pessoas e a relação entre elas. Podem ser relações de parentesco, amizades, relações profissionais, etc.
-		\item \textbf{Redes de Informação} são redes nas quais os nós são informações e as arestas são relações entre conjuntos de informações. Por exemplo, a World Wide Web é uma rede de informação que existe na Internet (que, por sua vez, é uma rede tecnológica).
-		\item \textbf{Redes Biológicas} são as redes encontradas na natureza. Podem ser compostas de animais, células, conjuntos de seres vivos, etc.
-	\end{enumerate}
-	
-	Confiança pode ser uma ferramenta útil em diversos tipos de rede para proteger seus participantes.
-	Sob a perspectiva da ciência da computação, confiança pode ser definida como uma medida de quanta certeza um membro da rede tem de que outro membro se comporta de forma adequada e fornece informações válidas e/ou significativas \citep{sherchan2013survey}.
-	
-	\subsection*{Confiança em Redes Sociais}
-	Redes sociais são aquelas formadas por pessoas e as relações entre elas. 
-	Em uma rede social, é simples observar a importância de confiança, pois é algo usado por pessoas todos os dias para tomar decisões.
-	De forma geral, essas relações de confiança também funcionam quando adaptadas ao meio digital, pois relacionamentos construídos no mundo real permanecem válidos.
-	
-	Uma característica importante de redes sociais é a possibilidade de transmitir confiança de um relacionamento para outro, formando o conceito de ``amigos de amigos'' \citep{boissevain1974friends}.
-	Isso permite que pares de integrantes de uma rede social mantenham um laço de confiança mesmo que não se conheçam diretamente, graças a um elo de confiança em comum, permitindo rápida disseminação de informação.
-	
-	Em geral, redes sociais são estáticas.
-	Mesmo que laços de confiança sejam criados ou terminados, o formato geral da rede tende a mudar pouco, graças a uma série de outros laços formados entre nós próximos ao evento.
-	
-	\subsection*{Confiança em Redes Tecnológicas}
-	Em muitas redes tecnológicas, como na Internet, confiança é aplicada de maneira centralizada através de serviços que fornecem segurança a seus usuários.
-	Ou seja, no contexto da Internet, confiança geralmente é derivada de uma fonte secundária; usuários e provedores de serviço raramente mantêm suas próprias listas de confiabilidade.
-	
-	Essas soluções são válidas para a Internet, mas seriam lentas demais para serem usadas em redes dinâmicas \textit{ad-hoc}.
-	Redes \textit{ad-hoc} exigem soluções decentralizadas para gerenciamento de confiança.
-	Ou seja, cada membro da rede armazena suas próprias opiniões sobre membros, originadas a partir de contatos anteriores.
-	
-	Além disso, como essas informações são adquiridas aos poucos, o conhecimento que um membro da rede tem é geralmente incerto e incompleto \citep{baras2005cooperation}.
-	Raramente pode-se ter certeza de que determinada informação é completamente precisa.
-	Por isso é importante também levar em consideração as informações adquiridas por vizinhos confiáveis, assim expandido o conhecimento disponível.
-	
-	Redes veiculares \textit{ad-hoc} são um caso especial de rede tecnológica, mas, devido a diversas peculiaridades em topologia e mobilidade, também apresentam peculiaridades quando se trata de confiança.
-	
-	\subsection*{Confiança em Redes Veiculares}
 	Hoje, muitos veículos já vêm equipados com o hardware necessário para processamento e comunicação veicular.
 	É esperado que, até 2022, a maioria dos veículos comuns também venham com tais funcionalidades \citep{connectedcar2016}.
 	Redes veiculares \textit{ad-hoc} (VANETs) são uma aplicação muito estudada quando se trata de veículos inteligentes ou autônomos.
@@ -146,10 +88,69 @@
 	escalabilidade;
 	medida de certeza integrada;
 	segurança a nível de sistema;
-	sensibilidade a privacidade;
+	sensibilidade a privacidade; e
 	robustez.
+
+	Este trabalho propõe um novo modelo de confiança, TruMan, para gerenciar relações de confiança em uma rede veicular.
+	Usando o modelo proposto, nós de uma rede veicular podem rapidamente identificar quais outros nós são dignos de confiança ou não.
+	Como redes veiculares são altamente dinâmicas, nós adquirem mais informações à medida do tempo e podem se beneficiar de propriedades sociais de VANETs para construir relações fortes com outros nós encontrados frequentemente.
 	
-	\subsection*{Trabalhos Relacionados}
+	O modelo TruMan é baseado em outro já existente, chamado MaNI \citep{vernize2015malicious}, que era restrito para redes estáticas.
+	Utilizando algoritmos de grafos, TruMan demonstra-se uma solução eficiente para o problema de gerenciamento de confiança em redes veiculares.
+	
+	As próximas seções são as seguintes.
+	A \textbf{Revisão Bibliográfica} mostra estudos relevantes na área de confiança para redes veiculares.
+	Em \textbf{Projeto e Implementação do TruMan}, os objetivos e hipóteses do TruMan são apresentados, além das explicações dos algoritmos que compõe o modelo.
+	A seguir, \textbf{Avaliação do TruMan} mostra as ferramentas usadas para validar o TruMan e os resultados dos experimentos realizados.
+	Por fim, a \textbf{Conclusão} contém os pensamentos finais sobre o projeto.
+		
+%	\section*{Revisão Bibliográfica}
+%	
+%	Uma revisão do estudo de redes como um todo foi feito para o desenvolvimento de um novo modelo de confiança para redes veiculares.
+%	Esta seção introduz conceitos relacionados a redes complexas, redes sociais, redes tecnológicas e redes veiculares, incluindo o significado e importância de confiança em cada tipo de rede.
+%	Por fim, trabalhos relevantes relacionados à área de confiança em redes veiculares são apresentados.
+%	
+%	\subsection*{Redes Complexas}
+%	Redes complexas podem descrever diversos sistemas observados na natureza e na sociedade com \textit{vértices} (ou \textit{nós}) e \textit{arestas} \citep{newmannetworks}.
+%	Geralmente são dividas em quatro categorias:
+%	\begin{enumerate}
+%		\item \textbf{Redes Tecnológicas} são construídas para prover serviços. Exemplos incluem a Internet, a rede telefônica e redes de transporte.
+%		\item \textbf{Redes Sociais} são compostas de pessoas ou grupos de pessoas e a relação entre elas. Podem ser relações de parentesco, amizades, relações profissionais, etc.
+%		\item \textbf{Redes de Informação} são redes nas quais os nós são informações e as arestas são relações entre conjuntos de informações. Por exemplo, a World Wide Web é uma rede de informação que existe na Internet (que, por sua vez, é uma rede tecnológica).
+%		\item \textbf{Redes Biológicas} são as redes encontradas na natureza. Podem ser compostas de animais, células, conjuntos de seres vivos, etc.
+%	\end{enumerate}
+%	
+%	Confiança pode ser uma ferramenta útil em diversos tipos de rede para proteger seus participantes.
+%	Sob a perspectiva da ciência da computação, confiança pode ser definida como uma medida de quanta certeza um membro da rede tem de que outro membro se comporta de forma adequada e fornece informações válidas e/ou significativas \citep{sherchan2013survey}.
+%	
+%	\subsection*{Confiança em Redes Sociais}
+%	Redes sociais são aquelas formadas por pessoas e as relações entre elas. 
+%	Em uma rede social, é simples observar a importância de confiança, pois é algo usado por pessoas todos os dias para tomar decisões.
+%	De forma geral, essas relações de confiança também funcionam quando adaptadas ao meio digital, pois relacionamentos construídos no mundo real permanecem válidos.
+%	
+%	Uma característica importante de redes sociais é a possibilidade de transmitir confiança de um relacionamento para outro, formando o conceito de ``amigos de amigos'' \citep{boissevain1974friends}.
+%	Isso permite que pares de integrantes de uma rede social mantenham um laço de confiança mesmo que não se conheçam diretamente, graças a um elo de confiança em comum, permitindo rápida disseminação de informação.
+%	
+%	Em geral, redes sociais são estáticas.
+%	Mesmo que laços de confiança sejam criados ou terminados, o formato geral da rede tende a mudar pouco, graças a uma série de outros laços formados entre nós próximos ao evento.
+%	
+%	\subsection*{Confiança em Redes Tecnológicas}
+%	Em muitas redes tecnológicas, como na Internet, confiança é aplicada de maneira centralizada através de serviços que fornecem segurança a seus usuários.
+%	Ou seja, no contexto da Internet, confiança geralmente é derivada de uma fonte secundária; usuários e provedores de serviço raramente mantêm suas próprias listas de confiabilidade.
+%	
+%	Essas soluções são válidas para a Internet, mas seriam lentas demais para serem usadas em redes dinâmicas \textit{ad-hoc}.
+%	Redes \textit{ad-hoc} exigem soluções decentralizadas para gerenciamento de confiança.
+%	Ou seja, cada membro da rede armazena suas próprias opiniões sobre membros, originadas a partir de contatos anteriores.
+%	
+%	Além disso, como essas informações são adquiridas aos poucos, o conhecimento que um membro da rede tem é geralmente incerto e incompleto \citep{baras2005cooperation}.
+%	Raramente pode-se ter certeza de que determinada informação é completamente precisa.
+%	Por isso é importante também levar em consideração as informações adquiridas por vizinhos confiáveis, assim expandido o conhecimento disponível.
+%	
+%	Redes veiculares \textit{ad-hoc} são um caso especial de rede tecnológica, mas, devido a diversas peculiaridades em topologia e mobilidade, também apresentam peculiaridades quando se trata de confiança.
+%	
+%	\subsection*{Confiança em Redes Veiculares}
+	
+	\section*{Revisão Bibliográfica}
 	
 	Muitas soluções para confiança em redes veiculares foram propostas ao longo dos anos, como \citep{patwardhan2006data}, \citep{gerlach2007trust}, \citep{raya2008data}, \citep{huang2010situation}, \citep{ding2013novel}, \citep{haddadou2013trust}, \citep{liu2016lsot}, \citep{kerrache2016detection}.
 	Além disso, alguns trabalhos oferecem revisões sobre propostas já apresentadas, como \citep{zhang2011survey}, \citep{ma2011survey}, \citep{zhang2012trust}, \cite{mejri2014survey}, \citep{soleymani2015trust}, \citep{sengar2016survey}, \citep{dwivedi2016review}.
@@ -185,32 +186,30 @@
 	TruMan é um modelo de gerenciamento de confiança para redes veiculares, possibilitando a detecção de nós maliciosos em uma rede e a disseminação dados de confiança para outros nós.
 	TruMan busca gerenciamento de confiança eficiente em redes altamente dinâmicas, mantendo baixo custo computacional e um modelo simples de entender e implementar.
 	Esta seção apresenta os fundamentos e algoritmos por trás de TruMan, assim como detalhes de sua implementação.
-
-	\textbf{Redes Sociais e VANETs}
 	
-	\subsection*{Algoritmo de Tarjan}
-	
-	O algoritmo de Tarjan para componentes fortemente conexos \citep{tarjan1972depth} é uma parte importante da eficiência atingida pelo TruMan.
-	Este algoritmo permite abstrair um grafo grande em outro menor, reduzindo o custo de passos subsequentes.
-	Dado um grafo direcionado $T = (V,E)$, um componente fortemente conexo é um grupo de nós nos quais, para cada par $u, v \in V$, há um caminho de $u$ para $v$ e de $v$ para $u$.
-	Pensando em gerenciamento de confiança, podemos extender essa definição para considerar apenas caminhos formados por arestas que representam relações de confiança (ou um valor de confiança alto).
-
-	O número de componentes é, no máximo, $|V|$: no pior caso, cada nó forma seu próprio componente.
-	A complexidade do algoritmo é de $O(|V|+|E|)$.
-	
-	Utilizando os resultados do algoritmo de Tarjan, um grafo não direcionado $C = (V', E')$ é formado.
-	Cada $v' \in V'$ representa um componente de $T$, enquanto as arestas $e' \in E'$ representam arestas entre nós de $T$ que não pertencem ao mesmo componente.
-	
-	\subsection*{Algoritmo de coloração de grafos}
-	Coloração de grafos é um problema clássico da teoria dos grafos, no qual deve-se atribuir a cada nó uma cor de forma que não existam dois nós vizinhos com a mesma cor.
-	Coloração de grafos é a heurística usada para a detecção de nós maliciosos no TruMan.
-	Descobrir o menor número de cores possível para colorir um grafo arbitrário é um problema NP-difícil \citep{sanchez1989determining}.
-	
-	Os autores de \citep{mittal2011graph} apresentam uma solução eficiente de colorir grafos, apesar de não provar que o algoritmo sempre usa o menor número possível de cores.
-	Porém, o algoritmo é eficiente e seus resultados são corretos, tornando-se extremamente útil para o TruMan.
-	O custo do algoritmo é de apenas $O(|E|)$ -- em comparação, o algoritmo DSATUR tem complexidade de $O(|V|^2)$.
-	
-	\subsection*{O algoritmo TruMan}
+%	\subsection*{Algoritmo de Tarjan}
+%	
+%	O algoritmo de Tarjan para componentes fortemente conexos \citep{tarjan1972depth} é uma parte importante da eficiência atingida pelo TruMan.
+%	Este algoritmo permite abstrair um grafo grande em outro menor, reduzindo o custo de passos subsequentes.
+%	Dado um grafo direcionado $T = (V,E)$, um componente fortemente conexo é um grupo de nós nos quais, para cada par $u, v \in V$, há um caminho de $u$ para $v$ e de $v$ para $u$.
+%	Pensando em gerenciamento de confiança, podemos extender essa definição para considerar apenas caminhos formados por arestas que representam relações de confiança (ou um valor de confiança alto).
+%
+%	O número de componentes é, no máximo, $|V|$: no pior caso, cada nó forma seu próprio componente.
+%	A complexidade do algoritmo é de $O(|V|+|E|)$.
+%	
+%	Utilizando os resultados do algoritmo de Tarjan, um grafo não direcionado $C = (V', E')$ é formado.
+%	Cada $v' \in V'$ representa um componente de $T$, enquanto as arestas $e' \in E'$ representam arestas entre nós de $T$ que não pertencem ao mesmo componente.
+%	
+%	\subsection*{Algoritmo de coloração de grafos}
+%	Coloração de grafos é um problema clássico da teoria dos grafos, no qual deve-se atribuir a cada nó uma cor de forma que não existam dois nós vizinhos com a mesma cor.
+%	Coloração de grafos é a heurística usada para a detecção de nós maliciosos no TruMan.
+%	Descobrir o menor número de cores possível para colorir um grafo arbitrário é um problema NP-difícil \citep{sanchez1989determining}.
+%	
+%	Os autores de \citep{mittal2011graph} apresentam uma solução eficiente de colorir grafos, apesar de não provar que o algoritmo sempre usa o menor número possível de cores.
+%	Porém, o algoritmo é eficiente e seus resultados são corretos, tornando-se extremamente útil para o TruMan.
+%	O custo do algoritmo é de apenas $O(|E|)$ -- em comparação, o algoritmo DSATUR tem complexidade de $O(|V|^2)$.
+%	
+%	\subsection*{O algoritmo TruMan}
 	
 	TruMan é baseado no algoritmo MaNI \citep{vernize2013dissertation}, que sugeriu o uso de componentes fortemente conexos e de coloração de grafos para a detecção de nós maliciosos em uma rede.
 	Porém, o MaNI foi desenvolvido para redes estáticas e é executado por um agente externo à rede, tornando-se inapropriado para redes veiculares.
@@ -258,7 +257,7 @@
 	
 	$$O(|V| \times |E|)$$
 	
-	\section*{Avaliação do TruMan}
+	\subsection*{Avaliação do TruMan}
 	
 	Para testar o TruMan, uma implementação do algoritmo foi feita usando Python.
 	Grafos com mobilidade de nós foram gerados no simulador ONE \citep{keranen2009one}, usando o \textit{Working Day Movement Model} \citep{ekman2008working} para providenciar mobilidade próxima ao do mundo real, e um mapa de parte da cidade de Helsinki, Finlândia.
@@ -286,29 +285,24 @@
 	Já a Tabela \ref{table:citydensities} mostra as densidades de rede hipotéticas de algumas cidades do mundo, usando dados geográficos reais e supondo um raio de transmissão de apenas 10m.
 	É possível ver que, mesmo com um raio de transmissão pequeno, as cidades oferecem densidades de rede maiores do que as das simulações, assumindo que uma parcela substancial de seus automóveis seja equipada com dispositivos de conexão.
 	
-	\subsection*{Simulações}
+%	\subsection*{Simulações}
 	
 	Para validar o desempenho e a corretude de TruMan, diversas simulações foram executadas.
 	
-	A Figura \ref{fig:random103050} mostra simulações com 10\% dos nós agindo maliciosamente, com raio de comunicação entre 10m e 50m.
-	É possível ver como o aumento do raio de comunicação melhora bastante os resultados:
-	com 10m, quase 8000 iterações são necessárias para atingir um bom resultado, enquanto com 50 são apenas cerca de 1000.
+	Nas simulações com 10\% dos nós agindo maliciosamente, com raio de comunicação entre 10m e 50m, é possível ver como o aumento do raio de comunicação melhora bastante os resultados: com 10m, quase 8000 iterações são necessárias para atingir um bom resultado, enquanto com 50 são apenas cerca de 1000.
 	
-	As Figuras \ref{fig:randommalicious1} e \ref{fig:randommalicious2} mostram simulações com quantidades diferentes de nós maliciosos e raio de comunicação de apenas 10m.
-	Com até 30\% de nós maliciosos, os resultados são bons.
-	Com 40\%, uma parte pequena de nós maliciosos não são detectados.
-	Já com 50\%, os resultados são erráticos, pois o controle da rede é dividido entre os nós benignos e maliciosos.
+	Em simulações com raio de comunicação de apenas 10m e até 30\% de nós maliciosos, os resultados são bons. 
+	Porém, com 40\% de nós maliciosos, uma parte pequena desses nós não são detectados.
+	Já com 50\% de maliciosos, os resultados são erráticos, pois o controle da rede é dividido entre os nós benignos e maliciosos.
 	
 	A maioria das simulações foram feitas com o limiar de confiança $h=0.5$, que significa que, para um nó confiar em outro, o valor de confiança deve ser acima de $0.5$.
-	A Figura \ref{fig:randomthresholds} demonstra o impacto de mudar esse limiar.
-	Pode-se ver que o impacto não é muito significativo, porém, com $h=0.7$, os resultados são um pouco melhores.
+	Simulações com $h=0.3$ e $h=0.7$ demonstram o impacto de mudar esse limiar.
+	É possível observar que o impacto não é muito significativo, porém, com $h=0.7$, os resultados são um pouco melhores.
 	
-	A Figura \ref{fig:random7} mostra os resultados da execução do algoritmo durante 7 dias simulados.
-	A maioria dos nós maliciosos é detectada ao fim do primeiro dia, e a rede é completamente descoberta pouco tempo depois.
+	Quando o algoritmo é executado durante 7 dias simulados, a maioria dos nós maliciosos é detectada ao fim do primeiro dia, e a rede é completamente descoberta pouco tempo depois.
 	Com o tempo, o número de falsos positivos cai, até tornar-se um número insignificante.
 	
-	Por fim, as Figuras \ref{fig:extramaliciousaging1} e \ref{fig:extramaliciousaging2} mostram como TruMan reage a um potencial ataque.
-	Nessas simulações, um nó passa a ser malicioso na metade do tempo.
+	Por fim, as simulações nas quais um nó passa a ser malicioso na metade do tempo mostram como TruMan reage a um possível ataque.
 	O parâmetro $m$ determina quantas iterações o algoritmo leva para descartar arestas antigas, e, portanto, afeta a agilidade do modelo ao detectar um nó convertido.
 	Com $m$ muito baixo, informações são descartadas muito rapidamente e o número de falsos positivos aumenta drasticamente.
 	
